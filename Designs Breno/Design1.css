@@ -1,0 +1,45 @@
+body{  
+    font-family: sans-serif, helvetica;
+    margin:0;
+    
+}
+.menu{background-color: #1F1F1F;
+    height: 80px;
+   width: 100%;
+    margin:auto;
+    display: inline-block;
+}
+.menu nav ul{text-align: right;
+    padding: 10px 0px;
+    letter-spacing: 2px;
+  font-size: 13px;
+    word-spacing: 50px;
+    margin-right: 70px
+    
+}
+.menu nav li{display: inline-block;
+    list-style: none;
+    text-decoration: none;
+    width: auto;
+     text-transform: uppercase;
+  
+    
+        
+}
+.menu nav a{text-decoration: none;
+    color: floralwhite;
+  margin: 1px solid rgba(50,120,200,0.2);
+ 
+  padding: 10px;
+    display: block;
+}
+.menu nav a:hover {color: rgba(100,120,250);
+    background: rgba(50,50,50,0.3);
+}
+.logo{
+    height: 250px;
+    width: 250px;
+    float: left;
+    margin: -150px -50px;
+    background-attachment: fixed;    
+}
