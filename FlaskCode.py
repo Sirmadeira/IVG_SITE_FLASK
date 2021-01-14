@@ -20,6 +20,13 @@ def SegundaJanela():
 def TerceiraJanela():
 	return render_template("TerceiraJanela.html", title= "TerceiraJanela")
 
+@app.route("/HomePage")
+def HomePage():
+	return render_template("HomePage.html")
+
+@app.route("/Contato")
+def Contato():
+	return render_template("Contato.html")
 
 if __name__ == "__main__":
 	app.run(debug=True)
