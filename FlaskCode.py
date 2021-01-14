@@ -1,14 +1,15 @@
-from flask import Flask, render_template
+from flask import Flask, render_template , url_for
+from formularios import FormularioDeRegistro, FormularioDeLogin
 app=Flask(__name__)
-
+app.config['CHAVE_SEGREDO'] = 'e4e0a64a5879d4ce983fa8d1b24ed354' 
 
 @app.route("/")
-@app.route("/home")
-def login():
+@app.route("/Login")
+def Login():
 	return render_template("Login.html")
 
-@app.route("/sobre")
-def sobre():
+@app.route("/Sobre")
+def Sobre():
 	return render_template("Sobre.html", title="Sobre")
 
 @app.route("/SegundaJanela")
@@ -21,4 +22,4 @@ def TerceiraJanela():
 
 
 if __name__ == "__main__":
-	app.run(debug=True)s
+	app.run(debug=True)
