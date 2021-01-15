@@ -17,9 +17,15 @@ def Cadastro():
 		return redirect(url_for('HomePage'))
 	return render_template('Cadastro.html',title = "Cadastro", form = form)
 
-@app.route("/Login")
+@app.route("/Login", methods = ['GET', 'POST'])
 def Login():
 	form= FormularioDeLogin()
+	if form.validate_on_submit():
+		if form.Email.data == 'adming@blog.com' and form.Senha.data == 'Senha' and form.Usuario.data == 'Sirmadeira':
+			flash(' Você foi cadastrado!', 'success')
+			return redirect(url_for('HomePage'))
+		else:
+			flash(' Login sem sucesso. Por favor cheque seu usuario e senha', 'danger')
 	return render_template("Login.html",title= "Login", form = form)
 
 @app.route("/Sobre")

@@ -29,4 +29,4 @@ class FormularioDeLogin(FlaskForm):
 	Senha= PasswordField('Senha',
 						validators=[DataRequired(),Length(min=5,max=20)])
 
-	Confirma=SubmitField('Entre')
+	Entrar=SubmitField('Entre')
