@@ -1,4 +1,4 @@
-from flask import Flask, render_template , url_for
+from flask import Flask, render_template , url_for, flash, redirect
 from form import FormularioDeRegistro, FormularioDeLogin
 
 
@@ -9,9 +9,12 @@ app.config['SECRET_KEY'] = 'a3c293dd89c6703bfa4836e4059e3cdf'
 def HomePage():
 	return render_template("HomePage.html",title = "HomePage")
 
-@app.route("/Cadastro")
+@app.route("/Cadastro",methods = ['GET','POST'])
 def Cadastro():
 	form = FormularioDeRegistro()
+	if form.validate_on_submit():
+		flash(f"Conta criada para {form.Usuario.data} !", 'success')
+		return redirect(url_for('HomePage'))
 	return render_template('Cadastro.html',title = "Cadastro", form = form)
 
 @app.route("/Login")
