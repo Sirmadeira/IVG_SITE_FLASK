@@ -4,7 +4,6 @@ from form import FormularioDeRegistro, FormularioDeLogin
 
 app=Flask(__name__)
 app.config['SECRET_KEY'] = 'a3c293dd89c6703bfa4836e4059e3cdf'
-
 @app.route("/")
 @app.route("/HomePage")
 def HomePage():

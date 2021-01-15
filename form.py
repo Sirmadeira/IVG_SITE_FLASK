@@ -13,7 +13,7 @@ class FormularioDeRegistro(FlaskForm):
 	Senha= PasswordField('Senha',
 						validators=[DataRequired(),Length(min=5,max=20)])
 
-	ConfirmaSenha= PasswordField('Confirme Senha',
+	ConfirmarSenha= PasswordField('Confirme Senha',
 						validators=[DataRequired(),Length(min=5,max=20), EqualTo('Senha')])
 
 	Confirma=SubmitField('Cadastre-se')
@@ -24,7 +24,6 @@ class FormularioDeLogin(FlaskForm):
 
 	Email = StringField('Email',
 						validators=[DataRequired(), Email()])
-s
 	Lembrete= BooleanField("Lembre-se de mim")
 
 	Senha= PasswordField('Senha',
