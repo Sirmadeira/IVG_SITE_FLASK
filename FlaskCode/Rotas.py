@@ -1,7 +1,7 @@
 from flask import Flask, render_template , url_for, flash, redirect
-from FlaskCode import app
-from FlaskCode.form import FormularioDeRegistro, FormularioDeLogin
-from FlaskCode.Modelos import UsuariosDB
+from __init__ import app, db ,bcrypt 
+from __init__.form  import FormularioDeRegistro, FormularioDeLogin
+from __init__.Rotas import UsuariosDB	
 
 
 @app.route("/")
@@ -13,8 +13,12 @@ def HomePage():
 def Cadastro():
 	form = FormularioDeRegistro()
 	if form.validate_on_submit():
-		flash(f"Conta criada para {form.Usuario.data} !", 'success')
-		return redirect(url_for('HomePage'))
+		hashed_senha= bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
+		UsuarioHS= UsuariosDB(UsuarioDB= form.Usuario.data, EmailDB=form.Email.data, SenhaDB= hashed_senha)
+		db.session.add(UsuarioHS)
+		db.session.commit()
+		flash(f"Sua conta foi criado com sucesso!", 'success')
+		return redirect(url_for('Login'))
 	return render_template('Cadastro.html',title = "Cadastro", form = form)
 
 @app.route("/Login", methods = ['GET', 'POST'])
