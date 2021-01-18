@@ -1,9 +1,31 @@
 from flask import Flask, render_template , url_for, flash, redirect
+<<<<<<< HEAD:FlaskCode/Rotas.py
 from FlaskCode import app, db ,bcrypt 
 from FlaskCode.form  import FormularioDeRegistro, FormularioDeLogin
 from FlaskCode.Modelos import UsuariosDB	
+=======
+from flask_sqlalchemy import SQLAlchemy
+from form import FormularioDeRegistro, FormularioDeLogin
+>>>>>>> parent of f0c3832... Remodelando para ser um pacote ao inves de modulo:FlaskCode.py
 
 
+
+app=Flask(__name__)
+app.config['SECRET_KEY'] = 'a3c293dd89c6703bfa4836e4059e3cdf'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///UsuarioIVG.db'
+db= SQLAlchemy(app)
+
+class UsuariosDB(db.Model):
+	id = db.Column(db.Integer, primary_key= True)
+	UsuarioDB = db.Column(db.String(20), unique= True, nullable = False)
+	EmailDB = db.Column(db.String(120), unique= True, nullable = False)
+	SenhaDB = db.Column(db.String(60), nullable = False)
+
+
+	def __repr__(self):
+		return f"UsuariosDB('{self.UsuarioDB}','{self.EmailDB}')"
+
+		
 @app.route("/")
 @app.route("/HomePage")
 def HomePage():
@@ -47,3 +69,6 @@ def TerceiraJanela():
 @app.route("/Contato")
 def Contato():
 	return render_template("Contato.html", title = "Contato")
+
+if __name__ == "__main__":
+	app.run(debug=True)
