@@ -6,7 +6,7 @@ from form import FormularioDeRegistro, FormularioDeLogin
 
 app=Flask(__name__)
 app.config['SECRET_KEY'] = 'a3c293dd89c6703bfa4836e4059e3cdf'
-app.config['SQLAlCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///UsuarioIVG.db'
 db= SQLAlchemy(app)
 
 class UsuariosDB(db.Model):
