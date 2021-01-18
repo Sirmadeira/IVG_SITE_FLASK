@@ -1,7 +1,7 @@
 from flask import Flask, render_template , url_for, flash, redirect
-from FlaskCode import app, db ,bcrypt 
-from FlaskCode.form  import FormularioDeRegistro, FormularioDeLogin
-from FlaskCode.Rotas import UsuariosDB	
+from flaskCode import app, db ,bcrypt 
+from flaskCode.form  import FormularioDeRegistro, FormularioDeLogin
+from flaskCode.Rotas import UsuariosDB	
 
 
 @app.route("/")

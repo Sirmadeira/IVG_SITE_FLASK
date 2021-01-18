@@ -9,4 +9,4 @@ db= SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
 
-from FlaskCode import Rotas
+from flaskcode import Rotas

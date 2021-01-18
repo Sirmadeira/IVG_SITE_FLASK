@@ -1,4 +1,4 @@
-from FlaskCode import db
+from flaskcode import db
 
 class UsuariosDB(db.Model):
 	id = db.Column(db.Integer, primary_key= True)
