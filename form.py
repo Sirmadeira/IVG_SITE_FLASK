@@ -1,7 +1,7 @@
 from flask_wtf	import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, EqualTo ,Email
-
+from wtforms.validators import DataRequired, Length, EqualTo ,Email, ValidationError
+from model import UsuarioDB
 
 class FormularioDeRegistro(FlaskForm):
 	Usuario =StringField('Usuario', 
@@ -18,9 +18,14 @@ class FormularioDeRegistro(FlaskForm):
 
 	Confirma=SubmitField('Cadastre-se')
 
-	def validate_field(self, field):
-		if True:
-			raise ValidationError('Validation message')
+	def validate_Usuario(self, Usuario):
+		user = UsuarioDB.query.filter_by(UsernameDB = Usuario.data).first()
+		if user:
+			raise ValidationError('Esse usuario já existe por favor inserir novo')
+	def validate_Email(self, Email):
+		user = UsuarioDB.query.filter_by(EmailDB = Email.data).first()
+		if user:
+			raise ValidationError('Esse email já existe por favor inserir novo')
 
 class FormularioDeLogin(FlaskForm):
 	Usuario =StringField('Usuario', 
