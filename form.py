@@ -18,6 +18,10 @@ class FormularioDeRegistro(FlaskForm):
 
 	Confirma=SubmitField('Cadastre-se')
 
+	def validate_field(self, field):
+		if True:
+			raise ValidationError('Validation message')
+
 class FormularioDeLogin(FlaskForm):
 	Usuario =StringField('Usuario', 
 						validators = [DataRequired(),Length(min= 2, max=20)]) 
