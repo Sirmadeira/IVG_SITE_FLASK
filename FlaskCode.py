@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from form import FormularioDeRegistro, FormularioDeLogin
 from flask_bcrypt import Bcrypt
 from model import UsuarioDB
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, current_user, logout_user
 
 
 app = Flask(__name__)
@@ -24,9 +24,11 @@ def load_user(Usuario_id):
 def Login():
     form = FormularioDeLogin()
     if form.validate_on_submit():
-        Usuario=UsuarioDB.query.filter_by(UsernameDB = form.Usuario.data).first()
-        if Usuario and bcrypt.check_password_hash(Usuario.PasswordDB,form.Senha.data):
+        Usuario = UsuarioDB.query.filter_by(UsernameDB = form.Usuario.data).first()
+        Email = UsuarioDB.query.filter_by(EmailDB=form.Email.data).first()
+        if Usuario and Email and bcrypt.check_password_hash(Usuario.PasswordDB,form.Senha.data):
             login_user(Usuario)
+            login_user(Email)
             return redirect (url_for('HomePage'))
         else:
             flash('Login sem sucesso favor checar usuario e senha', 'danger')
@@ -34,6 +36,8 @@ def Login():
 
 @app.route("/Cadastro", methods=['GET', 'POST'])
 def Cadastro():
+    #if current_user.is_authenticated: Lembrete: Depois de log fazer processo de tranformacao de janela part 6 30
+        #return redirect(url_for('HomePage'))
     form = FormularioDeRegistro()
     if form.validate_on_submit():
     	senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
@@ -63,6 +67,12 @@ def TerceiraJanela():
 @app.route("/Contato")
 def Contato():
 	return render_template("Contato.html", title = "Contato")
+
+
+@app.route("/Logout")
+def Logout():
+    logout_user()
+    return redirect(url_for('HomePage'))   
 
 if __name__ == "__main__":
 	app.run(debug=True)
