@@ -1,4 +1,48 @@
 {% extends "Layout.html" %}
 {% block content %}
-<h1> HTML CODE </h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>SegundaJanela</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="mb-5 mt-4 text-center">
+                    <h1>IVGapp</h1>
+                </div>
+                <form>
+                    <div class="mb-5 text-center">
+                        <h3>Marca</h3>
+                        <input type="text" class="form-control-lg" id="inputMarca" placeholder="Nome da marca">
+                    </div>
+                    <div class="mb-5 text-center">
+                        <h3>Modelo</h3>
+                        <input type="text" class="form-control-lg" id="inputModelo" placeholder="Nome do modelo">
+                    </div>
+                    <div class="mb-5 text-center">
+                        <h3>Ano</h3>
+                        <input type="text" class="form-control-lg" id="inputAno" placeholder="Ano do modelo">
+                    </div>
+                    <div class="mb-5 text-center">
+                        <h3>Quilometragem</h3>
+                        <input type="text" class="form-control-lg" id="inputQuilometragem" placeholder="Quilometragem">
+                    </div>
+                    <div class="mb-5 text-center">
+                        <h3>Preço</h3>
+                        <input type="text" class="form-control-lg" id="inputPreco" placeholder="Preço">
+                    </div>
+                    <div class="mb-5 text-center">
+                        <button type="submit" class="btn btn-dark btn-lg">Confirmar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
 {% endblock content%}
