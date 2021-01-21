@@ -2,7 +2,7 @@
 from datetime import datetime
 from flask import Flask, render_template, url_for, flash, redirect, request
 from flask_sqlalchemy import SQLAlchemy
-from form import FormularioDeRegistro, FormularioDeLogin
+from form import FormularioDeRegistro, FormularioDeLogin, AtualizarRegistro
 from flask_bcrypt import Bcrypt
 from model import UsuarioDB
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
@@ -78,10 +78,20 @@ def Logout():
     logout_user()
     return redirect(url_for('HomePage'))   
 
-@app.route("/ContaEmpresa")
+@app.route("/ContaEmpresa", methods=['GET', 'POST'])
 @login_required
-def ContaEmpresa():
-    return render_template('ContaEmpresa.html', title= 'ContaEmpresa')
+def ContaEmpresa(): #Consertar
+    form = AtualizarRegistro()
+    if form.validate_on_submit():
+        current_user.UsernameDB = form.Usuario.data
+        current_user.EmailDB = form.Email.data
+        db.session.commit()
+        flash('Sua conta foi atualizada!', 'success')
+        return redirect(url_for('ContaEmpresa'))
+    elif request.method == 'GET':
+        form.Usuario.data = current_user.UsernameDB
+        form.Email.data = current_user.EmailDB
+    return render_template('ContaEmpresa.html', title= 'ContaEmpresa', form=form)
 
 if __name__ == "__main__":
 	app.run(debug=True)
