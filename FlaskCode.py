@@ -8,7 +8,7 @@ from flask_wtf  import FlaskForm
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, EqualTo ,Email, ValidationError
-
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
@@ -25,6 +25,19 @@ class UsuarioDB(db.Model,UserMixin):
     UsernameDB = db.Column(db.String(20), unique=True, nullable=False)
     EmailDB = db.Column(db.String(120), unique=True, nullable=False)    
     PasswordDB = db.Column(db.String(60), nullable=False)
+
+    def get_reset_token(self,expires_sec=1800):
+        s= Serializer(app.config['SECRET_KEY'],expires_sec)
+        return s.dumps({'user_id':self.id}).decode('utf-8')
+
+    @staticmethod
+    def verify_reset_token(token):
+        s= Serializer(app.config['SECRET_KEY'])
+        try:
+            user_id = s.loads(token)['user_id']
+        except:
+            return None
+        return UsuarioDB.query.get()
 
     def __repr__(self):
         return f"User('{self.UsernameDB}', '{self.EmailDB}')"
@@ -88,6 +101,25 @@ class AtualizarRegistro(FlaskForm):
             if user:
                 raise ValidationError('Esse email já existe por favor inserir novo')
 
+class RequisitarReset(FlaskForm):
+    Email = StringField('Email',
+                        validators=[DataRequired(), Email()]) 
+
+    Confirma=SubmitField('Requisitar reset de senha')
+
+    def validate_Email(self, Email):
+        user = UsuarioDB.query.filter_by(EmailDB = Email.data).first()
+        if user is None:
+            raise ValidationError('Não existe conta com esse E-mail.')
+
+class ResetSenha(FlaskForm):
+    Senha= PasswordField('Senha',
+                    validators=[DataRequired(),Length(min=5,max=20)])
+
+    ConfirmarSenha= PasswordField('Confirme Senha',
+                    validators=[DataRequired(),Length(min=5,max=20), EqualTo('Senha')])
+
+    Confirma=SubmitField('Resetar senha')
 
 @login_manager.user_loader
 def load_user(Usuario_id):
@@ -153,7 +185,7 @@ def Logout():
 
 @app.route("/ContaEmpresa", methods=['GET', 'POST'])
 @login_required
-def ContaEmpresa(): #Consertar
+def ContaEmpresa():
     form = AtualizarRegistro()
     if form.validate_on_submit():
         current_user.UsernameDB = form.Usuario.data
@@ -165,6 +197,13 @@ def ContaEmpresa(): #Consertar
         form.Usuario.data = current_user.UsernameDB
         form.Email.data = current_user.EmailDB
     return render_template('ContaEmpresa.html', title= 'ContaEmpresa', form=form)
+
+@app.route("/ResetSenha", methods=['GET', 'POST'])
+def Reset_requisicao():
+    if current_user.is_authenticated: 
+        return redirect(url_for('HomePage'))
+    form = ResquisitarReset()
+    return render_template
 
 if __name__ == "__main__":
 	app.run(debug=True)
