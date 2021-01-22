@@ -1,5 +1,5 @@
 
-from datetime import datetime
+import os
 from flask import Flask, render_template, url_for, flash, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -9,6 +9,9 @@ from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, EqualTo ,Email, ValidationError
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from flask_mail import Mail, Message
+
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
@@ -18,7 +21,12 @@ bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'Login'
 login_manager.login_message_category = "info"
-
+app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+app.config['MAIL_PORT'] = '587'
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.environ.get('EMAIL_USER')
+app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
+mail= Mail(app)
 
 class UsuarioDB(db.Model,UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -28,13 +36,13 @@ class UsuarioDB(db.Model,UserMixin):
 
     def get_reset_token(self,expires_sec=1800):
         s= Serializer(app.config['SECRET_KEY'],expires_sec)
-        return s.dumps({'user_id':self.id}).decode('utf-8')
+        return s.dumps({'Usuario_id':self.id}).decode('utf-8')
 
     @staticmethod
     def verify_reset_token(token):
         s= Serializer(app.config['SECRET_KEY'])
         try:
-            user_id = s.loads(token)['user_id']
+            user_id = s.loads(token)['Usuario_id']
         except:
             return None
         return UsuarioDB.query.get()
@@ -42,6 +50,9 @@ class UsuarioDB(db.Model,UserMixin):
     def __repr__(self):
         return f"User('{self.UsernameDB}', '{self.EmailDB}')"
 
+@login_manager.user_loader
+def load_user(Usuario_id):
+    return UsuarioDB.query.get(int(Usuario_id))
 
 class FormularioDeRegistro(FlaskForm):
     Usuario =StringField('Usuario', 
@@ -121,10 +132,6 @@ class ResetSenha(FlaskForm):
 
     Confirma=SubmitField('Resetar senha')
 
-@login_manager.user_loader
-def load_user(Usuario_id):
-    return UsuarioDB.query.get(int(Usuario_id))
-
 
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/Login", methods=['GET', 'POST'])
@@ -198,12 +205,50 @@ def ContaEmpresa():
         form.Email.data = current_user.EmailDB
     return render_template('ContaEmpresa.html', title= 'ContaEmpresa', form=form)
 
+
+def enviar_email_reset(user):
+    token = user.get_reset_token()
+    msg = Message('Reset de senha',sender='noreplyIVG@hotmail.com', recipients= [user.EmailDB])
+    msg.body = f''' Para resetar sua senha, visite o link a seguir:
+{url_for('Reset_token', token= token, _external= True)}
+
+Se você não fez esse pedido então simplesmente ignore esse E-mail   
+'''
+    mail.send(msg)
+
 @app.route("/ResetSenha", methods=['GET', 'POST'])
-def Reset_requisicao():
+def ResetSenha():
     if current_user.is_authenticated: 
         return redirect(url_for('HomePage'))
-    form = ResquisitarReset()
-    return render_template
+    form = RequisitarReset()
+    if form.validate_on_submit():
+        user=UsuarioDB.query.filter_by(EmailDB= form.Email.data).first()  
+        enviar_email_reset(user)
+        flash(' Um email foi enviado com instruções.', 'info')  
+        return redirect(url_for('Login'))
+    return render_template('ResetPedido.html', title = 'Resetar senha',form = form)
+
+
+@app.route("/ResetSenha/<token>", methods=['GET', 'POST'])
+def Reset_token(token):
+    if current_user.is_authenticated: 
+        return redirect(url_for('HomePage'))
+    user =UsuarioDB.verify_reset_token(token)
+    if form.validate_on_submit():
+        senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
+        user.Senha= senha_hashed
+        db.session.commit()
+        flash(f'Sua senha foi resetada!', 'success')
+        return redirect(url_for('Login'))
+    if user is None:
+        flash(' Esse token não é mais valído', ' warning')
+        return redirect(url_for('ResetSenha'))
+    form = ResetSenha()
+
+    return render_template('ResetToken.html', title = 'Resetar senha',form = form)
+
+
+
 
 if __name__ == "__main__":
 	app.run(debug=True)

@@ -4,7 +4,7 @@
 		<form method = 'POST' action = ''>
 			{{ form.hidden_tag() }}
 			<fieldset class = 'form-group'>
-		 			<legend class="border-bottom mb-4"> Log in </legend>
+		 		<legend class="border-bottom mb-4"> Log in </legend>
 				<div class= "form-group">
 					{{form.Usuario.label(class="form-control-label") }}
 
@@ -47,17 +47,17 @@
 							{{ form.Senha(class="form-control form-control-lg") }}
 					{% endif %}
 				</div>
-				<div class = "form-check ml-2">
+				<div class = "form-check">
 					{{form.Lembrete(class= "form-check-input")}}
-					{{form.Lembrete.label(class="form-check-input")}}
+					{{form.Lembrete.label(class="form-check-label")}}
 				</div>	
 			</fieldset>
 			<div class= "form-group">
 					{{ form.Entrar(class= "btn btn-outline-info") }}
+					<small class =" text-muted ml-2">
+						<a href= "{{ url_for('ResetSenha') }}"> Esqueceu da senha? </a>
+					</small>
 			</div>
-			<small class =" text-muted ml-2">
-				<a href= "#"> Esqueceu da senha? </a>
-			</small>
 		</form>
 	</div>
 	<div class = "border-top pt-3">
