@@ -33,6 +33,9 @@ class UsuarioDB(db.Model,UserMixin):
     UsernameDB = db.Column(db.String(20), unique=True, nullable=False)
     EmailDB = db.Column(db.String(120), unique=True, nullable=False)    
     PasswordDB = db.Column(db.String(60), nullable=False)
+    NomeDaEmpresaDB= db.Column(db.String(60),unique= True,nullable= False)
+    SetorDeAtuaçãoDB= db.Column(db.String(60),unique= False,nullable= False)
+    LocalidadeDB=db.Column(db.String(40),nullable= False)
 
     def get_reset_token(self,expires_sec=1800):
         s= Serializer(app.config['SECRET_KEY'],expires_sec)
@@ -56,9 +59,18 @@ def load_user(Usuario_id):
 
 class FormularioDeRegistro(FlaskForm):
     Usuario =StringField('Usuario', 
-                        validators = [DataRequired(),Length(min= 2, max=20)]) 
+                        validators = [DataRequired(),Length(min= 2, max=20)])
 
-    Email = StringField('Email',
+    NomeDaEmpresa= StringField('Favor informar o nome da sua empresa.',
+                        validators=[DataRequired(),Length(min=5, max =30)])
+
+    SetorDeAtuação= StringField('Favor informar seu setor. Exemplo: Revendedora de carro.',
+                        validators=[DataRequired(),Length(min=5,max=30)])
+
+    Localidade= StringField('Favor informar cidade onde fica a sede.',
+                        validators=[DataRequired(),Length(min=5,max=30)])   
+
+    Email = StringField('Email empresarial',
                         validators=[DataRequired(), Email()])
 
     Senha= PasswordField('Senha',
@@ -77,6 +89,11 @@ class FormularioDeRegistro(FlaskForm):
         user = UsuarioDB.query.filter_by(EmailDB = Email.data).first()
         if user:
             raise ValidationError('Esse email já existe por favor inserir novo')
+
+    def validate_NomeDaEmpresa(self,NomeDaEmpresa):
+        user = UsuarioDB.query.filter_by(NomeDaEmpresaDB = NomeDaEmpresa.data).first()
+        if user:
+            raise ValidationError('Essa empresa já está cadastrada')
 
 class FormularioDeLogin(FlaskForm):
     Usuario =StringField('Usuario', 
@@ -157,7 +174,10 @@ def Cadastro():
     form = FormularioDeRegistro()
     if form.validate_on_submit():
     	senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
-    	user= UsuarioDB(UsernameDB=form.Usuario.data, EmailDB=form.Email.data, PasswordDB= senha_hashed)
+    	user= UsuarioDB(UsernameDB=form.Usuario.data, EmailDB=form.Email.data, PasswordDB= senha_hashed, 
+                        NomeDaEmpresaDB= form.NomeDaEmpresa.data, 
+                        SetorDeAtuaçãoDB=form.SetorDeAtuação.data,
+                        LocalidadeDB= form.Localidade.data)
     	db.session.add(user)
     	db.session.commit()
     	flash(f'Sua conta foi criada!', 'success')
@@ -206,9 +226,9 @@ def ContaEmpresa():
     return render_template('ContaEmpresa.html', title= 'ContaEmpresa', form=form)
 
 
-def enviar_email_reset(user):
+def enviar_email_reset(user): # LEMBRAR DE CRIAR EMAIL NOREPLY
     token = user.get_reset_token()
-    msg = Message('Reset de senha',sender='noreplyIVG@hotmail.com', recipients= [user.EmailDB])
+    msg = Message('Reset de senha',sender='noreplyIVG@gmail.com', recipients= [user.EmailDB])
     msg.body = f''' Para resetar sua senha, visite o link a seguir:
 {url_for('Reset_token', token= token, _external= True)}
 
