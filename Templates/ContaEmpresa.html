@@ -3,11 +3,11 @@
 	<div class="content-section">
 	  <div class="media">
 	    <div class="media-body">
-	      <h2 class="account-heading">{{ current_user.UsernameDB }}</h2>
-	      <p class="text-secondary">{{ current_user.EmailDB }}</p>
-	      <p class="text-secondary">{{ current_user.NomeDaEmpresaDB }}</p>
-	      <p class="text-secondary">{{ current_user.SetorDeAtuaçãoDB }}</p>
-	      <p class="text-secondary">{{ current_user.LocalidadeDB }}</p>
+	      <p class="account-heading"> USUÁRIO: {{ current_user.UsernameDB }}</p>
+	      <p class="text-secondary"> E-MAIL: {{ current_user.EmailDB }}</p>
+	      <p class="text-secondary"> Nome da empresa: {{ current_user.NomeDaEmpresaDB }}</p>
+	      <p class="text-secondary"> Setor: {{ current_user.SetorDeAtuaçãoDB }}</p>
+	      <p class="text-secondary"> Localidade: {{ current_user.LocalidadeDB }}</p>
 	    </div>
 	  </div>
 		<form method = 'POST' action = ''>

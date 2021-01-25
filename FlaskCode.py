@@ -36,6 +36,14 @@ class UsuarioDB(db.Model,UserMixin):
     NomeDaEmpresaDB= db.Column(db.String(60),unique= True,nullable= False)
     SetorDeAtuaçãoDB= db.Column(db.String(60),unique= False,nullable= False)
     LocalidadeDB=db.Column(db.String(40),nullable= False)
+    MarcaDB=db.Column(db.String(40),unique= True,nullable= False)
+    ModeloDB=db.Column(db.String(120),unique= True,nullable= False)
+    VersãoDB=db.Column(db.String(120),unique= True,nullable= False)
+    AnoDB=db.Column(db.Integer(20),unique= True,nullable= False)
+    QuilomDB=db.Column(db.Integer(20),unique= True)
+    PrecoDB=db.Column(db.Integer(20),unique= True,nullable= False)
+    CorDB=db.Column(db.String(20),unique= True,nullable= False)
+
 
     def get_reset_token(self,expires_sec=1800):
         s= Serializer(app.config['SECRET_KEY'],expires_sec)
@@ -58,11 +66,11 @@ def load_user(Usuario_id):
     return UsuarioDB.query.get(int(Usuario_id))
 
 class FormularioDeRegistro(FlaskForm):
-    Usuario =StringField('Usuario', 
+    Usuario =StringField('Usuário', 
                         validators = [DataRequired(),Length(min= 2, max=20)])
 
     NomeDaEmpresa= StringField('Favor informar o nome da sua empresa.',
-                        validators=[DataRequired(),Length(min=5, max =30)])
+                        validators=[DataRequired(),Length(min=2, max =30)])
 
     SetorDeAtuação= StringField('Favor informar seu setor. Exemplo: Revendedora de carro.',
                         validators=[DataRequired(),Length(min=5,max=30)])
@@ -149,6 +157,24 @@ class ResetSenha(FlaskForm):
 
     Confirma=SubmitField('Resetar senha')
 
+class DadosEssenciais(FlaskForm):
+
+    Marca=StringField('Marca do carro. EX: Volkswagen')
+
+    Modelo=StringField ('Modelo do carro. Ex:Upi')
+
+    Versao=StringField('Versão do carro. Ex: Upi XTREME')
+
+    Ano= IntegerField('Ano do carro')
+
+    Quilometragem= IntegerField('Quilometragem do carro.')
+
+    Preco= IntegerField('Preco pago.')
+
+    Cor= StringField('Preco pago.')
+
+
+
 
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/Login", methods=['GET', 'POST'])
@@ -193,7 +219,9 @@ def Sobre():
 	return render_template("Sobre.html", title = "Sobre")
 
 @app.route("/SegundaJanela")
+@login_required
 def SegundaJanela():
+    form=DadosEssenciais()
 	return render_template("SegundaJanela.html", title = "SegundaJanela")
 	
 @app.route("/TerceiraJanela")
