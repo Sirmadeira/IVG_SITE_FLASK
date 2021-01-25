@@ -1,0 +1,39 @@
+
+
+body{  
+    font-family: sans-serif, helvetica;
+    margin: 0;
+    
+
+}
+
+.container-fluid{
+     padding: 0;
+}
+
+}
+    
+.algoritmo{
+      
+      background-attachment: fixed;            
+       height: auto;
+       width: 100%;
+    
+       display: inline-block;
+       
+}
+
+}
+
+   .rodape{
+       background-color: #1F1F1F;
+       margin: auto;
+    
+       height: 150px;
+       width: 100%;
+       display: inline-block;
+    
+    
+}
+
+    
