@@ -12,7 +12,6 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Mail, Message
 
 
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
@@ -29,6 +28,7 @@ app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
 mail= Mail(app)
 
 class UsuarioDB(db.Model,UserMixin):
+    __tablename__= "usuariodb"
     id = db.Column(db.Integer, primary_key=True)
     UsernameDB = db.Column(db.String(20), unique=True, nullable=False)
     EmailDB = db.Column(db.String(120), unique=True, nullable=False)    
@@ -36,14 +36,7 @@ class UsuarioDB(db.Model,UserMixin):
     NomeDaEmpresaDB= db.Column(db.String(60),unique= True,nullable= False)
     SetorDeAtuaçãoDB= db.Column(db.String(60),unique= False,nullable= False)
     LocalidadeDB=db.Column(db.String(40),nullable= False)
-    MarcaDB=db.Column(db.String(40),unique= True,nullable= False)
-    ModeloDB=db.Column(db.String(120),unique= True,nullable= False)
-    VersãoDB=db.Column(db.String(120),unique= True,nullable= False)
-    AnoDB=db.Column(db.Integer(20),unique= True,nullable= False)
-    QuilomDB=db.Column(db.Integer(20),unique= True)
-    PrecoDB=db.Column(db.Integer(20),unique= True,nullable= False)
-    CorDB=db.Column(db.String(20),unique= True,nullable= False)
-
+    DadosEmpresa=db.relationship('Dados',backref='author',lazy= "dynamic")
 
     def get_reset_token(self,expires_sec=1800):
         s= Serializer(app.config['SECRET_KEY'],expires_sec)
@@ -60,6 +53,21 @@ class UsuarioDB(db.Model,UserMixin):
 
     def __repr__(self):
         return f"User('{self.UsernameDB}', '{self.EmailDB}')"
+
+class Dados(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    MarcaDB=db.Column(db.String(40),unique= True,nullable= False)
+    ModeloDB=db.Column(db.String(120),nullable= False)
+    VersãoDB=db.Column(db.String(120),nullable= False)
+    AnoDB=db.Column(db.Integer,nullable= False)
+    QuilomDB=db.Column(db.Integer)
+    PrecoDB=db.Column(db.Integer,nullable= False)
+    CorDB=db.Column(db.String(20),nullable= False)
+    user_id= db.Column(db.Integer, db.ForeignKey('usuariodb.id'), nullable= False)
+
+    def __repr__(self):
+        return f"User('{self.MarcaDB}', '{self.ModeloDB}')"
+
 
 @login_manager.user_loader
 def load_user(Usuario_id):
@@ -157,23 +165,6 @@ class ResetSenha(FlaskForm):
 
     Confirma=SubmitField('Resetar senha')
 
-class DadosEssenciais(FlaskForm):
-
-    Marca=StringField('Marca do carro. EX: Volkswagen')
-
-    Modelo=StringField ('Modelo do carro. Ex:Upi')
-
-    Versao=StringField('Versão do carro. Ex: Upi XTREME')
-
-    Ano= IntegerField('Ano do carro')
-
-    Quilometragem= IntegerField('Quilometragem do carro.')
-
-    Preco= IntegerField('Preco pago.')
-
-    Cor= StringField('Preco pago.')
-
-
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -221,7 +212,6 @@ def Sobre():
 @app.route("/SegundaJanela")
 @login_required
 def SegundaJanela():
-    form=DadosEssenciais()
 	return render_template("SegundaJanela.html", title = "SegundaJanela")
 	
 @app.route("/TerceiraJanela")
