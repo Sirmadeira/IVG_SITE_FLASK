@@ -28,7 +28,6 @@ app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
 mail= Mail(app)
 
 class UsuarioDB(db.Model,UserMixin):
-    __tablename__= "usuariodb"
     id = db.Column(db.Integer, primary_key=True)
     UsernameDB = db.Column(db.String(20), unique=True, nullable=False)
     EmailDB = db.Column(db.String(120), unique=True, nullable=False)    
@@ -164,6 +163,21 @@ class ResetSenha(FlaskForm):
                     validators=[DataRequired(),Length(min=5,max=20), EqualTo('Senha')])
 
     Confirma=SubmitField('Resetar senha')
+
+class DadosEssenciais(FlaskForm):
+    Marca= StringField('Marca do carro')
+
+    Modelo= StringField('Modelo do carro')
+
+    Versao= StringField('Versão do carro')
+
+    Ano= IntegerField()
+
+    Kilometragem= IntegerField()
+
+    Preco= IntegerField()
+
+    Cor= StringField('Favor inserir a cor do carro')
 
 
 
