@@ -6,8 +6,8 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required,UserMixin
 from flask_wtf  import FlaskForm
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, EqualTo ,Email, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField
+from wtforms.validators import DataRequired, Length, EqualTo ,Email, ValidationError, NumberRange
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Mail, Message
 
@@ -35,7 +35,8 @@ class UsuarioDB(db.Model,UserMixin):
     NomeDaEmpresaDB= db.Column(db.String(60),unique= True,nullable= False)
     SetorDeAtuaçãoDB= db.Column(db.String(60),unique= False,nullable= False)
     LocalidadeDB=db.Column(db.String(40),nullable= False)
-    DadosEmpresa=db.relationship('Dados',backref='author',lazy= "dynamic")
+    IndicadorDeCagada=db.relationship('Dados',backref='autor',lazy= True)
+
 
     def get_reset_token(self,expires_sec=1800):
         s= Serializer(app.config['SECRET_KEY'],expires_sec)
@@ -57,13 +58,11 @@ class Dados(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     MarcaDB=db.Column(db.String(40),unique= True,nullable= False)
     ModeloDB=db.Column(db.String(120),nullable= False)
-    VersãoDB=db.Column(db.String(120),nullable= False)
     AnoDB=db.Column(db.Integer,nullable= False)
-    QuilomDB=db.Column(db.Integer)
+    KilometragemDB=db.Column(db.Integer)
     PrecoDB=db.Column(db.Integer,nullable= False)
     CorDB=db.Column(db.String(20),nullable= False)
-    user_id= db.Column(db.Integer, db.ForeignKey('usuariodb.id'), nullable= False)
-
+    user_id = db.Column(db.Integer, db.ForeignKey('usuariodb.id'), nullable=False)
     def __repr__(self):
         return f"User('{self.MarcaDB}', '{self.ModeloDB}')"
 
@@ -74,25 +73,25 @@ def load_user(Usuario_id):
 
 class FormularioDeRegistro(FlaskForm):
     Usuario =StringField('Usuário', 
-                        validators = [DataRequired(),Length(min= 2, max=20)])
+                        validators = [DataRequired(message= 'Favor inserir Usuário '),Length(min= 5, max=20, message= 'Entre 5 a 20 letras')])
 
     NomeDaEmpresa= StringField('Favor informar o nome da sua empresa.',
-                        validators=[DataRequired(),Length(min=2, max =30)])
+                        validators=[DataRequired(message= 'Favor inserir nome da empresa '),Length(min=2, max =30,message= 'Entre 5 a 30 letras')])
 
     SetorDeAtuação= StringField('Favor informar seu setor. Exemplo: Revendedora de carro.',
-                        validators=[DataRequired(),Length(min=5,max=30)])
+                        validators=[DataRequired(message= 'Favor inserir setor'),Length(min=5,max=30,message= 'Entre 5 a 30 letras')])
 
     Localidade= StringField('Favor informar cidade onde fica a sede.',
-                        validators=[DataRequired(),Length(min=5,max=30)])   
+                        validators=[DataRequired(message= 'Favor inserir local'),Length(min=5,max=30,message='Cidade inválida')])   
 
     Email = StringField('Email empresarial',
-                        validators=[DataRequired(), Email()])
+                        validators=[DataRequired(message= 'Favor inserir local'), Email('Formato de e-mail inválido')])
 
     Senha= PasswordField('Senha',
-                        validators=[DataRequired(),Length(min=5,max=20)])
+                        validators=[DataRequired(message= 'Insira uma senha'),Length(min=5,max=20, message= ' Senha entre 5 a 20 caracteres')])
 
     ConfirmarSenha= PasswordField('Confirme Senha',
-                        validators=[DataRequired(),Length(min=5,max=20), EqualTo('Senha')])
+                        validators=[DataRequired(message= 'Confirme sua senha'),Length(min=5,max=20), EqualTo('Senha', message= 'Este campo tem que ser igual ao anterior')])
 
     Confirma=SubmitField('Cadastre-se')
 
@@ -112,23 +111,24 @@ class FormularioDeRegistro(FlaskForm):
 
 class FormularioDeLogin(FlaskForm):
     Usuario =StringField('Usuario', 
-                        validators = [DataRequired(),Length(min= 2, max=20)]) 
+                        validators = [DataRequired(message='Favor inserir o seu nome'),Length(min= 2, max=20, message='Favor manter o formato entre 2 e 20' )]) 
 
     Email = StringField('Email',
-                        validators=[DataRequired(), Email()])
+                        validators=[DataRequired(message='Favor inserir o seu nome'), Email(message='Email inválido')])
+
     Lembrete= BooleanField("Lembre-se de mim")
 
     Senha= PasswordField('Senha',
-                        validators=[DataRequired(),Length(min=5,max=20)])
+                        validators=[DataRequired(message='Favor inserir o seu nome'),Length(min=5,max=20,message='Minimo entre 2 e 20 caracteres' )])
 
     Entrar=SubmitField('Entre')
 
 class AtualizarRegistro(FlaskForm):
     Usuario =StringField('Usuario', 
-                        validators = [DataRequired(),Length(min= 2, max=20)]) 
+                        validators = [DataRequired(message='Favor inserir o seu nome'),Length(min= 2, max=20,message='Favor manter o formato entre 2 e 20')]) 
 
     Email = StringField('Email',
-                        validators=[DataRequired(), Email()])   
+                        validators=[DataRequired(message='Favor inserir o seu nome'), Email(message='Email inválido')])   
 
     Confirma=SubmitField('Atualizar')
 
@@ -146,7 +146,7 @@ class AtualizarRegistro(FlaskForm):
 
 class RequisitarReset(FlaskForm):
     Email = StringField('Email',
-                        validators=[DataRequired(), Email()]) 
+                        validators=[DataRequired(message='Favor inserir o seu Email'), Email(message='Email inválido')]) 
 
     Confirma=SubmitField('Requisitar reset de senha')
 
@@ -157,27 +157,34 @@ class RequisitarReset(FlaskForm):
 
 class ResetSenha(FlaskForm):
     Senha= PasswordField('Senha',
-                    validators=[DataRequired(),Length(min=5,max=20)])
+                    validators=[DataRequired('Favor inserir nova senha'),Length(min=5,max=20,message=' Senha tem que ter entre 5 e 20 caractere')])
 
     ConfirmarSenha= PasswordField('Confirme Senha',
-                    validators=[DataRequired(),Length(min=5,max=20), EqualTo('Senha')])
+                    validators=[DataRequired('Favor confirmar senha'),Length(min=5,max=20,message='Senha tem que ter entre 5 e 20caractere'), EqualTo('Senha', message= 'Tem que ser igual a senha')])
 
     Confirma=SubmitField('Resetar senha')
 
 class DadosEssenciais(FlaskForm):
-    Marca= StringField('Marca do carro')
+    
+    Marca = StringField('Marca',
+                        validators=[DataRequired()])
 
-    Modelo= StringField('Modelo do carro')
+    Modelo = StringField('Modelo',
+                        validators=[DataRequired()])
 
-    Versao= StringField('Versão do carro')
+    Ano = IntegerField('Ano',
+                        validators=[NumberRange(max=4)])
 
-    Ano= IntegerField()
+    Kilometragem = IntegerField('Kilometragem',
+                        validators=[NumberRange(min=0, max=10000000000)])
 
-    Kilometragem= IntegerField()
+    Preco = IntegerField('Preço',
+                        validators=[NumberRange(min=0, max=10000000000)])
 
-    Preco= IntegerField()
+    Cor = StringField('Favor inserir a cor do carro',
+                        validators=[DataRequired()])
 
-    Cor= StringField('Favor inserir a cor do carro')
+    Confirma=SubmitField('Requisitar reset de senha')
 
 
 
@@ -191,7 +198,7 @@ def Login():
         Usuario = UsuarioDB.query.filter_by(UsernameDB = form.Usuario.data).first()
         Email = UsuarioDB.query.filter_by(EmailDB=form.Email.data).first()
         if Usuario and Email and bcrypt.check_password_hash(Usuario.PasswordDB,form.Senha.data):
-            login_user(Usuario)
+            login_user(Usuario,renember=form.Lembrete.data)
             next_page=request.args.get('next')
             return redirect(next_page) if next_page else redirect (url_for('HomePage'))
         else:
@@ -226,7 +233,15 @@ def Sobre():
 @app.route("/SegundaJanela")
 @login_required
 def SegundaJanela():
-	return render_template("SegundaJanela.html", title = "SegundaJanela")
+    form = DadosEssenciais()
+    if form.validate_on_submit():
+        senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
+        user= Dados(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data, AnoDB= form.Ano.data,KilometragemDB= form.Kilometragem,
+                    PrecoDB= form.Preco.data, CorDB= form.Cor.data)
+        db.session.add(user)
+        db.session.commit()
+        flash(f'Seus dados foram inseridos com sucesso!', 'success')
+    return render_template("SegundaJanela.html", title = "SegundaJanela")
 	
 @app.route("/TerceiraJanela")
 def TerceiraJanela():
@@ -260,7 +275,7 @@ def ContaEmpresa():
 
 def enviar_email_reset(user): # LEMBRAR DE CRIAR EMAIL NOREPLY
     token = user.get_reset_token()
-    msg = Message('Reset de senha',sender='noreplyIVG@gmail.com', recipients= [user.EmailDB])
+    msg = Message('Reset de senha',sender='IVGDONTREPLY@outlook.com', recipients= [user.EmailDB])
     msg.body = f''' Para resetar sua senha, visite o link a seguir:
 {url_for('Reset_token', token= token, _external= True)}
 
