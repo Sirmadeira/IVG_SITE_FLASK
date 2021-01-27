@@ -35,7 +35,7 @@ class UsuarioDB(db.Model,UserMixin):
     NomeDaEmpresaDB= db.Column(db.String(60),unique= True,nullable= False)
     SetorDeAtuaçãoDB= db.Column(db.String(60),unique= False,nullable= False)
     LocalidadeDB=db.Column(db.String(40),nullable= False)
-    IndicadorDeCagada=db.relationship('Dados',backref='autor',lazy= True)
+    IndicadorDeCagada=db.relationship('Dados',backref='autor',lazy=True)
 
 
     def get_reset_token(self,expires_sec=1800):
