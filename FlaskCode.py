@@ -28,14 +28,12 @@ app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
 mail= Mail(app)
 
 class UsuarioDB(db.Model,UserMixin):
+    
     id = db.Column(db.Integer, primary_key=True)
     UsernameDB = db.Column(db.String(20), unique=True, nullable=False)
     EmailDB = db.Column(db.String(120), unique=True, nullable=False)    
     PasswordDB = db.Column(db.String(60), nullable=False)
     NomeDaEmpresaDB= db.Column(db.String(60),unique= True,nullable= False)
-    SetorDeAtuaçãoDB= db.Column(db.String(60),unique= False,nullable= False)
-    LocalidadeDB=db.Column(db.String(40),nullable= False)
-    IndicadorDeCagada=db.relationship('Dados',backref='autor',lazy=True)
 
 
     def get_reset_token(self,expires_sec=1800):
@@ -56,13 +54,13 @@ class UsuarioDB(db.Model,UserMixin):
 
 class Dados(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    LocalidadeDB=db.Column(db.String(40),nullable= False)
     MarcaDB=db.Column(db.String(40),unique= True,nullable= False)
     ModeloDB=db.Column(db.String(120),nullable= False)
     AnoDB=db.Column(db.Integer,nullable= False)
     KilometragemDB=db.Column(db.Integer)
     PrecoDB=db.Column(db.Integer,nullable= False)
     CorDB=db.Column(db.String(20),nullable= False)
-    user_id = db.Column(db.Integer, db.ForeignKey('UsuarioDB.id'), nullable=False)
     def __repr__(self):
         return f"User('{self.MarcaDB}', '{self.ModeloDB}')"
 
@@ -77,9 +75,6 @@ class FormularioDeRegistro(FlaskForm):
 
     NomeDaEmpresa= StringField('Favor informar o nome da sua empresa.',
                         validators=[DataRequired(message= 'Favor inserir nome da empresa '),Length(min=2, max =30,message= 'Entre 5 a 30 letras')])
-
-    SetorDeAtuação= StringField('Favor informar seu setor. Exemplo: Revendedora de carro.',
-                        validators=[DataRequired(message= 'Favor inserir setor'),Length(min=5,max=30,message= 'Entre 5 a 30 letras')])
 
     Localidade= StringField('Favor informar cidade onde fica a sede.',
                         validators=[DataRequired(message= 'Favor inserir local'),Length(min=5,max=30,message='Cidade inválida')])   
@@ -184,6 +179,9 @@ class DadosEssenciais(FlaskForm):
     Cor = StringField('Favor inserir a cor do carro',
                         validators=[DataRequired()])
 
+    Localidade= StringField('Favor informar cidade em que foi feito a venda',
+                        validators=[DataRequired(message= 'Favor inserir local'),Length(min=5,max=30,message='Cidade inválida')])
+
     Confirma=SubmitField('Requisitar reset de senha')
 
 
@@ -213,9 +211,7 @@ def Cadastro():
     if form.validate_on_submit():
     	senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
     	user= UsuarioDB(UsernameDB=form.Usuario.data, EmailDB=form.Email.data, PasswordDB= senha_hashed, 
-                        NomeDaEmpresaDB= form.NomeDaEmpresa.data, 
-                        SetorDeAtuaçãoDB=form.SetorDeAtuação.data,
-                        LocalidadeDB= form.Localidade.data)
+                        NomeDaEmpresaDB= form.NomeDaEmpresa.data)
     	db.session.add(user)
     	db.session.commit()
     	flash(f'Sua conta foi criada!', 'success')
@@ -237,7 +233,8 @@ def SegundaJanela():
     if form.validate_on_submit():
         senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
         user= Dados(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data, AnoDB= form.Ano.data,KilometragemDB= form.Kilometragem,
-                    PrecoDB= form.Preco.data, CorDB= form.Cor.data)
+                    PrecoDB= form.Preco.data, CorDB= form.Cor.data, 
+                    LocalidadeDB= form.Localidade.data)
         db.session.add(user)
         db.session.commit()
         flash(f'Seus dados foram inseridos com sucesso!', 'success')
