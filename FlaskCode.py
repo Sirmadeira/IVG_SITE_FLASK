@@ -62,7 +62,7 @@ class Dados(db.Model):
     KilometragemDB=db.Column(db.Integer)
     PrecoDB=db.Column(db.Integer,nullable= False)
     CorDB=db.Column(db.String(20),nullable= False)
-    user_id = db.Column(db.Integer, db.ForeignKey('usuariodb.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('UsuarioDB.id'), nullable=False)
     def __repr__(self):
         return f"User('{self.MarcaDB}', '{self.ModeloDB}')"
 
