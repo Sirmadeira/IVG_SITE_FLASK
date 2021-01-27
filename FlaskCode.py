@@ -28,7 +28,6 @@ app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
 mail= Mail(app)
 
 class UsuarioDB(db.Model,UserMixin):
-    
     id = db.Column(db.Integer, primary_key=True)
     UsernameDB = db.Column(db.String(20), unique=True, nullable=False)
     EmailDB = db.Column(db.String(120), unique=True, nullable=False)    
@@ -74,10 +73,7 @@ class FormularioDeRegistro(FlaskForm):
                         validators = [DataRequired(message= 'Favor inserir Usuário '),Length(min= 5, max=20, message= 'Entre 5 a 20 letras')])
 
     NomeDaEmpresa= StringField('Favor informar o nome da sua empresa.',
-                        validators=[DataRequired(message= 'Favor inserir nome da empresa '),Length(min=2, max =30,message= 'Entre 5 a 30 letras')])
-
-    Localidade= StringField('Favor informar cidade onde fica a sede.',
-                        validators=[DataRequired(message= 'Favor inserir local'),Length(min=5,max=30,message='Cidade inválida')])   
+                        validators=[DataRequired(message= 'Favor inserir nome da empresa '),Length(min=2, max =30,message= 'Entre 5 a 30 letras')])  
 
     Email = StringField('Email empresarial',
                         validators=[DataRequired(message= 'Favor inserir local'), Email('Formato de e-mail inválido')])
@@ -196,7 +192,7 @@ def Login():
         Usuario = UsuarioDB.query.filter_by(UsernameDB = form.Usuario.data).first()
         Email = UsuarioDB.query.filter_by(EmailDB=form.Email.data).first()
         if Usuario and Email and bcrypt.check_password_hash(Usuario.PasswordDB,form.Senha.data):
-            login_user(Usuario,renember=form.Lembrete.data)
+            login_user(Usuario,remember=form.Lembrete.data)
             next_page=request.args.get('next')
             return redirect(next_page) if next_page else redirect (url_for('HomePage'))
         else:
@@ -210,8 +206,8 @@ def Cadastro():
     form = FormularioDeRegistro()
     if form.validate_on_submit():
     	senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
-    	user= UsuarioDB(UsernameDB=form.Usuario.data, EmailDB=form.Email.data, PasswordDB= senha_hashed, 
-                        NomeDaEmpresaDB= form.NomeDaEmpresa.data)
+    	user= UsuarioDB(UsernameDB=form.Usuario.data,NomeDaEmpresaDB= form.NomeDaEmpresa.data,
+                        EmailDB=form.Email.data, PasswordDB= senha_hashed)
     	db.session.add(user)
     	db.session.commit()
     	flash(f'Sua conta foi criada!', 'success')
