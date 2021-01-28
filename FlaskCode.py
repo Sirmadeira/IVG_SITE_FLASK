@@ -56,7 +56,7 @@ class UsuarioDB(db.Model,UserMixin):
 class Dado(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     LocalidadeDB=db.Column(db.String(40),nullable= False)
-    MarcaDB=db.Column(db.String(40),unique= True,nullable= False)
+    MarcaDB=db.Column(db.String(40),nullable= False)
     ModeloDB=db.Column(db.String(120),nullable= False)
     AnoDB=db.Column(db.Integer,nullable= False)
     QuilometragemDB=db.Column(db.Integer)
@@ -65,7 +65,7 @@ class Dado(db.Model):
     user_id=db.Column(db.Integer, db.ForeignKey('UsuarioDB.id'), nullable=False)
 
     def __repr__(self):
-        return f"User('{self.MarcaDB}', '{self.ModeloDB}')"
+        return f"User('{self.MarcaDB}', '{self.ModeloDB}', '{self.user_id}')"
 
 
 
@@ -179,7 +179,7 @@ class DadosEssenciais(FlaskForm):
     Localidade= StringField('Favor informar cidade em que foi feito a venda',
                         validators=[DataRequired(message= 'Favor inserir local'),Length(min=5,max=30,message='Cidade inválida')])
 
-    Confirma=SubmitField('Requisitar reset de senha')
+    Confirma=SubmitField('Chupar um cu tera')
 
 @login_manager.user_loader
 def load_user(Usuario_id):
@@ -230,13 +230,14 @@ def Sobre():
 def SegundaJanela():
     form = DadosEssenciais()
     if form.validate_on_submit():
-        user= Dado(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data, AnoDB= form.Ano.data,QuilometragemDB= form.Quilometragem.data,
+        Info = Dado(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data, AnoDB= form.Ano.data,QuilometragemDB= form.Quilometragem.data,
                     PrecoDB= form.Preco.data, CorDB= form.Cor.data, 
-                    LocalidadeDB= form.Localidade.data)
-        db.session.add(user)
+                    LocalidadeDB= form.Localidade.data, user_id=current_user.id)
+        db.session.add(Info)
         db.session.commit()
         flash(f'Seus dados foram inseridos com sucesso!', 'success')
-    return render_template("SegundaJanela.html", title = "SegundaJanela")
+        return render_template("SegundaJanela.html", title = "SegundaJanela",form=form)
+    return render_template("SegundaJanela.html", title = "SegundaJanela",form= form)
 	
 @app.route("/TerceiraJanela")
 def TerceiraJanela():
