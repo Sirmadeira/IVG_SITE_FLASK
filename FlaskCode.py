@@ -28,11 +28,13 @@ app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
 mail= Mail(app)
 
 class UsuarioDB(db.Model,UserMixin):
+    __tablename__= "UsuarioDB"
     id = db.Column(db.Integer, primary_key=True)
     UsernameDB = db.Column(db.String(20), unique=True, nullable=False)
     EmailDB = db.Column(db.String(120), unique=True, nullable=False)    
     PasswordDB = db.Column(db.String(60), nullable=False)
     NomeDaEmpresaDB= db.Column(db.String(60),unique= True,nullable= False)
+    Dados=db.relationship('Dado',backref= 'UsuarioDB', lazy= True)
 
 
     def get_reset_token(self,expires_sec=1800):
@@ -51,7 +53,7 @@ class UsuarioDB(db.Model,UserMixin):
     def __repr__(self):
         return f"User('{self.UsernameDB}', '{self.EmailDB}')"
 
-class Dados(db.Model):
+class Dado(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     LocalidadeDB=db.Column(db.String(40),nullable= False)
     MarcaDB=db.Column(db.String(40),unique= True,nullable= False)
@@ -60,6 +62,8 @@ class Dados(db.Model):
     KilometragemDB=db.Column(db.Integer)
     PrecoDB=db.Column(db.Integer,nullable= False)
     CorDB=db.Column(db.String(20),nullable= False)
+    user_id=db.Column(db.Integer, db.ForeignKey('UsuarioDB.id'), nullable=False)
+
     def __repr__(self):
         return f"User('{self.MarcaDB}', '{self.ModeloDB}')"
 
@@ -228,7 +232,7 @@ def SegundaJanela():
     form = DadosEssenciais()
     if form.validate_on_submit():
         senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
-        user= Dados(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data, AnoDB= form.Ano.data,KilometragemDB= form.Kilometragem,
+        user= Dado(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data, AnoDB= form.Ano.data,KilometragemDB= form.Kilometragem,
                     PrecoDB= form.Preco.data, CorDB= form.Cor.data, 
                     LocalidadeDB= form.Localidade.data)
         db.session.add(user)
