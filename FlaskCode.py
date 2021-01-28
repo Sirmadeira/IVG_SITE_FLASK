@@ -59,7 +59,7 @@ class Dado(db.Model):
     MarcaDB=db.Column(db.String(40),unique= True,nullable= False)
     ModeloDB=db.Column(db.String(120),nullable= False)
     AnoDB=db.Column(db.Integer,nullable= False)
-    KilometragemDB=db.Column(db.Integer)
+    QuilometragemDB=db.Column(db.Integer)
     PrecoDB=db.Column(db.Integer,nullable= False)
     CorDB=db.Column(db.String(20),nullable= False)
     user_id=db.Column(db.Integer, db.ForeignKey('UsuarioDB.id'), nullable=False)
@@ -68,9 +68,6 @@ class Dado(db.Model):
         return f"User('{self.MarcaDB}', '{self.ModeloDB}')"
 
 
-@login_manager.user_loader
-def load_user(Usuario_id):
-    return UsuarioDB.query.get(int(Usuario_id))
 
 class FormularioDeRegistro(FlaskForm):
     Usuario =StringField('Usuário', 
@@ -170,11 +167,11 @@ class DadosEssenciais(FlaskForm):
     Ano = IntegerField('Ano',
                         validators=[NumberRange(max=4)])
 
-    Kilometragem = IntegerField('Kilometragem',
-                        validators=[NumberRange(min=0, max=10000000000)])
+    Quilometragem = IntegerField('Quilometragem',
+                        validators=[NumberRange(min=0, max=10000)])
 
     Preco = IntegerField('Preço',
-                        validators=[NumberRange(min=0, max=10000000000)])
+                        validators=[NumberRange(min=0, max=10000)])
 
     Cor = StringField('Favor inserir a cor do carro',
                         validators=[DataRequired()])
@@ -184,7 +181,9 @@ class DadosEssenciais(FlaskForm):
 
     Confirma=SubmitField('Requisitar reset de senha')
 
-
+@login_manager.user_loader
+def load_user(Usuario_id):
+    return UsuarioDB.query.get(int(Usuario_id))
 
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/Login", methods=['GET', 'POST'])
@@ -226,13 +225,12 @@ def HomePage():
 def Sobre():
 	return render_template("Sobre.html", title = "Sobre")
 
-@app.route("/SegundaJanela")
+@app.route("/SegundaJanela", methods=['GET', 'POST'])
 @login_required
 def SegundaJanela():
     form = DadosEssenciais()
     if form.validate_on_submit():
-        senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
-        user= Dado(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data, AnoDB= form.Ano.data,KilometragemDB= form.Kilometragem,
+        user= Dado(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data, AnoDB= form.Ano.data,QuilometragemDB= form.Quilometragem.data,
                     PrecoDB= form.Preco.data, CorDB= form.Cor.data, 
                     LocalidadeDB= form.Localidade.data)
         db.session.add(user)
