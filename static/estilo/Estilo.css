@@ -1,16 +1,47 @@
-
-
 body{  
     font-family: sans-serif, helvetica;
-    margin: 0;
+    margin:0;
     
-
+}
+.menu{background-color: #1F1F1F;
+    height: 80px;
+   width: 100%;
+    margin: auto;
+    display: inline-block;
+}
+.menu nav ul{text-align: right;
+    padding: 10px 0px;
+    letter-spacing: 2px;
+  font-size: 13px;
+    word-spacing: 10px;
+    margin-right: 20px
+    
+}
+.menu nav li{display: inline-block;
+    list-style: none;
+    text-decoration: none;
+    width: auto;
+     text-transform: uppercase;
+     
+        
+}
+.menu nav a{text-decoration: none;
+    color: floralwhite;
+  margin: 1px solid rgba(50,120,200,0.2);
+ 
+  padding: 10px;
+    display: block;
+}
+.menu nav a:hover {color: rgba(100,120,250);
+    background: rgba(50,50,50,0.3);
 }
 
-.container-fluid{
-     padding: 0;
-}
-
+   .logo{            
+                width: 250px;
+                float: left;
+                margin: -160px -50px;
+                
+                background-attachment: fixed;
 }
     
 .algoritmo{
@@ -23,8 +54,6 @@ body{
        
 }
 
-}
-
    .rodape{
        background-color: #1F1F1F;
        margin: auto;
@@ -35,5 +64,15 @@ body{
     
     
 }
+.navbar-brand{
+ width: 20%;
+}
 
+.navbar navbar-expand-lg navbar-light bg-light{
+    width: 100%;
     
+}
+
+.negocio{
+      width: 100%;
+}

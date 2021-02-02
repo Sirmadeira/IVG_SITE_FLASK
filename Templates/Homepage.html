@@ -1,61 +1,39 @@
 {% extends "Layout.html" %}
 {% block content %}
 
-    <body>
-             <header class="menu">
+ <body>
+        
+   <header>
 
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                     
-                     <div class="container-fluid">
+                 <nav class="navbar">
+                    
+                   <div  class="brand-title"><img src="static/imagens/LOGO R02.png" class="logo" alt="marca da IVG"></div>
+                   <a href="" class="toggle-button">
+                       <span class="bar"></span>
+                       <span class="bar"></span>
+                       <span class="bar"></span>
+                   </a>
+                    <div class="navbar-links">
+                     <ul>
+                     <li><a class="current" href="{{ url_for('HomePage') }}" target="_blank">Home</a></li>
 
-                 <a class="navbar-brand" href="#"><image src="{{ url_for('static', filename='imagens/LOGO R02.png')}}" height="100" class="d-inline-block align-top" alt=""></a>
+                     <li><a href="{{ url_for('Sobre') }}"  target="_blank">Sobre</a></li> 
+                                            
+                      <li><a href="{{ url_for('Cadastro') }}" target="_blank">Registre-se</a></li>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+                      <li><a href="{{ url_for('SegundaJanela') }}" 
+                                target="_blank">Login</a></li>
+                     </ul>
 
- <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ url_for('HomePage') }}">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('Sobre') }}">Sobre</a>
-      </li>
-     
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('Cadastro') }}">Registre-se</a>
-      </li>
-       <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('Contato') }}">Login</a>
-      </li>
-       <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('Contato') }}">Contate-nos</a>
-      </li>
-    </ul>
+                 </div>        
+                </nav>     
+             </header>
 
-     <ul class="navbar-nav mr-auto">
-
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('Cadastro') }}">Registre-se</a>
-      </li>
-       <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('Contato') }}">Login</a>
-      </li>
-       <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('Contato') }}">Contate-nos</a>
-      </li>
-    </ul>                  
-            </div>
-            </div> 
-            </nav>
-             
-            </header>
         <!-- template do menu até aqui -->
         <main>
         <section class="entrada">
-             <image src="{{ url_for('static', filename='imagens/algoritmo.jpg')}}" width="100%" class="negocio">
+            <img src="static/imagens/algoritmo.jpg" class="algoritmo">
             <div class="breve descrição">
             <p class=frase></p>
             </div>
@@ -65,11 +43,9 @@
         <setion>
             </setion>
         </main>
-        <footer class="rodape">
-        
-        
-        
-        </footer>
+       
     </body>
+          
+
 </html>
 {% endblock content%}
