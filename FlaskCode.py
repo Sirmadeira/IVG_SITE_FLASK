@@ -178,7 +178,7 @@ class DadosEssenciais(FlaskForm):
     Localidade= StringField('Favor informar cidade em que foi feito a venda',
                         validators=[DataRequired(message= 'Favor inserir local'),Length(min=5,max=30,message='Cidade inválida')])
 
-    Confirma=SubmitField('Chupar um cu tera')
+    Confirma=SubmitField('Confirmar inserção')
 
 @login_manager.user_loader
 def load_user(Usuario_id):
