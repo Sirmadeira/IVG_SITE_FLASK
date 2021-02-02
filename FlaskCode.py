@@ -148,10 +148,10 @@ class RequisitarReset(FlaskForm):
 
 class ResetSenha(FlaskForm):
     Senha= PasswordField('Senha',
-                    validators=[DataRequired('Favor inserir nova senha'),Length(min=5,max=20,message=' Senha tem que ter entre 5 e 20 caractere')])
+                    validators=[DataRequired('Favor inserir nova senha'),Length(min=5,max=20,message=' Senha tem que ter entre 5 e 20 caracteres')])
 
     ConfirmarSenha= PasswordField('Confirme Senha',
-                    validators=[DataRequired('Favor confirmar senha'),Length(min=5,max=20,message='Senha tem que ter entre 5 e 20caractere'), EqualTo('Senha', message= 'Tem que ser igual a senha')])
+                    validators=[DataRequired('Favor confirmar senha'),Length(min=5,max=20,message='Senha tem que ter entre 5 e 20 caracteres'), EqualTo('Senha', message= 'Tem que ser igual a senha')])
 
     Confirma=SubmitField('Resetar senha')
 
