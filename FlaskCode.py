@@ -167,10 +167,10 @@ class DadosEssenciais(FlaskForm):
                         validators=[NumberRange(max=2021)])
 
     Quilometragem = IntegerField('Quilometragem',
-                        validators=[NumberRange(min=0, max=10000)])
+                        validators=[NumberRange(min=0, max=10000000000)])
 
     Preco = IntegerField('Preço',
-                        validators=[NumberRange(min=0, max=10000)])
+                        validators=[NumberRange(min=0, max=1000000000)])
 
     Cor = StringField('Favor inserir a cor do carro',
                         validators=[DataRequired()])
