@@ -164,7 +164,7 @@ class DadosEssenciais(FlaskForm):
                         validators=[DataRequired()])
 
     Ano = IntegerField('Ano',
-                        validators=[NumberRange(max=4)])
+                        validators=[NumberRange(max=2021)])
 
     Quilometragem = IntegerField('Quilometragem',
                         validators=[NumberRange(min=0, max=10000)])
