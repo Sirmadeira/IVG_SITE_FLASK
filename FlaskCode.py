@@ -6,7 +6,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required,UserMixin
 from flask_wtf  import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField
-from wtforms.validators import DataRequired, Length, EqualTo ,Email, ValidationError, NumberRange
+from wtforms.validators import InputRequired, Length, EqualTo ,Email, ValidationError, NumberRange, AnyOf, Regexp
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Mail, Message
 
@@ -30,10 +30,11 @@ class UsuarioDB(db.Model,UserMixin):
     __tablename__= "UsuarioDB"
     id = db.Column(db.Integer, primary_key=True)
     UsernameDB = db.Column(db.String(20), unique=True, nullable=False)
-    EmailDB = db.Column(db.String(120), unique=True, nullable=False)    
-    PasswordDB = db.Column(db.String(60), nullable=False)
-    NomeDaEmpresaDB= db.Column(db.String(60),unique= True,nullable= False)
+    EmailDB = db.Column(db.String(40), unique=True, nullable=False)    
+    PasswordDB = db.Column(db.String(120), nullable=False)
+    NomeDaEmpresaDB= db.Column(db.String(30),unique= True,nullable= False)
     Dados=db.relationship('Dado',backref= 'UsuarioDB', lazy= True)
+    Nomes=db.relationship('Dado',backref= 'UsuarioDB',lazy= True)
 
 
     def get_reset_token(self,expires_sec=1800):
@@ -62,6 +63,7 @@ class Dado(db.Model):
     PrecoDB=db.Column(db.Integer,nullable= False)
     CorDB=db.Column(db.String(20),nullable= False)
     user_id=db.Column(db.Integer, db.ForeignKey('UsuarioDB.id'), nullable=False)
+    nome_id=db.column(db.String(30),db.ForeinKey('UsuarioDB.NomeDaEmpresaDB'),nullable= False)
 
     def __repr__(self):
         return f"User('{self.MarcaDB}', '{self.ModeloDB}', '{self.user_id}')"
@@ -70,19 +72,19 @@ class Dado(db.Model):
 
 class FormularioDeRegistro(FlaskForm):
     Usuario =StringField('Usuário', 
-                        validators = [DataRequired(message= 'Favor inserir Usuário '),Length(min= 5, max=20, message= 'Entre 5 a 20 letras')])
+                        validators = [InputRequired(message= 'Favor inserir Usuário '),Length(min= 5, max=20, message= 'Entre 4 a 20 letras')])
 
     NomeDaEmpresa= StringField('Favor informar o nome da sua empresa.',
-                        validators=[DataRequired(message= 'Favor inserir nome da empresa '),Length(min=2, max =30,message= 'Entre 5 a 30 letras')])  
+                        validators=[InputRequired(message= 'Favor inserir nome da empresa '),Length(min=2, max =30,message= 'Entre 5 a 30 letras')])  
 
     Email = StringField('Email empresarial',
-                        validators=[DataRequired(message= 'Favor inserir local'), Email('Formato de e-mail inválido')])
+                        validators=[InputRequired(message= 'Favor inserir Email'), Email('Formato de e-mail inválido')])
 
     Senha= PasswordField('Senha',
-                        validators=[DataRequired(message= 'Insira uma senha'),Length(min=5,max=20, message= ' Senha entre 5 a 20 caracteres')])
+                        validators=[InputRequired(message= 'Insira uma senha'),Regexp('^(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\d\W])|(?=.*\W)(?=.*\d))|(?=.*\W)(?=.*[A-Z])(?=.*\d)).{8,}$', message= 'Sua senha precisa ter 8 caracteres e pelo menos obedecer 3 das 4 condições, ter letra maiúscula minúscula, ter número e/ou caracteres especiais.')])
 
     ConfirmarSenha= PasswordField('Confirme Senha',
-                        validators=[DataRequired(message= 'Confirme sua senha'),Length(min=5,max=20), EqualTo('Senha', message= 'Este campo tem que ser igual ao anterior')])
+                        validators=[InputRequired(message= 'Confirme sua senha'),EqualTo('Senha', message= 'Este campo tem que ser igual ao de senha')])
 
     Confirma=SubmitField('Cadastre-se')
 
@@ -102,24 +104,24 @@ class FormularioDeRegistro(FlaskForm):
 
 class FormularioDeLogin(FlaskForm):
     Usuario =StringField('Usuario', 
-                        validators = [DataRequired(message='Favor inserir o seu nome'),Length(min= 2, max=20, message='Favor manter o formato entre 2 e 20' )]) 
+                        validators = [InputRequired(message='Favor inserir o seu Usuário')]) 
 
     Email = StringField('Email',
-                        validators=[DataRequired(message='Favor inserir o seu nome'), Email(message='Email inválido')])
+                        validators=[InputRequired(message='Favor inserir o seu E-mail'), Email(message='Email inválido')])
 
     Lembrete= BooleanField("Lembre-se de mim")
 
     Senha= PasswordField('Senha',
-                        validators=[DataRequired(message='Favor inserir o seu nome'),Length(min=5,max=20,message='Minimo entre 2 e 20 caracteres' )])
+                        validators=[InputRequired(message='Favor inserir a sua senha')])
 
     Entrar=SubmitField('Entre')
 
 class AtualizarRegistro(FlaskForm):
     Usuario =StringField('Usuario', 
-                        validators = [DataRequired(message='Favor inserir o seu nome'),Length(min= 2, max=20,message='Favor manter o formato entre 2 e 20')]) 
+                        validators = [InputRequired(message='Favor inserir o seu nome'),Length(min= 4, max=20,message='Favor manter o formato entre 4 e 20')]) 
 
     Email = StringField('Email',
-                        validators=[DataRequired(message='Favor inserir o seu nome'), Email(message='Email inválido')])   
+                        validators=[InputRequired(message='Favor inserir o seu nome'), Email(message='Email em formata não aceitável')])   
 
     Confirma=SubmitField('Atualizar')
 
@@ -137,7 +139,7 @@ class AtualizarRegistro(FlaskForm):
 
 class RequisitarReset(FlaskForm):
     Email = StringField('Email',
-                        validators=[DataRequired(message='Favor inserir o seu Email'), Email(message='Email inválido')]) 
+                        validators=[InputRequired(message='Favor inserir o seu Email'), Email(message='Email inválido')]) 
 
     Confirma=SubmitField('Requisitar reset de senha')
 
@@ -148,10 +150,10 @@ class RequisitarReset(FlaskForm):
 
 class ResetSenha(FlaskForm):
     Senha= PasswordField('Senha',
-                    validators=[DataRequired('Favor inserir nova senha'),Length(min=5,max=20,message=' Senha tem que ter entre 5 e 20 caracteres')])
+                    validators=[InputRequired('Favor inserir nova senha'),Length(min=5,max=20,message=' Senha tem que ter entre 5 e 20 caracteres')])
 
     ConfirmarSenha= PasswordField('Confirme Senha',
-                    validators=[DataRequired('Favor confirmar senha'),Length(min=5,max=20,message='Senha tem que ter entre 5 e 20 caracteres'), EqualTo('Senha', message= 'Tem que ser igual a senha')])
+                    validators=[InputRequired('Favor confirmar senha'),Length(min=5,max=20,message='Senha tem que ter entre 5 e 20 caracteres'), EqualTo('Senha', message= 'Tem que ser igual a senha')])
 
     Confirma=SubmitField('Resetar senha')
 
@@ -159,21 +161,21 @@ class ResetSenha(FlaskForm):
 
 class DadosEssenciais(FlaskForm):
 
-    MarcasGarantia= ("Acura", "Agrale","Alfo Romeo","Am Gen","Asia motors","ASTON MARTIN","Audi","Baby","BMW",
-                    "BRM","BUGRE","Cadillac","CBT Jipe","CHANA","CHANGAN","CHERY","Chrysler","Citroën",
-                    "Cross Lander","Daewoo","Daihatsu","Dodge","EFFA","Engesa","Envemo","Ferrari","Fiat",
-                    "Fibravan","Ford","FOTON","Fyber","GEELY","GM CHEVROLET","GREAT WALL","Gurgel","HAFEI",
-                    "HITECH ELECTRIC","HONDA","HYUNDAY","ISUZU","IVECO","JAC","Jaguar","Jeep","JINBEI","JPX",
-                    "Kia Motors","Lada","Lamborghini","Land Rover","Lexus","LIFAN","LOBINI","Lotus","Mahindra",
-                    "Maserati","Matra","Mazda","Mclaren","Mercedez-Benz","Mercury","MG","MINI","Mitsubishi","Miura",
-                    "Nissan","Peugeot","Plymouth","Pontiac","Porsche","RAM","RELY","Renault","Rolls-Royce","Rover",
-                    "Saab","Saturn","Seat","SHINERAY","smart","SSANGYONG","Subaru","Suzuki","TAC","Toyota","Troller","Volvo","VW-VOLKSWAGEN","Wake","Walk")
+    MarcasGarantia = ("Acura", "Agrale","Alfo Romeo","Am Gen","Asia motors","ASTON MARTIN","Audi","Baby","BMW",
+    "BRM","BUGRE","Cadillac","CBT Jipe","CHANA","CHANGAN","CHERY","Chrysler","Citroën",
+    "Cross Lander","Daewoo","Daihatsu","Dodge","EFFA","Engesa","Envemo","Ferrari","Fiat",
+    "Fibravan","Ford","FOTON","Fyber","GEELY","GM CHEVROLET","GREAT WALL","Gurgel","HAFEI",
+    "HITECH ELECTRIC","HONDA","HYUNDAY","ISUZU","IVECO","JAC","Jaguar","Jeep","JINBEI","JPX",
+    "Kia Motors","Lada","Lamborghini","Land Rover","Lexus","LIFAN","LOBINI","Lotus","Mahindra",
+    "Maserati","Matra","Mazda","Mclaren","Mercedez-Benz","Mercury","MG","MINI","Mitsubishi","Miura",
+    "Nissan","Peugeot","Plymouth","Pontiac","Porsche","RAM","RELY","Renault","Rolls-Royce","Rover",
+    "Saab","Saturn","Seat","SHINERAY","smart","SSANGYONG","Subaru","Suzuki","TAC","Toyota","Troller","Volvo","VW-VOLKSWAGEN","Wake","Walk")
     
     Marca = StringField('Marca',
-                        validators=[DataRequired(message='Favor inserir uma Marca valida'),EqualTo(f"{MarcasGarantia}", message= 'Favor inserir marca valida')])
+                        validators=[InputRequired(message='Favor inserir uma Marca valida'),AnyOf(MarcasGarantia, message= 'Favor inserir uma marca valida')])
 
     Modelo = StringField('Modelo',
-                        validators=[DataRequired(message='Favor inserir um modelo valido')])
+                        validators=[InputRequired(message='Favor inserir um modelo valido')])
 
     Ano = IntegerField('Ano',
                         validators=[NumberRange(max=2021)])
@@ -185,10 +187,10 @@ class DadosEssenciais(FlaskForm):
                         validators=[NumberRange(min=0, max=1000000000)])
 
     Cor = StringField('Favor inserir a cor do carro',
-                        validators=[DataRequired(message= 'Favor inserir cor do carro')])
+                        validators=[InputRequired(message= 'Favor inserir cor do carro')])
 
     Localidade= StringField('Favor informar cidade em que foi feito a venda',
-                        validators=[DataRequired(message= 'Favor inserir local'),Length(min=5,max=30,message='Cidade inválida')])
+                        validators=[InputRequired(message= 'Favor inserir local'),Length(min=5,max=30,message='Cidade inválida')])
 
     Confirma=SubmitField('Confirmar inserção')
 
@@ -243,7 +245,7 @@ def SegundaJanela():
     if form.validate_on_submit():
         Info = Dado(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data, AnoDB= form.Ano.data,QuilometragemDB= form.Quilometragem.data,
                     PrecoDB= form.Preco.data, CorDB= form.Cor.data, 
-                    LocalidadeDB= form.Localidade.data, user_id=current_user.id)
+                    LocalidadeDB= form.Localidade.data, user_id=current_user.id,nome_id=current_user.NomeDaEmpresaDB)
         db.session.add(Info)
         db.session.commit()
         flash(f'Seus dados foram inseridos com sucesso!', 'success')
