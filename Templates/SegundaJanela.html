@@ -1,6 +1,6 @@
 {% extends "Layout.html" %}
 {% block content %}
-<body class="bg-dark">
+<!-- <body class="bg-dark">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-4 mt-4 mb-4 bg-light rounded">
@@ -39,6 +39,114 @@
                 </div>
             </div>
         </div>
-</body>
+</body> -->
 </html>
+    <div class= "content-section">
+        <form method = 'POST' action = ''>
+            {{ form.hidden_tag() }}
+            <fieldset class = 'form-group'>
+                <div class= "form-group">
+                    {{form.Marca.label(class="form-control-label") }}
+                    {% if form.Marca.errors %}
+                        {{ form.Marca(class="form-control form-control-lg is-invalid")}}
+                        <div class = "invalid-feedback">
+                            {% for error in form.Marca.errors %}
+                                <span>  {{ error }} </span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                            {{ form.Marca(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class= "form-group">
+                    {{form.Modelo.label(class="form-control-label") }}
+
+                    {% if form.Modelo.errors %}
+                        {{ form.Modelo(class="form-control form-control-lg is-invalid")}}
+                        <div class = "invalid-feedback">
+                            {% for error in form.Modelo.errors %}
+                                <span>  {{ error }} </span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                            {{ form.Modelo(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class= "form-group">
+                    {{form.Ano.label(class="form-control-label") }}
+
+                    {% if form.Ano.errors %}
+                        {{ form.Ano(class="form-control form-control-lg is-invalid")}}
+                        <div class = "invalid-feedback">
+                            {% for error in form.Ano.errors %}
+                                <span>  {{ error }} </span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                            {{ form.Ano(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class= "form-group">
+                    {{form.Quilometragem.label(class="form-control-label") }}
+
+                    {% if form.Quilometragem.errors %}
+                        {{ form.Quilometragem(class="form-control form-control-lg is-invalid")}}
+                        <div class = "invalid-feedback">
+                            {% for error in form.Quilometragem.errors %}
+                                <span>  {{ error }} </span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                            {{ form.Quilometragem(class="form-control form-control-lg") }}
+                    {% endif %}
+
+                </div>
+                <div class= "form-group">
+                    {{form.Preco.label(class="form-control-label") }}
+
+                    {% if form.Preco.errors %}
+                        {{ form.Preco(class="form-control form-control-lg is-invalid")}}
+                        <div class = "invalid-feedback">
+                            {% for error in form.Preco.errors %}
+                                <span>  {{ error }} </span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                            {{ form.Preco(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class= "form-group">
+                    {{form.Cor.label(class="form-control-label") }}
+
+                    {% if form.Cor.errors %}
+                        {{ form.Cor(class="form-control form-control-lg is-invalid")}}
+                        <div class = "invalid-feedback">
+                            {% for error in form.Cor.errors %}
+                                <span>  {{ error }} </span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                            {{ form.Cor(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class= "form-group">
+                    {{form.Localidade.label(class="form-control-label") }}
+
+                    {% if form.Localidade.errors %}
+                        {{ form.Localidade(class="form-control form-control-lg is-invalid")}}
+                        <div class = "invalid-feedback">
+                            {% for error in form.Localidade.errors %}
+                                <span>  {{ error }} </span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                            {{ form.Localidade(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class= "form-group">
+                    {{ form.Confirma(class= "btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
 {% endblock content%}
