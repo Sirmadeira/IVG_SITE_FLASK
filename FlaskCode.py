@@ -1,4 +1,3 @@
-
 import os
 from flask import Flask, render_template, url_for, flash, redirect, request
 from flask_sqlalchemy import SQLAlchemy
@@ -219,13 +218,13 @@ def Cadastro():
         return redirect(url_for('HomePage'))
     form = FormularioDeRegistro()
     if form.validate_on_submit():
-    	senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
-    	user= UsuarioDB(UsernameDB=form.Usuario.data,NomeDaEmpresaDB= form.NomeDaEmpresa.data,
+        senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
+        user= UsuarioDB(UsernameDB=form.Usuario.data,NomeDaEmpresaDB= form.NomeDaEmpresa.data,
                         EmailDB=form.Email.data, PasswordDB= senha_hashed)
-    	db.session.add(user)
-    	db.session.commit()
-    	flash(f'Sua conta foi criada!', 'success')
-    	return redirect(url_for('Login'))
+        db.session.add(user)
+        db.session.commit()
+        flash(f'Sua conta foi criada!', 'success')
+        return redirect(url_for('Login'))
     return render_template('Cadastro.html', title='Cadastro', form=form)
 
 @app.route("/HomePage")
@@ -234,7 +233,7 @@ def HomePage():
 
 @app.route("/Sobre")
 def Sobre():
-	return render_template("Sobre.html", title = "Sobre")
+    return render_template("Sobre.html", title = "Sobre")
 
 @app.route("/SegundaJanela", methods=['GET', 'POST'])
 @login_required
@@ -249,14 +248,14 @@ def SegundaJanela():
         flash(f'Seus dados foram inseridos com sucesso!', 'success')
         return render_template("SegundaJanela.html", title = "SegundaJanela",form=form)
     return render_template("SegundaJanela.html", title = "SegundaJanela",form= form)
-	
+    
 @app.route("/TerceiraJanela")
 def TerceiraJanela():
-	return render_template("TerceiraJanela.html", title = "TerceiraJanela")
+    return render_template("TerceiraJanela.html", title = "TerceiraJanela")
 
 @app.route("/Contato")
 def Contato():
-	return render_template("Contato.html", title = "Contato")
+    return render_template("Contato.html", title = "Contato")
 
 
 @app.route("/Logout")
@@ -285,7 +284,6 @@ def enviar_email_reset(user): # LEMBRAR DE CRIAR EMAIL NOREPLY
     msg = Message('Reset de senha',sender='IVGDONTREPLY@outlook.com', recipients= [user.EmailDB])
     msg.body = f''' Para resetar sua senha, visite o link a seguir:
 {url_for('Reset_token', token= token, _external= True)}
-
 Se você não fez esse pedido então simplesmente ignore esse E-mail   
 '''
     mail.send(msg)
@@ -325,4 +323,4 @@ def Reset_token(token):
 
 
 if __name__ == "__main__":
-	app.run(debug=True)
+    app.run(debug=True)
