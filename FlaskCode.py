@@ -33,7 +33,6 @@ class UsuarioDB(db.Model,UserMixin):
     EmailDB = db.Column(db.String(40), unique=True, nullable=False)    
     PasswordDB = db.Column(db.String(120), nullable=False)
     NomeDaEmpresaDB= db.Column(db.String(30),unique= True,nullable= False)
-    Dados=db.relationship('Dado',backref= 'UsuarioDB', lazy= True)
     Nomes=db.relationship('Dado',backref= 'UsuarioDB',lazy= True)
 
 
@@ -62,8 +61,7 @@ class Dado(db.Model):
     QuilometragemDB=db.Column(db.Integer)
     PrecoDB=db.Column(db.Integer,nullable= False)
     CorDB=db.Column(db.String(20),nullable= False)
-    user_id=db.Column(db.Integer, db.ForeignKey('UsuarioDB.id'), nullable=False)
-    nome_id=db.column(db.String(30),db.ForeinKey('UsuarioDB.NomeDaEmpresaDB'),nullable= False)
+    nome_id=db.Column(db.String(30),db.ForeignKey('UsuarioDB.NomeDaEmpresaDB'),nullable= False)
 
     def __repr__(self):
         return f"User('{self.MarcaDB}', '{self.ModeloDB}', '{self.user_id}')"
@@ -245,7 +243,7 @@ def SegundaJanela():
     if form.validate_on_submit():
         Info = Dado(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data, AnoDB= form.Ano.data,QuilometragemDB= form.Quilometragem.data,
                     PrecoDB= form.Preco.data, CorDB= form.Cor.data, 
-                    LocalidadeDB= form.Localidade.data, user_id=current_user.id,nome_id=current_user.NomeDaEmpresaDB)
+                    LocalidadeDB= form.Localidade.data,nome_id=current_user.NomeDaEmpresaDB)
         db.session.add(Info)
         db.session.commit()
         flash(f'Seus dados foram inseridos com sucesso!', 'success')
