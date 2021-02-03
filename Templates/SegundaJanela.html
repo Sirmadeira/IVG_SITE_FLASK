@@ -1,40 +1,44 @@
 {% extends "Layout.html" %}
 {% block content %}
-<body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="mb-5 mt-4 text-center">
-                    <h1>IVGapp</h1>
+<body class="bg-dark">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-4 mt-4 mb-4 bg-light rounded">
+                    <div class="mb-5 mt-4 text-center">
+                        <h1>IVGapp</h1>
+                    </div>
+                    <form>
+                        <div class="mb-4 text-center">
+                            <h3>Marca</h3>
+                            <input type="text" class="form-control-lg" id="inputMarca">
+                        </div>
+                        <div class="mb-4 text-center">
+                            <h3>Modelo</h3>
+                            <input type="text" class="form-control-lg" id="inputModelo">
+                        </div>
+                        <div class="mb-4 text-center">
+                            <h3>Ano</h3>
+                            <input type="text" class="form-control-lg" id="inputAno">
+                        </div>
+                        <div class="mb-4 text-center">
+                            <h3>Quilometragem</h3>
+                            <input type="text" class="form-control-lg" id="inputQuilometragem">
+                        </div>
+                        <div class="mb-4 text-center">
+                            <h3>Preço</h3>
+                            <input type="text" class="form-control-lg" id="inputPreco">
+                        </div>
+                        <div class="mb-4 text-center">
+                            <h3>Local</h3>
+                            <input type="text" class="form-control-lg" id="inputLocal">
+                        </div>
+                        <div class="mb-4 text-center">
+                            <button type="submit" class="btn btn-dark btn-lg">Confirmar</button>
+                        </div>
+                    </form>
                 </div>
-                <form>
-                    <div class="mb-5 text-center">
-                        <h3>Marca</h3>
-                        <input type="text" class="form-control-lg" id="inputMarca" placeholder="Nome da marca">
-                    </div>
-                    <div class="mb-5 text-center">
-                        <h3>Modelo</h3>
-                        <input type="text" class="form-control-lg" id="inputModelo" placeholder="Nome do modelo">
-                    </div>
-                    <div class="mb-5 text-center">
-                        <h3>Ano</h3>
-                        <input type="text" class="form-control-lg" id="inputAno" placeholder="Ano do modelo">
-                    </div>
-                    <div class="mb-5 text-center">
-                        <h3>Quilometragem</h3>
-                        <input type="text" class="form-control-lg" id="inputQuilometragem" placeholder="Quilometragem">
-                    </div>
-                    <div class="mb-5 text-center">
-                        <h3>Preço</h3>
-                        <input type="text" class="form-control-lg" id="inputPreco" placeholder="Preço">
-                    </div>
-                    <div class="mb-5 text-center">
-                        <button type="submit" class="btn btn-dark btn-lg">Confirmar</button>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
 </body>
 </html>
 {% endblock content%}
