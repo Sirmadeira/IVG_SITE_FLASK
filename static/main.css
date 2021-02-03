@@ -8,12 +8,33 @@ h1, h2, h3, h4, h5, h6 {
   color: #444444;
 }
 
-.bg-steel {
-  background-color: #5f788a;
+.logo{
+  position: absolute;
+  height: 130px;
+width: auto;
+padding: 0 10px;
+margin: -65px -50px;
+}
+
+.site-header .bg-steel {
+  background: #141414;
+}
+
+.site-header .navbar-nav{
+   margin: 0px 350px 0 100px;
+   height: auto;
+
 }
 
 .site-header .navbar-nav .nav-link {
   color: #cbd5db;
+ list-style: none;
+    text-decoration: none;
+   font-size: 11px;
+   letter-spacing: 2px;
+ margin: 7px 50px;
+ padding: 0px;
+     text-transform: uppercase; 
 }
 
 .site-header .navbar-nav .nav-link:hover {
@@ -34,3 +55,4 @@ h1, h2, h3, h4, h5, h6 {
 .account-heading {
   font-size: 2.5rem;
 }
+
