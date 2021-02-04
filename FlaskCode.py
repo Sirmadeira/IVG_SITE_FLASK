@@ -26,6 +26,9 @@ app.config['MAIL_USERNAME'] = os.environ.get('EMAIL_USER')
 app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
 mail= Mail(app)
 
+
+
+
 class UsuarioDB(db.Model,UserMixin):
     __tablename__= "UsuarioDB"
     id = db.Column(db.Integer, primary_key=True)
@@ -171,26 +174,36 @@ class DadosEssenciais(FlaskForm):
     
     Marca = StringField('Marca',
                         validators=[InputRequired(message='Favor inserir uma Marca valida'),AnyOf(MarcasGarantia, message= 'Favor inserir uma marca valida')])
-
+    
     Modelo = StringField('Modelo',
-                        validators=[InputRequired(message='Favor inserir um modelo valido')])
+                        validators=[InputRequired(message='Favor inserir um modelo valido'), AnyOf('Modelos Acura')])
 
     Ano = IntegerField('Ano',
-                        validators=[NumberRange(max=2021)])
+                        validators=[NumberRange(min= 1980, max=2021, message = 'Somente por carros acima do ano 1950')])
 
     Quilometragem = IntegerField('Quilometragem',
                         validators=[NumberRange(min=0, max=10000000000)])
 
     Preco = IntegerField('Preço',
-                        validators=[NumberRange(min=0, max=1000000000)])
+                        validators=[NumberRange(min=1000, max=10000000000, message = 'Somente por vendas acima de mil reais.')])
 
     Cor = StringField('Favor inserir a cor do carro',
                         validators=[InputRequired(message= 'Favor inserir cor do carro')])
 
     Localidade= StringField('Favor informar cidade em que foi feito a venda',
-                        validators=[InputRequired(message= 'Favor inserir local'),Length(min=5,max=30,message='Cidade inválida')])
+                        validators=[InputRequired(message= 'Favor inserir local'),AnyOf('Limeira', message= 'Atualmente so trabalhamos com vendas em Limeira')])
 
     Confirma=SubmitField('Confirmar inserção')
+
+
+    def validate_Marca(self, Modelo):
+        marca = Marca.data
+        modelo= modelo.data
+        # Filtra database de acordo com marca
+        # Filtra modelos da database  de acordo com modelo.data
+        # Se o modelo for identificado, sem erro vai pra frente
+        # Se o modelo nao exister no nosso conjunto dados favor reinserir novo modelo
+
 
 @login_manager.user_loader
 def load_user(Usuario_id):
