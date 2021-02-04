@@ -1,4 +1,3 @@
-
 import os
 from flask import Flask, render_template, url_for, flash, redirect, request
 from flask_sqlalchemy import SQLAlchemy
@@ -119,10 +118,10 @@ class FormularioDeLogin(FlaskForm):
 
 class AtualizarRegistro(FlaskForm):
     Usuario =StringField('Usuario', 
-                        validators = [InputRequired(message='Favor inserir o seu nome'),Length(min= 4, max=20,message='Favor manter o formato entre 4 e 20')]) 
+                        validators = [InputRequired(message='Favor inserir o seu nome'),Length(min= 4, max=20,message='Favor manter o formato entre 4 e 20 caracteres')]) 
 
     Email = StringField('Email',
-                        validators=[InputRequired(message='Favor inserir o seu nome'), Email(message='Email em formata não aceitável')])   
+                        validators=[InputRequired(message='Favor inserir o seu nome'), Email(message='Email em formato não aceitável')])   
 
     Confirma=SubmitField('Atualizar')
 
@@ -179,7 +178,7 @@ class DadosEssenciais(FlaskForm):
                         validators=[InputRequired(message='Favor inserir um modelo valido'), AnyOf('Modelos Acura')])
 
     Ano = IntegerField('Ano',
-                        validators=[NumberRange(min= 1980, max=2021, message = 'Somente por carros acima do ano 1950')])
+                        validators=[NumberRange(min= 1960, max=2021, message = 'Somente por carros acima do ano 1960')])
 
     Quilometragem = IntegerField('Quilometragem',
                         validators=[NumberRange(min=0, max=10000000000)])
