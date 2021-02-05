@@ -66,7 +66,7 @@ class Dado(db.Model):
     nome_id=db.Column(db.String(30),db.ForeignKey('UsuarioDB.NomeDaEmpresaDB'),nullable= False)
 
     def __repr__(self):
-        return f"User('{self.MarcaDB}', '{self.ModeloDB}', '{self.user_id}')"
+        return f"User('{self.MarcaDB}', '{self.ModeloDB}')"
 
 
 
@@ -170,9 +170,12 @@ class DadosEssenciais(FlaskForm):
     "Maserati","Matra","Mazda","Mclaren","Mercedez-Benz","Mercury","MG","MINI","Mitsubishi","Miura",
     "Nissan","Peugeot","Plymouth","Pontiac","Porsche","RAM","RELY","Renault","Rolls-Royce","Rover",
     "Saab","Saturn","Seat","SHINERAY","smart","SSANGYONG","Subaru","Suzuki","TAC","Toyota","Troller","Volvo","VW-VOLKSWAGEN","Wake","Walk")
+
+    CoresGarantia = ("Amarelo","Azul","Bege","Branco","Bronze","Cinza","Dourado","Indefinida","Laranja","Marrom","Prata","Preto",
+                    "Rosa","Roxo","Verde","Vermelho","Vinho")
     
     Marca = StringField('Marca',
-                        validators=[InputRequired(message='Favor inserir uma Marca valida'),AnyOf(MarcasGarantia, message= 'Favor inserir uma marca valida')])
+                        validators=[InputRequired(message='Favor inserir uma Marca valida'),AnyOf(MarcasGarantia, message= 'De acordo com a tabela fipe não existe' )])
     
     Modelo = StringField('Modelo',
                         validators=[InputRequired(message='Favor inserir um modelo valido'), AnyOf('Modelos Acura')])
@@ -187,7 +190,7 @@ class DadosEssenciais(FlaskForm):
                         validators=[NumberRange(min=1000, max=10000000000, message = 'Somente por vendas acima de mil reais.')])
 
     Cor = StringField('Favor inserir a cor do carro',
-                        validators=[InputRequired(message= 'Favor inserir cor do carro')])
+                        validators=[InputRequired(message= 'Favor inserir cor do carro'), AnyOf(CoresGarantia, message= 'De acordo com o database da web motors essa cor não existe, caso a cor não seja aceita inserir indefinida')])
 
     Localidade= StringField('Favor informar cidade em que foi feito a venda',
                         validators=[InputRequired(message= 'Favor inserir local'),AnyOf('Limeira', message= 'Atualmente so trabalhamos com vendas em Limeira')])
@@ -195,9 +198,10 @@ class DadosEssenciais(FlaskForm):
     Confirma=SubmitField('Confirmar inserção')
 
 
-    def validate_Marca(self, Modelo):
-        marca = Marca.data
-        modelo= modelo.data
+    #def validate_Marca(self, Modelo):
+      #  marca = Marca.data
+      #  modelo= modelo.data
+      #  raise ValidationError= "Esse modelo nao e constado na tabela fipe"
         # Filtra database de acordo com marca
         # Filtra modelos da database  de acordo com modelo.data
         # Se o modelo for identificado, sem erro vai pra frente
@@ -332,8 +336,6 @@ def Reset_token(token):
     form = ResetSenha()
 
     return render_template('ResetToken.html', title = 'Resetar senha',form = form)
-
-
 
 
 if __name__ == "__main__":

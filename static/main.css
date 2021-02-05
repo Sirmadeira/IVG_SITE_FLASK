@@ -8,7 +8,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #444444;
 }
 
-<<<<<<< Updated upstream
+
 .logo{
   position: absolute;
   height: 130px;
@@ -17,20 +17,16 @@ padding: 0 10px;
 margin: -65px -50px;
 }
 
-=======
->>>>>>> Stashed changes
+
 .site-header .bg-steel {
   background: #141414;
 }
 
 .site-header .navbar-nav{
-<<<<<<< Updated upstream
+
    margin: 0px 350px 0 100px;
    height: auto;
-=======
    margin: 0px 120px 0 60px;
->>>>>>> Stashed changes
-
 }
 
 .site-header .navbar-nav .nav-link {
@@ -39,11 +35,8 @@ margin: -65px -50px;
     text-decoration: none;
    font-size: 11px;
    letter-spacing: 2px;
-<<<<<<< Updated upstream
  margin: 7px 50px;
-=======
  margin: -5px 50px;
->>>>>>> Stashed changes
  padding: 0px;
      text-transform: uppercase; 
 }
