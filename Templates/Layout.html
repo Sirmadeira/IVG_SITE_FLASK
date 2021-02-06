@@ -23,12 +23,12 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
-            <div class="navbar-nav">
+            <div class="navbar-nav mr-5">
               <a class="nav-item nav-link" href="{{ url_for('HomePage') }}">Home</a>
               <a class="nav-item nav-link" href="{{ url_for('Sobre') }}">Sobre</a>
             </div>
             <!-- Navbar Right Side -->
-            <div class="navbar-nav">
+            <div class="navbar-nav mr-5">
               {% if current_user.is_authenticated %}
                 <a class="nav-item nav-link" href="{{ url_for('ContaEmpresa') }}">Empresa</a>
                 <a class="nav-item nav-link" href="{{ url_for('SegundaJanela') }}">Inserir dados</a>
@@ -43,9 +43,9 @@
         </div>
       </nav>
     </header>
-	<main role="main" class="container">
+	<main role="main" class="container-fluid">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col">
       		{% with messages = get_flashed_messages(with_categories=true) %}
       			{% if messages %}
       				{% for category , message in messages%}
