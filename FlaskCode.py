@@ -1,5 +1,5 @@
-import os
-from flask import Flask, render_template, url_for, flash, redirect, request
+import os, json
+from flask import Flask, render_template, url_for, flash, redirect, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required,UserMixin
@@ -178,7 +178,7 @@ class DadosEssenciais(FlaskForm):
                         validators=[InputRequired(message='Favor inserir uma Marca valida'),AnyOf(MarcasGarantia, message= 'De acordo com a tabela fipe não existe' )])
     
     Modelo = StringField('Modelo',
-                        validators=[InputRequired(message='Favor inserir um modelo valido'), AnyOf('Modelos Acura')])
+                        validators=[InputRequired(message='Favor inserir um modelo valido')])
 
     Ano = IntegerField('Ano',
                         validators=[NumberRange(min= 1960, max=2021, message = 'Somente por carros acima do ano 1960')])
@@ -196,16 +196,6 @@ class DadosEssenciais(FlaskForm):
                         validators=[InputRequired(message= 'Favor inserir local'),AnyOf('Limeira', message= 'Atualmente so trabalhamos com vendas em Limeira')])
 
     Confirma=SubmitField('Confirmar inserção')
-
-
-    #def validate_Marca(self, Modelo):
-      #  marca = Marca.data
-      #  modelo= modelo.data
-      #  raise ValidationError= "Esse modelo nao e constado na tabela fipe"
-        # Filtra database de acordo com marca
-        # Filtra modelos da database  de acordo com modelo.data
-        # Se o modelo for identificado, sem erro vai pra frente
-        # Se o modelo nao exister no nosso conjunto dados favor reinserir novo modelo
 
 
 @login_manager.user_loader
