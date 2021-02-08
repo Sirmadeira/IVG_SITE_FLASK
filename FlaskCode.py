@@ -220,6 +220,7 @@ def Login():
 
 @app.route('/_autocomplete', methods=['GET'])
 def autocomplete():
+    
     marcasautocomplete = ["Acura", "Agrale","Alfa Romeo","Am Gen","Asia motors","ASTON MARTIN","Audi","Baby","BMW",
     "BRM","BUGRE","Cadillac","CBT Jipe","CHANA","CHANGAN","CHERY","Chrysler","Citroën",
     "Cross Lander","Daewoo","Daihatsu","Dodge","EFFA","Engesa","Envemo","Ferrari","Fiat",
