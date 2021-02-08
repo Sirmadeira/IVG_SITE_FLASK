@@ -1,10 +1,10 @@
 import os, json
-from flask import Flask, render_template, url_for, flash, redirect, request, jsonify
+from flask import Flask, render_template, url_for, flash, redirect, request, Response
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required,UserMixin
 from flask_wtf  import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextField
 from wtforms.validators import InputRequired, Length, EqualTo ,Email, ValidationError, NumberRange, AnyOf, Regexp
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Mail, Message
@@ -24,7 +24,6 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = os.environ.get('EMAIL_USER')
 app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
 mail= Mail(app)
-
 
 
 
@@ -161,7 +160,7 @@ class ResetSenha(FlaskForm):
 
 class DadosEssenciais(FlaskForm):
 
-    MarcasGarantia = ("Acura", "Agrale","Alfo Romeo","Am Gen","Asia motors","ASTON MARTIN","Audi","Baby","BMW",
+    MarcasGarantia = ("Acura", "Agrale","Alfa Romeo","Am Gen","Asia motors","ASTON MARTIN","Audi","Baby","BMW",
     "BRM","BUGRE","Cadillac","CBT Jipe","CHANA","CHANGAN","CHERY","Chrysler","Citroën",
     "Cross Lander","Daewoo","Daihatsu","Dodge","EFFA","Engesa","Envemo","Ferrari","Fiat",
     "Fibravan","Ford","FOTON","Fyber","GEELY","GM CHEVROLET","GREAT WALL","Gurgel","HAFEI",
@@ -174,7 +173,7 @@ class DadosEssenciais(FlaskForm):
     CoresGarantia = ("Amarelo","Azul","Bege","Branco","Bronze","Cinza","Dourado","Indefinida","Laranja","Marrom","Prata","Preto",
                     "Rosa","Roxo","Verde","Vermelho","Vinho")
     
-    Marca = StringField('Marca',
+    Marca = TextField('Marca',id="marca_autocomplete",
                         validators=[InputRequired(message='Favor inserir uma Marca valida'),AnyOf(MarcasGarantia, message= 'De acordo com a tabela fipe não existe' )])
     
     Modelo = StringField('Modelo',
@@ -219,6 +218,19 @@ def Login():
             flash('Login sem sucesso favor checar usuario e senha', 'danger')
     return render_template('Login.html', title='Login', form=form)
 
+@app.route('/_autocomplete', methods=['GET'])
+def autocomplete():
+    marcasautocomplete = ["Acura", "Agrale","Alfa Romeo","Am Gen","Asia motors","ASTON MARTIN","Audi","Baby","BMW",
+    "BRM","BUGRE","Cadillac","CBT Jipe","CHANA","CHANGAN","CHERY","Chrysler","Citroën",
+    "Cross Lander","Daewoo","Daihatsu","Dodge","EFFA","Engesa","Envemo","Ferrari","Fiat",
+    "Fibravan","Ford","FOTON","Fyber","GEELY","GM CHEVROLET","GREAT WALL","Gurgel","HAFEI",
+    "HITECH ELECTRIC","HONDA","HYUNDAY","ISUZU","IVECO","JAC","Jaguar","Jeep","JINBEI","JPX",
+    "Kia Motors","Lada","Lamborghini","Land Rover","Lexus","LIFAN","LOBINI","Lotus","Mahindra",
+    "Maserati","Matra","Mazda","Mclaren","Mercedez-Benz","Mercury","MG","MINI","Mitsubishi","Miura",
+    "Nissan","Peugeot","Plymouth","Pontiac","Porsche","RAM","RELY","Renault","Rolls-Royce","Rover",
+    "Saab","Saturn","Seat","SHINERAY","smart","SSANGYONG","Subaru","Suzuki","TAC","Toyota","Troller","Volvo","VW-VOLKSWAGEN","Wake","Walk"]
+    return Response(json.dumps(marcasautocomplete), mimetype='application/json')
+
 @app.route("/Cadastro", methods=['GET', 'POST'])
 def Cadastro():
     if current_user.is_authenticated:
@@ -245,7 +257,7 @@ def Sobre():
 @app.route("/SegundaJanela", methods=['GET', 'POST'])
 @login_required
 def SegundaJanela():
-    form = DadosEssenciais()
+    form = DadosEssenciais(request.form)
     if form.validate_on_submit():
         Info = Dado(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data, AnoDB= form.Ano.data,QuilometragemDB= form.Quilometragem.data,
                     PrecoDB= form.Preco.data, CorDB= form.Cor.data, 
