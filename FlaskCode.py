@@ -54,7 +54,6 @@ class UsuarioDB(db.Model,UserMixin):
         return f"User('{self.UsernameDB}', '{self.EmailDB}')"
 
 class Dado(db.Model):
-    __tablename__= Dado
     id = db.Column(db.Integer, primary_key=True)
     LocalidadeDB=db.Column(db.String(40),nullable= False)
     MarcaDB=db.Column(db.String(40),nullable= False)
@@ -161,12 +160,12 @@ class ResetSenha(FlaskForm):
 
 class DadosEssenciais(FlaskForm):
 
-    localidades= ("Limeira", "Piracicaba")
+    Localidades= ("Limeira", "Piracicaba")
 
     CoresGarantia = ("Amarelo","Azul","Bege","Branco","Bronze","Cinza","Dourado","Indefinida","Laranja","Marrom","Prata","Preto",
                     "Rosa","Roxo","Verde","Vermelho","Vinho")
     
-    Marca = StringField('Marca',
+    Marca = StringField('Marca',id= "marca_autocomplete:",
                         validators=[InputRequired(message='Favor inserir uma Marca valida')])
     
     Modelo = StringField('Modelo',
@@ -185,7 +184,7 @@ class DadosEssenciais(FlaskForm):
                         validators=[InputRequired(message= 'Favor inserir cor do carro'), AnyOf(CoresGarantia, message= 'Favor inserir a cor com a primeira letra maiúscula, caso a cor não seja aceita e porque ela é muito atípica, favor inserir indefinida no campo nesse caso')])
 
     Localidade= StringField('Favor informar cidade em que foi feito a venda',
-                        validators=[InputRequired(message= 'Favor inserir local'),AnyOf(localidades, message= 'Favor inserir a cidade com a primeira letra maiúscula. Atualmente só trabalhamos com vendas realizadas em Limeira e Piracicaba')])
+                        validators=[InputRequired(message= 'Favor inserir local'),AnyOf(Localidades, message= 'Favor inserir a cidade com a primeira letra maiúscula. Atualmente só trabalhamos com vendas realizadas em Limeira e Piracicaba')])
 
     Confirma=SubmitField('Confirmar inserção')
 
@@ -234,10 +233,17 @@ def HomePage():
 def Sobre():
 	return render_template("Sobre.html", title = "Sobre")
 
+@app.route('/_autocomplete', methods=['GET'])
+def autocomplete():
+    marca = ["Acura",
+            "VW-VOLKSWAGEN"]
+    print(marca)    
+    return Response(json.dumps(marca), mimetype='application/json')
+
 @app.route("/SegundaJanela", methods=['GET', 'POST'])
 @login_required
 def SegundaJanela():
-    form = DadosEssenciais()
+    form = DadosEssenciais(request.form)
     if form.validate_on_submit():
         Info = Dado(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data, AnoDB= form.Ano.data,QuilometragemDB= form.Quilometragem.data,
                     PrecoDB= form.Preco.data, CorDB= form.Cor.data, 
@@ -246,8 +252,8 @@ def SegundaJanela():
         db.session.commit()
         flash(f'Seus dados foram inseridos com sucesso!', 'success')
         return render_template("SegundaJanela.html", title = "SegundaJanela",form=form)
-    return render_template("SegundaJanela.html", title = "SegundaJanela",form= form)
-	
+    return render_template("SegundaJanela.html", title = "SegundaJanela",form=form)
+
 @app.route("/TerceiraJanela")
 def TerceiraJanela():
 	return render_template("TerceiraJanela.html", title = "TerceiraJanela")
