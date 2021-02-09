@@ -1,5 +1,5 @@
-import os, json
-from flask import Flask, render_template, url_for, flash, redirect, request, Response
+import os
+from flask import Flask, render_template, url_for, flash, redirect, request, Response, json, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required,UserMixin
@@ -54,6 +54,7 @@ class UsuarioDB(db.Model,UserMixin):
         return f"User('{self.UsernameDB}', '{self.EmailDB}')"
 
 class Dado(db.Model):
+    __tablename__= Dado
     id = db.Column(db.Integer, primary_key=True)
     LocalidadeDB=db.Column(db.String(40),nullable= False)
     MarcaDB=db.Column(db.String(40),nullable= False)
@@ -117,10 +118,10 @@ class FormularioDeLogin(FlaskForm):
 
 class AtualizarRegistro(FlaskForm):
     Usuario =StringField('Usuario', 
-                        validators = [InputRequired(message='Favor inserir o seu nome'),Length(min= 4, max=20,message='Favor manter o formato entre 4 e 20 caracteres')]) 
+                        validators = [InputRequired(message='Favor inserir o seu Usuário'),Length(min= 4, max=20,message='Favor manter o formato entre 4 e 20 caracteres')]) 
 
     Email = StringField('Email',
-                        validators=[InputRequired(message='Favor inserir o seu nome'), Email(message='Email em formato não aceitável')])   
+                        validators=[InputRequired(message='Favor inserir o seu Email'), Email(message='Email em formato não aceitável')])   
 
     Confirma=SubmitField('Atualizar')
 
@@ -160,21 +161,13 @@ class ResetSenha(FlaskForm):
 
 class DadosEssenciais(FlaskForm):
 
-    MarcasGarantia = ("Acura", "Agrale","Alfa Romeo","Am Gen","Asia motors","ASTON MARTIN","Audi","Baby","BMW",
-    "BRM","BUGRE","Cadillac","CBT Jipe","CHANA","CHANGAN","CHERY","Chrysler","Citroën",
-    "Cross Lander","Daewoo","Daihatsu","Dodge","EFFA","Engesa","Envemo","Ferrari","Fiat",
-    "Fibravan","Ford","FOTON","Fyber","GEELY","GM CHEVROLET","GREAT WALL","Gurgel","HAFEI",
-    "HITECH ELECTRIC","HONDA","HYUNDAY","ISUZU","IVECO","JAC","Jaguar","Jeep","JINBEI","JPX",
-    "Kia Motors","Lada","Lamborghini","Land Rover","Lexus","LIFAN","LOBINI","Lotus","Mahindra",
-    "Maserati","Matra","Mazda","Mclaren","Mercedez-Benz","Mercury","MG","MINI","Mitsubishi","Miura",
-    "Nissan","Peugeot","Plymouth","Pontiac","Porsche","RAM","RELY","Renault","Rolls-Royce","Rover",
-    "Saab","Saturn","Seat","SHINERAY","smart","SSANGYONG","Subaru","Suzuki","TAC","Toyota","Troller","Volvo","VW-VOLKSWAGEN","Wake","Walk")
+    localidades= ("Limeira", "Piracicaba")
 
     CoresGarantia = ("Amarelo","Azul","Bege","Branco","Bronze","Cinza","Dourado","Indefinida","Laranja","Marrom","Prata","Preto",
                     "Rosa","Roxo","Verde","Vermelho","Vinho")
     
-    Marca = TextField('Marca',id="marca_autocomplete",
-                        validators=[InputRequired(message='Favor inserir uma Marca valida'),AnyOf(MarcasGarantia, message= 'De acordo com a tabela fipe não existe' )])
+    Marca = StringField('Marca',
+                        validators=[InputRequired(message='Favor inserir uma Marca valida')])
     
     Modelo = StringField('Modelo',
                         validators=[InputRequired(message='Favor inserir um modelo valido')])
@@ -189,10 +182,10 @@ class DadosEssenciais(FlaskForm):
                         validators=[NumberRange(min=1000, max=10000000000, message = 'Somente por vendas acima de mil reais.')])
 
     Cor = StringField('Favor inserir a cor do carro',
-                        validators=[InputRequired(message= 'Favor inserir cor do carro'), AnyOf(CoresGarantia, message= 'De acordo com o database da web motors essa cor não existe, caso a cor não seja aceita inserir indefinida')])
+                        validators=[InputRequired(message= 'Favor inserir cor do carro'), AnyOf(CoresGarantia, message= 'Favor inserir a cor com a primeira letra maiúscula, caso a cor não seja aceita e porque ela é muito atípica, favor inserir indefinida no campo nesse caso')])
 
     Localidade= StringField('Favor informar cidade em que foi feito a venda',
-                        validators=[InputRequired(message= 'Favor inserir local'),AnyOf('Limeira', message= 'Atualmente so trabalhamos com vendas em Limeira')])
+                        validators=[InputRequired(message= 'Favor inserir local'),AnyOf(localidades, message= 'Favor inserir a cidade com a primeira letra maiúscula. Atualmente só trabalhamos com vendas realizadas em Limeira e Piracicaba')])
 
     Confirma=SubmitField('Confirmar inserção')
 
@@ -217,20 +210,6 @@ def Login():
         else:
             flash('Login sem sucesso favor checar usuario e senha', 'danger')
     return render_template('Login.html', title='Login', form=form)
-
-@app.route('/_autocomplete', methods=['GET'])
-def autocomplete():
-    
-    marcasautocomplete = ["Acura", "Agrale","Alfa Romeo","Am Gen","Asia motors","ASTON MARTIN","Audi","Baby","BMW",
-    "BRM","BUGRE","Cadillac","CBT Jipe","CHANA","CHANGAN","CHERY","Chrysler","Citroën",
-    "Cross Lander","Daewoo","Daihatsu","Dodge","EFFA","Engesa","Envemo","Ferrari","Fiat",
-    "Fibravan","Ford","FOTON","Fyber","GEELY","GM CHEVROLET","GREAT WALL","Gurgel","HAFEI",
-    "HITECH ELECTRIC","HONDA","HYUNDAY","ISUZU","IVECO","JAC","Jaguar","Jeep","JINBEI","JPX",
-    "Kia Motors","Lada","Lamborghini","Land Rover","Lexus","LIFAN","LOBINI","Lotus","Mahindra",
-    "Maserati","Matra","Mazda","Mclaren","Mercedez-Benz","Mercury","MG","MINI","Mitsubishi","Miura",
-    "Nissan","Peugeot","Plymouth","Pontiac","Porsche","RAM","RELY","Renault","Rolls-Royce","Rover",
-    "Saab","Saturn","Seat","SHINERAY","smart","SSANGYONG","Subaru","Suzuki","TAC","Toyota","Troller","Volvo","VW-VOLKSWAGEN","Wake","Walk"]
-    return Response(json.dumps(marcasautocomplete), mimetype='application/json')
 
 @app.route("/Cadastro", methods=['GET', 'POST'])
 def Cadastro():
@@ -258,7 +237,7 @@ def Sobre():
 @app.route("/SegundaJanela", methods=['GET', 'POST'])
 @login_required
 def SegundaJanela():
-    form = DadosEssenciais(request.form)
+    form = DadosEssenciais()
     if form.validate_on_submit():
         Info = Dado(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data, AnoDB= form.Ano.data,QuilometragemDB= form.Quilometragem.data,
                     PrecoDB= form.Preco.data, CorDB= form.Cor.data, 
@@ -339,7 +318,6 @@ def Reset_token(token):
     form = ResetSenha()
 
     return render_template('ResetToken.html', title = 'Resetar senha',form = form)
-
 
 if __name__ == "__main__":
 	app.run(debug=True)

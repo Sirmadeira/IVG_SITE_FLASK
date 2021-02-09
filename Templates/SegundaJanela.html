@@ -1,6 +1,5 @@
 {% extends "Layout.html" %}
 {% block content %}
-</html>
     <body>
     <div class= "content-section">
         <form method = 'POST' action = ''>
@@ -18,18 +17,6 @@
                         {% else %}
                                 {{ form.Marca(class="form-control form-control-lg") }}
                         {% endif %}
-                        <script>
-                            $(function() {
-                                $.ajax({
-                                    url: '{{ url_for("autocomplete") }}'
-                                        }).done(function (data){
-                                            $('#marca_autocomplete').autocomplete({
-                                                source: data,
-                                                minLength: 2
-                                            });
-                                        });
-                                }); 
-                        </script>
                     </div>
                 <div class= "form-group">
                     {{form.Modelo.label(class="form-control-label") }}
@@ -121,5 +108,4 @@
             </div>
         </form>
     </div>
-    </body>
 {% endblock content%}
