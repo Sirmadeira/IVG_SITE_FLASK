@@ -6,19 +6,6 @@
             {{ form.hidden_tag() }}
             <fieldset class = 'form-group'>
                     <div class= "form-group">
-                        {{form.Marca.label(class="form-control-label") }}
-                        <script>
-                            $(function() {
-                                $.ajax({
-                                    url: '{{ url_for("autocomplete") }}'
-                                    }).done(function (data){
-                                        $('#marca_autocomplete').autocomplete({
-                                            source: data,
-                                            minLength: 2
-                                        });
-                                    });
-                                });
-                        </script>
                         {% if form.Marca.errors %}
                             {{ form.Marca(class="form-control form-control-lg is-invalid")}}
                             <div class = "invalid-feedback">
