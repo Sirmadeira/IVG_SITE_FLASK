@@ -160,7 +160,7 @@ class ResetSenha(FlaskForm):
 
 class DadosEssenciais(FlaskForm):
 
-     MarcasGarantia = ("Acura", "Agrale","Alfo Romeo","Am Gen","Asia motors","ASTON MARTIN","Audi","Baby","BMW",
+    MarcasGarantia = ("Acura", "Agrale","Alfo Romeo","Am Gen","Asia motors","ASTON MARTIN","Audi","Baby","BMW",
     "BRM","BUGRE","Cadillac","CBT Jipe","CHANA","CHANGAN","CHERY","Chrysler","Citroën",
     "Cross Lander","Daewoo","Daihatsu","Dodge","EFFA","Engesa","Envemo","Ferrari","Fiat",
     "Fibravan","Ford","FOTON","Fyber","GEELY","GM CHEVROLET","GREAT WALL","Gurgel","HAFEI",
@@ -202,6 +202,7 @@ class DadosEssenciais(FlaskForm):
 @login_manager.user_loader
 def load_user(Usuario_id):
     return UsuarioDB.query.get(int(Usuario_id))
+
 
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/Login", methods=['GET', 'POST'])
@@ -266,7 +267,9 @@ def SegundaJanela():
 
 @app.route("/TerceiraJanela")
 def TerceiraJanela():
-	return render_template("TerceiraJanela.html", title = "TerceiraJanela")
+    TabelaTitulo = ("Marca", "Modelo", "Ano", "Quilometragem" , "Preço" , "Cor" , "Local"  )
+
+    return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(nome_id = current_user.NomeDaEmpresaDB).all())
 
 @app.route("/Contato")
 def Contato():

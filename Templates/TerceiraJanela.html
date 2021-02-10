@@ -1,4 +1,44 @@
 {% extends "Layout.html" %}
 {% block content %}
-<h1> HTML CODE </h1>
+<table class= 'table table-dark'>
+	<thead>
+		<tr>
+			{% for cabeca in TabelaTitulo %}
+				<th scope= 'col'> {{ cabeca }}</th>
+			{% endfor %}
+		</tr>
+	</thead>
+	<tbody>
+		<tr>	
+			{% for Dado in Query %}
+			<td>
+				{{Dado.MarcaDB}}
+			</td>
+			<td>
+				{{Dado.ModeloDB}}
+			</td>
+			<td>
+				{{Dado.AnoDB}}
+			</td>
+			<td>
+				{{Dado.QuilometragemDB}}
+			</td>
+			<td>
+				{{Dado.PrecoDB}}
+			</td>
+			<td>
+				{{Dado.CorDB}}
+			</td>
+			<td>
+				{{Dado.LocalidadeDB}}
+			</td>
+		</tr>
+		{% endfor %}
+		<td>
+			Ultimo dado inserido. ↟ 
+		</td>
+    </tbody>
+</table>
+
+
 {% endblock content%}

@@ -6,6 +6,7 @@
             {{ form.hidden_tag() }}
             <fieldset class = 'form-group'>
                     <div class= "form-group">
+                        {{form.Marca.label(class="form-control-label") }}
                         {% if form.Marca.errors %}
                             {{ form.Marca(class="form-control form-control-lg is-invalid")}}
                             <div class = "invalid-feedback">
