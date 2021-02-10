@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, url_for, flash, redirect, request, Response, json
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import desc
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required,UserMixin
 from flask_wtf  import FlaskForm
@@ -176,7 +177,7 @@ class DadosEssenciais(FlaskForm):
                     "Rosa","Roxo","Verde","Vermelho","Vinho")
     
     Marca = StringField('Marca',id= "marca_autocomplete:",
-                        validators=[InputRequired(message='Favor inserir uma Marca valida'), AnyOf(MarcasGarantia, message= MarcasGarantia)])
+                        validators=[InputRequired(message='Favor inserir uma Marca valida'), AnyOf(MarcasGarantia, message= " Essas são as marcas disponiveis:(Favor escrever de acordo com o mostrado) Acura/Agrale/Alfo Romeo/Am Gen/Asia motors/ASTON MARTIN/Audi/Baby/BMW/BRM/BUGRE/Cadillac/CBT Jipe/CHANA/CHANGAN/CHERY/Chrysler/Citroën/Cross Lander/Daewoo/Daihatsu/Dodge/EFFA/Engesa/Envemo/Ferrari/Fiat/Fibravan/Ford/FOTON/Fyber/GEELY/GM CHEVROLET/GREAT WALL/Gurgel/HAFEI/HITECH ELECTRIC/HONDA/HYUNDAY/ISUZU/IVECO/JAC/Jaguar/Jeep/JINBEI/JPX/Kia Motors/Lada/Lamborghini/Land Rover/Lexus/LIFAN/LOBINI/Lotus/Mahindra/Maserati/Matra/Mazda/Mclaren/Mercedez-Benz/Mercury/MG/MINI/Mitsubishi/Miura/Nissan/Peugeot/Plymouth/Pontiac/Porsche/RAM/RELY/Renault/Rolls-Royce/Rover/Saab/Saturn/Seat/SHINERAY/smart/SSANGYONG/Subaru/Suzuki/TAC/Toyota/Troller/Volvo/VW-VOLKSWAGEN/Wake/Walk" )])
     
     Modelo = StringField('Modelo',
                         validators=[InputRequired(message='Favor inserir um modelo valido')])
@@ -269,7 +270,7 @@ def SegundaJanela():
 def TerceiraJanela():
     TabelaTitulo = ("Marca", "Modelo", "Ano", "Quilometragem" , "Preço" , "Cor" , "Local"  )
 
-    return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(nome_id = current_user.NomeDaEmpresaDB).all())
+    return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(nome_id = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all())
 
 @app.route("/Contato")
 def Contato():
