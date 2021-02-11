@@ -1,0 +1,135 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  background: #fafafa;
+  color: #333333;
+  margin-top: 5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
+
+.logo{
+  position: absolute;
+  height: 130px;
+width: auto;
+padding: 0 10px;
+margin: -65px -50px;
+}
+
+.site-header .bg-steel {
+  background: #141414;
+}
+
+.site-header .navbar-nav .nav-link .after{
+   margin: 0px 10px 0px 0px;
+   padding: 0;
+}
+div.navbar-nav {
+   margin: auto auto auto auto;
+   height: auto;
+   padding: 0;
+
+}
+.site-header .navbar-nav .nav-link {
+  color: #cbd5db;
+ list-style: none;
+    text-decoration: none;
+   font-size: 11px;
+   letter-spacing: 2px;
+ margin: -5px 50px;
+ padding: 20px 0px;
+     text-transform: uppercase;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+.account-heading {
+  font-size: 2.5rem;
+}
+
+main .container-fluid{
+  padding: 0px 0;
+  margin: -30px 0;
+}
+
+.container-fluid .algoritmo{
+  position: relative;   
+      background-attachment: fixed;            
+       height: auto;
+       width: 100%;
+}
+.no-gutters{
+  margin-right: 0px;
+  margin-left: 0;
+}
+.col{
+    padding-right: 0;
+    padding-left: 0;
+}
+footer{
+margin: 0;
+padding: 0;
+}
+
+.redesocial{
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 5px;
+  height: 70px;
+  width: auto;
+}
+
+.redesocial2{
+  margin-top: 15px;
+  margin-right: 10px;
+  padding: 5px;
+  height: 61px;
+  width: auto;
+}
+.carousel{
+margin: -25px 0;
+color: white;
+letter-spacing: 2px;
+}
+.carousel-item{
+  padding: 0px;
+  margin: 0px 0;
+color: white;
+letter-spacing: 2px;
+   top: 0px;
+  margin: 0px;
+  position: relative;
+  background-size: cover;
+
+
+}
+.overlay-image{
+  height: 300px;
+  margin: 0;
+  padding: 0;
+  background-position: center;
+
+}
+.texto-news{
+  margin: 0px;
+  padding: 70px;
+}
