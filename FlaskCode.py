@@ -245,13 +245,6 @@ def HomePage():
 def Sobre():
 	return render_template("Sobre.html", title = "Sobre")
 
-@app.route('/_autocomplete', methods=['GET'])
-def autocomplete():
-    marca = ["Acura",
-            "VW-VOLKSWAGEN"]
-    print(marca)    
-    return Response(json.dumps(marca), mimetype='application/json')
-
 @app.route("/SegundaJanela", methods=['GET', 'POST'])
 @login_required
 def SegundaJanela():
