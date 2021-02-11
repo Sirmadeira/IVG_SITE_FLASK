@@ -186,10 +186,10 @@ class DadosEssenciais(FlaskForm):
                         validators=[NumberRange(min= 1960, max=2021, message = 'Somente por carros acima do ano 1960')])
 
     Quilometragem = IntegerField('Quilometragem',
-                        validators=[NumberRange(min=0, max=10000000000)])
+                        validators=[NumberRange(min=0, max=9999999, message= 'Kilometragem tem que estar entre 0 e 99999999 ')])
 
     Preco = IntegerField('Preço',
-                        validators=[NumberRange(min=1000, max=10000000000, message = 'Somente por vendas acima de mil reais.')])
+                        validators=[NumberRange(min=1000, max=9999999, message = 'Somente por vendas acima de mil reais.')])
 
     Cor = StringField('Favor inserir a cor do carro',
                         validators=[InputRequired(message= 'Favor inserir cor do carro'), AnyOf(CoresGarantia, message= 'Favor inserir a cor com a primeira letra maiúscula, caso a cor não seja aceita e porque ela é muito atípica, favor inserir indefinida no campo nesse caso')])
