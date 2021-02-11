@@ -106,3 +106,31 @@ padding: 0;
   height: 61px;
   width: auto;
 }
+.carousel{
+margin: -25px 0;
+color: white;
+letter-spacing: 2px;
+}
+.carousel-item{
+  padding: 0px;
+  margin: 0px 0;
+color: white;
+letter-spacing: 2px;
+   top: 0px;
+  margin: 0px;
+  position: relative;
+  background-size: cover;
+
+
+}
+.overlay-image{
+  height: 300px;
+  margin: 0;
+  padding: 0;
+  background-position: center;
+
+}
+.texto-news{
+  margin: 0px;
+  padding: 70px;
+}
