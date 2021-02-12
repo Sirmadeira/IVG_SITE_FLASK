@@ -9,7 +9,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, Integ
 from wtforms.validators import InputRequired, Length, EqualTo ,Email, ValidationError, NumberRange, AnyOf, Regexp
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Mail, Message
-
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
@@ -292,11 +292,12 @@ def ContaEmpresa():
 def enviar_email_reset(user):
     token = user.get_reset_token()
     msg = Message('Reset de senha',sender='ivgnoreply@gmail.com', recipients= [user.EmailDB])
+    msg.subject= 'PEDIDO DE RESET ACEITO, BIP BOP' 
     msg.body =   f''' Para resetar sua senha, visite o link a seguir:
+Se você não fez esse pedido então simplesmente ignore esse E-mail. 
+Caso você o tenha feito então só clicar no link abaixo
 {url_for('Reset_token', token= token, _external= True)}
-
-Se você não fez esse pedido então simplesmente ignore esse E-mail 
-
+Caso você tenha problemas favor nos contatar por (contatos)
 
 '''
     mail.send(msg)
