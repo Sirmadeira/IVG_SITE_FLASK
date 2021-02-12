@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, url_for, flash, redirect, request, Response, json
+from flask import Flask, render_template, url_for, flash, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc
 from flask_bcrypt import Bcrypt
@@ -22,8 +22,8 @@ login_manager.login_message_category = "info"
 app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = '587'
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = os.environ.get('EMAIL_USER')
-app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
+app.config['MAIL_USERNAME'] = 'ivgnoreply@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Jacamole1'
 mail= Mail(app)
 
 
@@ -49,7 +49,7 @@ class UsuarioDB(db.Model,UserMixin):
             user_id = s.loads(token)['Usuario_id']
         except:
             return None
-        return UsuarioDB.query.get()
+        return UsuarioDB.query.get(user_id)
 
     def __repr__(self):
         return f"User('{self.UsernameDB}', '{self.EmailDB}')"
@@ -148,12 +148,13 @@ class RequisitarReset(FlaskForm):
         if user is None:
             raise ValidationError('Não existe conta com esse E-mail.')
 
-class ResetSenha(FlaskForm):
+class ResetSenhaForm(FlaskForm):
+
     Senha= PasswordField('Senha',
                     validators=[InputRequired('Favor inserir nova senha'),Length(min=5,max=20,message=' Senha tem que ter entre 5 e 20 caracteres')])
 
     ConfirmarSenha= PasswordField('Confirme Senha',
-                    validators=[InputRequired('Favor confirmar senha'),Length(min=5,max=20,message='Senha tem que ter entre 5 e 20 caracteres'), EqualTo('Senha', message= 'Tem que ser igual a senha')])
+                    validators=[InputRequired('Favor confirmar senha'), EqualTo('Senha', message= 'Tem que ser igual a senha')])
 
     Confirma=SubmitField('Resetar senha')
 
@@ -262,7 +263,9 @@ def SegundaJanela():
 @app.route("/TerceiraJanela")
 def TerceiraJanela():
     TabelaTitulo = ("Marca", "Modelo", "Ano", "Quilometragem" , "Preço" , "Cor" , "Local"  )
-
+    verificante= Dado.query.filter_by(nome_id = current_user.NomeDaEmpresaDB).first()
+    if verificante is None:
+      return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela")
     return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(nome_id = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all())
 
 @app.route("/Contato")
@@ -293,8 +296,8 @@ def ContaEmpresa():
 
 def enviar_email_reset(user): # LEMBRAR DE CRIAR EMAIL NOREPLY
     token = user.get_reset_token()
-    msg = Message('Reset de senha',sender='IVGDONTREPLY@outlook.com', recipients= [user.EmailDB])
-    msg.body = f''' Para resetar sua senha, visite o link a seguir:
+    msg = Message('Reset de senha',sender='ivgnoreply@gmail.com', recipients= [user.EmailDB])
+    msg.body =   f''' Para resetar sua senha, visite o link a seguir:
 {url_for('Reset_token', token= token, _external= True)}
 
 Se você não fez esse pedido então simplesmente ignore esse E-mail   
@@ -318,18 +321,20 @@ def ResetSenha():
 def Reset_token(token):
     if current_user.is_authenticated: 
         return redirect(url_for('HomePage'))
-    user =UsuarioDB.verify_reset_token(token)
+
+    user=UsuarioDB.verify_reset_token(token)
+
+    if user is None:
+        flash(' Esse token não é mais valído', ' warning')
+        return redirect(url_for('ResetSenha'))
+
+    form = ResetSenhaForm()
     if form.validate_on_submit():
         senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
         user.Senha= senha_hashed
         db.session.commit()
         flash(f'Sua senha foi resetada!', 'success')
         return redirect(url_for('Login'))
-    if user is None:
-        flash(' Esse token não é mais valído', ' warning')
-        return redirect(url_for('ResetSenha'))
-    form = ResetSenha()
-
     return render_template('ResetToken.html', title = 'Resetar senha',form = form)
 
 if __name__ == "__main__":
