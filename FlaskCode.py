@@ -294,13 +294,15 @@ def ContaEmpresa():
     return render_template('ContaEmpresa.html', title= 'ContaEmpresa', form=form)
 
 
-def enviar_email_reset(user): # LEMBRAR DE CRIAR EMAIL NOREPLY
+def enviar_email_reset(user):
     token = user.get_reset_token()
     msg = Message('Reset de senha',sender='ivgnoreply@gmail.com', recipients= [user.EmailDB])
     msg.body =   f''' Para resetar sua senha, visite o link a seguir:
 {url_for('Reset_token', token= token, _external= True)}
 
-Se você não fez esse pedido então simplesmente ignore esse E-mail   
+Se você não fez esse pedido então simplesmente ignore esse E-mail 
+
+  
 '''
     mail.send(msg)
 
@@ -321,13 +323,10 @@ def ResetSenha():
 def Reset_token(token):
     if current_user.is_authenticated: 
         return redirect(url_for('HomePage'))
-
     user=UsuarioDB.verify_reset_token(token)
-
     if user is None:
         flash(' Esse token não é mais valído', ' warning')
         return redirect(url_for('ResetSenha'))
-
     form = ResetSenhaForm()
     if form.validate_on_submit():
         senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
