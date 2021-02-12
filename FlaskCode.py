@@ -9,7 +9,6 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, Integ
 from wtforms.validators import InputRequired, Length, EqualTo ,Email, ValidationError, NumberRange, AnyOf, Regexp
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Mail, Message
-from datetime import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
@@ -180,7 +179,7 @@ class DadosEssenciais(FlaskForm):
     Marca = StringField('Marca',id= "marca_autocomplete:",
                         validators=[InputRequired(message='Favor inserir uma Marca valida'), AnyOf(MarcasGarantia, message= " Essas são as marcas disponiveis:(Favor escrever de acordo com o mostrado) Acura/Agrale/Alfo Romeo/Am Gen/Asia motors/ASTON MARTIN/Audi/Baby/BMW/BRM/BUGRE/Cadillac/CBT Jipe/CHANA/CHANGAN/CHERY/Chrysler/Citroën/Cross Lander/Daewoo/Daihatsu/Dodge/EFFA/Engesa/Envemo/Ferrari/Fiat/Fibravan/Ford/FOTON/Fyber/GEELY/GM CHEVROLET/GREAT WALL/Gurgel/HAFEI/HITECH ELECTRIC/HONDA/HYUNDAY/ISUZU/IVECO/JAC/Jaguar/Jeep/JINBEI/JPX/Kia Motors/Lada/Lamborghini/Land Rover/Lexus/LIFAN/LOBINI/Lotus/Mahindra/Maserati/Matra/Mazda/Mclaren/Mercedez-Benz/Mercury/MG/MINI/Mitsubishi/Miura/Nissan/Peugeot/Plymouth/Pontiac/Porsche/RAM/RELY/Renault/Rolls-Royce/Rover/Saab/Saturn/Seat/SHINERAY/smart/SSANGYONG/Subaru/Suzuki/TAC/Toyota/Troller/Volvo/VW-VOLKSWAGEN/Wake/Walk" )])
     
-    Modelo = StringField('Modelo',
+    Modelo = StringField('Modelo (Dentro do RENAVAN logo depois de marca)',
                         validators=[InputRequired(message='Favor inserir um modelo valido')])
 
     Ano = IntegerField('Ano',
@@ -291,14 +290,12 @@ def ContaEmpresa():
 
 def enviar_email_reset(user):
     token = user.get_reset_token()
-    msg = Message('Reset de senha',sender='ivgnoreply@gmail.com', recipients= [user.EmailDB])
-    msg.subject= 'PEDIDO DE RESET ACEITO, BIP BOP' 
+    msg = Message('Reset de Email',sender='ivgnoreply@gmail.com', recipients= [user.EmailDB])
     msg.body =   f''' Para resetar sua senha, visite o link a seguir:
 Se você não fez esse pedido então simplesmente ignore esse E-mail. 
 Caso você o tenha feito então só clicar no link abaixo
 {url_for('Reset_token', token= token, _external= True)}
 Caso você tenha problemas favor nos contatar por (contatos)
-
 '''
     mail.send(msg)
 
