@@ -172,7 +172,7 @@ class DadosEssenciais(FlaskForm):
     "Nissan","Peugeot","Plymouth","Pontiac","Porsche","RAM","RELY","Renault","Rolls-Royce","Rover",
     "Saab","Saturn","Seat","SHINERAY","smart","SSANGYONG","Subaru","Suzuki","TAC","Toyota","Troller","Volvo","VW-VOLKSWAGEN","Wake","Walk")
 
-    Localidades= ("Limeira", "Piracicaba")
+    Localidades= ("Limeira", "Piracicaba","limeira", "piracicaba")
 
     CoresGarantia = ("Amarelo","Azul","Bege","Branco","Bronze","Cinza","Dourado","Indefinida","Laranja","Marrom","Prata","Preto",
                     "Rosa","Roxo","Verde","Vermelho","Vinho")
@@ -187,10 +187,10 @@ class DadosEssenciais(FlaskForm):
                         validators=[NumberRange(min= 1960, max=2021, message = 'Somente por carros acima do ano 1960')])
 
     Quilometragem = IntegerField('Quilometragem',
-                        validators=[NumberRange(min=0, max=10000000000)])
+                        validators=[NumberRange(min=0, max=9999999, message= "Não existe km negativa ou essa km e muita alta")])
 
     Preco = IntegerField('Preço',
-                        validators=[NumberRange(min=1000, max=10000000000, message = 'Somente por vendas acima de mil reais.')])
+                        validators=[NumberRange(min=1000, max=9999999, message = 'Somente por vendas acima de mil reais.')])
 
     Cor = StringField('Favor inserir a cor do carro',
                         validators=[InputRequired(message= 'Favor inserir cor do carro'), AnyOf(CoresGarantia, message= 'Favor inserir a cor com a primeira letra maiúscula, caso a cor não seja aceita e porque ela é muito atípica, favor inserir indefinida no campo nesse caso')])
@@ -268,11 +268,6 @@ def TerceiraJanela():
       return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela")
     return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(nome_id = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all())
 
-@app.route("/Contato")
-def Contato():
-	return render_template("Contato.html", title = "Contato")
-
-
 @app.route("/Logout")
 def Logout():
     logout_user()
@@ -302,7 +297,7 @@ def enviar_email_reset(user):
 
 Se você não fez esse pedido então simplesmente ignore esse E-mail 
 
-  
+
 '''
     mail.send(msg)
 
