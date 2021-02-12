@@ -151,7 +151,7 @@ class RequisitarReset(FlaskForm):
 class ResetSenhaForm(FlaskForm):
 
     Senha= PasswordField('Senha',
-                    validators=[InputRequired('Favor inserir nova senha'),Length(min=5,max=20,message=' Senha tem que ter entre 5 e 20 caracteres')])
+                    validators=[InputRequired(message= 'Insira uma senha'),Regexp('^(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\d\W])|(?=.*\W)(?=.*\d))|(?=.*\W)(?=.*[A-Z])(?=.*\d)).{8,}$', message= 'Sua senha precisa ter 8 caracteres e pelo menos obedecer 3 das 4 condições, ter letra maiúscula minúscula, ter número e/ou caracteres especiais.')])
 
     ConfirmarSenha= PasswordField('Confirme Senha',
                     validators=[InputRequired('Favor confirmar senha'), EqualTo('Senha', message= 'Tem que ser igual a senha')])
