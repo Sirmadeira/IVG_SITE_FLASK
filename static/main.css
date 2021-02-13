@@ -16,10 +16,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .logo{
   position: absolute;
-  height: 130px;
+  height: 180px;
 width: auto;
 padding: 0 10px;
-margin: -65px -50px;
+margin: -90px -50px;
 }
 
 .site-header .bg-steel {
@@ -40,7 +40,7 @@ div.navbar-nav {
   color: #cbd5db;
  list-style: none;
     text-decoration: none;
-   font-size: 11px;
+   font-size: 14px;
    letter-spacing: 2px;
  margin: -5px 50px;
  padding: 20px 0px;
@@ -72,7 +72,8 @@ main .container-fluid{
 }
 
 .container-fluid .algoritmo{
-  position: relative;   
+  position: relative;
+      padding: 0px 0;
       background-attachment: fixed;            
        height: auto;
        width: 100%;
@@ -84,6 +85,7 @@ main .container-fluid{
 .col{
     padding-right: 0;
     padding-left: 0;
+    margin: auto;
 }
 footer{
 margin: 0;
@@ -97,7 +99,6 @@ padding: 0;
   height: 70px;
   width: auto;
 }
-
 .redesocial2{
   margin-top: 15px;
   margin-right: 10px;
@@ -106,30 +107,25 @@ padding: 0;
   width: auto;
 }
 .carousel{
-margin: -25px 0;
-color: white;
-letter-spacing: 2px;
+  margin: -50px 0 0px;
 }
 .carousel-item{
-  padding: 0px;
+height: 300px;
+width: 100%;
+}
+.d-block .w-100{
+}
+.carousel-caption{
   margin: 0px 0;
-color: white;
-letter-spacing: 2px;
-   top: 0px;
-  margin: 0px;
-  position: relative;
-  background-size: cover;
-
-
+  padding: 0px;
+  color: white;
 }
-.overlay-image{
-  height: 300px;
-  margin: 0;
+.icone{
+  height: 100px;
+  margin: 30px 50px;
+  width: auto;
+}
+.col{
+  margin: 0 auto;
   padding: 0;
-  background-position: center;
-
-}
-.texto-news{
-  margin: 0px;
-  padding: 70px;
 }
