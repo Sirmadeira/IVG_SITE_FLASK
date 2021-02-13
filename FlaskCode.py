@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, url_for, flash, redirect, request, Response, json
+from flask import Flask, render_template, url_for, flash, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc
 from flask_bcrypt import Bcrypt
@@ -9,7 +9,6 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, Integ
 from wtforms.validators import InputRequired, Length, EqualTo ,Email, ValidationError, NumberRange, AnyOf, Regexp
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Mail, Message
-
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
@@ -22,8 +21,8 @@ login_manager.login_message_category = "info"
 app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = '587'
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = os.environ.get('EMAIL_USER')
-app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
+app.config['MAIL_USERNAME'] = 'ivgnoreply@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Jacamole1'
 mail= Mail(app)
 
 
@@ -49,7 +48,7 @@ class UsuarioDB(db.Model,UserMixin):
             user_id = s.loads(token)['Usuario_id']
         except:
             return None
-        return UsuarioDB.query.get()
+        return UsuarioDB.query.get(user_id)
 
     def __repr__(self):
         return f"User('{self.UsernameDB}', '{self.EmailDB}')"
@@ -148,12 +147,13 @@ class RequisitarReset(FlaskForm):
         if user is None:
             raise ValidationError('Não existe conta com esse E-mail.')
 
-class ResetSenha(FlaskForm):
+class ResetSenhaForm(FlaskForm):
+
     Senha= PasswordField('Senha',
-                    validators=[InputRequired('Favor inserir nova senha'),Length(min=5,max=20,message=' Senha tem que ter entre 5 e 20 caracteres')])
+                    validators=[InputRequired(message= 'Insira uma senha'),Regexp('^(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\d\W])|(?=.*\W)(?=.*\d))|(?=.*\W)(?=.*[A-Z])(?=.*\d)).{8,}$', message= 'Sua senha precisa ter 8 caracteres e pelo menos obedecer 3 das 4 condições, ter letra maiúscula minúscula, ter número e/ou caracteres especiais.')])
 
     ConfirmarSenha= PasswordField('Confirme Senha',
-                    validators=[InputRequired('Favor confirmar senha'),Length(min=5,max=20,message='Senha tem que ter entre 5 e 20 caracteres'), EqualTo('Senha', message= 'Tem que ser igual a senha')])
+                    validators=[InputRequired('Favor confirmar senha'), EqualTo('Senha', message= 'Tem que ser igual a senha')])
 
     Confirma=SubmitField('Resetar senha')
 
@@ -171,7 +171,7 @@ class DadosEssenciais(FlaskForm):
     "Nissan","Peugeot","Plymouth","Pontiac","Porsche","RAM","RELY","Renault","Rolls-Royce","Rover",
     "Saab","Saturn","Seat","SHINERAY","smart","SSANGYONG","Subaru","Suzuki","TAC","Toyota","Troller","Volvo","VW-VOLKSWAGEN","Wake","Walk")
 
-    Localidades= ("Limeira", "Piracicaba")
+    Localidades= ("Limeira", "Piracicaba","limeira", "piracicaba")
 
     CoresGarantia = ("Amarelo","Azul","Bege","Branco","Bronze","Cinza","Dourado","Indefinida","Laranja","Marrom","Prata","Preto",
                     "Rosa","Roxo","Verde","Vermelho","Vinho")
@@ -179,17 +179,17 @@ class DadosEssenciais(FlaskForm):
     Marca = StringField('Marca',id= "marca_autocomplete:",
                         validators=[InputRequired(message='Favor inserir uma Marca valida'), AnyOf(MarcasGarantia, message= " Essas são as marcas disponiveis:(Favor escrever de acordo com o mostrado) Acura/Agrale/Alfo Romeo/Am Gen/Asia motors/ASTON MARTIN/Audi/Baby/BMW/BRM/BUGRE/Cadillac/CBT Jipe/CHANA/CHANGAN/CHERY/Chrysler/Citroën/Cross Lander/Daewoo/Daihatsu/Dodge/EFFA/Engesa/Envemo/Ferrari/Fiat/Fibravan/Ford/FOTON/Fyber/GEELY/GM CHEVROLET/GREAT WALL/Gurgel/HAFEI/HITECH ELECTRIC/HONDA/HYUNDAY/ISUZU/IVECO/JAC/Jaguar/Jeep/JINBEI/JPX/Kia Motors/Lada/Lamborghini/Land Rover/Lexus/LIFAN/LOBINI/Lotus/Mahindra/Maserati/Matra/Mazda/Mclaren/Mercedez-Benz/Mercury/MG/MINI/Mitsubishi/Miura/Nissan/Peugeot/Plymouth/Pontiac/Porsche/RAM/RELY/Renault/Rolls-Royce/Rover/Saab/Saturn/Seat/SHINERAY/smart/SSANGYONG/Subaru/Suzuki/TAC/Toyota/Troller/Volvo/VW-VOLKSWAGEN/Wake/Walk" )])
     
-    Modelo = StringField('Modelo',
+    Modelo = StringField('Modelo (Dentro do RENAVAN logo depois de marca)',
                         validators=[InputRequired(message='Favor inserir um modelo valido')])
 
     Ano = IntegerField('Ano',
                         validators=[NumberRange(min= 1960, max=2021, message = 'Somente por carros acima do ano 1960')])
 
     Quilometragem = IntegerField('Quilometragem',
-                        validators=[NumberRange(min=0, max=10000000000)])
+                        validators=[NumberRange(min=0, max=9999999, message= "Não existe km negativa ou essa km e muita alta")])
 
     Preco = IntegerField('Preço',
-                        validators=[NumberRange(min=1000, max=10000000000, message = 'Somente por vendas acima de mil reais.')])
+                        validators=[NumberRange(min=1000, max=9999999, message = 'Somente por vendas acima de mil reais.')])
 
     Cor = StringField('Favor inserir a cor do carro',
                         validators=[InputRequired(message= 'Favor inserir cor do carro'), AnyOf(CoresGarantia, message= 'Favor inserir a cor com a primeira letra maiúscula, caso a cor não seja aceita e porque ela é muito atípica, favor inserir indefinida no campo nesse caso')])
@@ -262,13 +262,10 @@ def SegundaJanela():
 @app.route("/TerceiraJanela")
 def TerceiraJanela():
     TabelaTitulo = ("Marca", "Modelo", "Ano", "Quilometragem" , "Preço" , "Cor" , "Local"  )
-
+    verificante= Dado.query.filter_by(nome_id = current_user.NomeDaEmpresaDB).first()
+    if verificante is None:
+      return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela")
     return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(nome_id = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all())
-
-@app.route("/Contato")
-def Contato():
-	return render_template("Contato.html", title = "Contato")
-
 
 @app.route("/Logout")
 def Logout():
@@ -291,13 +288,14 @@ def ContaEmpresa():
     return render_template('ContaEmpresa.html', title= 'ContaEmpresa', form=form)
 
 
-def enviar_email_reset(user): # LEMBRAR DE CRIAR EMAIL NOREPLY
+def enviar_email_reset(user):
     token = user.get_reset_token()
-    msg = Message('Reset de senha',sender='IVGDONTREPLY@outlook.com', recipients= [user.EmailDB])
-    msg.body = f''' Para resetar sua senha, visite o link a seguir:
+    msg = Message('Reset de Email',sender='ivgnoreply@gmail.com', recipients= [user.EmailDB])
+    msg.body =   f''' Para resetar sua senha, visite o link a seguir:
+Se você não fez esse pedido então simplesmente ignore esse E-mail. 
+Caso você o tenha feito então só clicar no link abaixo
 {url_for('Reset_token', token= token, _external= True)}
-
-Se você não fez esse pedido então simplesmente ignore esse E-mail   
+Caso você tenha problemas favor nos contatar por (contatos)
 '''
     mail.send(msg)
 
@@ -318,18 +316,17 @@ def ResetSenha():
 def Reset_token(token):
     if current_user.is_authenticated: 
         return redirect(url_for('HomePage'))
-    user =UsuarioDB.verify_reset_token(token)
+    user=UsuarioDB.verify_reset_token(token)
+    if user is None:
+        flash(' Esse token não é mais valído', ' warning')
+        return redirect(url_for('ResetSenha'))
+    form = ResetSenhaForm()
     if form.validate_on_submit():
         senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
         user.Senha= senha_hashed
         db.session.commit()
         flash(f'Sua senha foi resetada!', 'success')
         return redirect(url_for('Login'))
-    if user is None:
-        flash(' Esse token não é mais valído', ' warning')
-        return redirect(url_for('ResetSenha'))
-    form = ResetSenha()
-
     return render_template('ResetToken.html', title = 'Resetar senha',form = form)
 
 if __name__ == "__main__":
