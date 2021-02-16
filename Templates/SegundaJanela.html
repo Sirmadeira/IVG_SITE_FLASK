@@ -1,11 +1,12 @@
 {% extends "Layout.html" %}
 {% block content %}
 <body>
-    <div class= "content-section">
+    <div class="conteiner-fluid" style="background-image: url(static/imagens/porsche.jpg); background-size: cover; height: auto; margin: -35px auto -50px; padding: 50px 0;">
+    <div class= "content-section  mx-auto bg-dark" style="width: 450px; opacity: .9;">
         <form method = 'POST' action = ''>
             {{ form.hidden_tag() }}
             <fieldset class = 'form-group'>
-                    <div class= "form-group">
+                    <div class= "form-group mb-2">
                         {{form.Marca.label(class="form-control-label") }}
                         {% if form.Marca.errors %}
                             {{ form.Marca(class="form-control form-control-lg is-invalid")}}
@@ -18,7 +19,7 @@
                                 {{ form.Marca(class="form-control form-control-lg") }}
                         {% endif %}
                     </div>
-                <div class= "form-group">
+                <div class= "form-group mb-2">
                     {{form.Modelo.label(class="form-control-label") }}
                     {% if form.Modelo.errors %}
                         {{ form.Modelo(class="form-control form-control-lg is-invalid")}}
@@ -31,7 +32,7 @@
                             {{ form.Modelo(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class= "form-group">
+                <div class= "form-group mb-2">
                     {{form.Ano.label(class="form-control-label") }}
 
                     {% if form.Ano.errors %}
@@ -45,7 +46,7 @@
                             {{ form.Ano(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class= "form-group">
+                <div class= "form-group mb-2">
                     {{form.Quilometragem.label(class="form-control-label") }}
 
                     {% if form.Quilometragem.errors %}
@@ -60,7 +61,7 @@
                     {% endif %}
 
                 </div>
-                <div class= "form-group">
+                <div class= "form-group mb-2">
                     {{form.Preco.label(class="form-control-label") }}
 
                     {% if form.Preco.errors %}
@@ -74,7 +75,7 @@
                             {{ form.Preco(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class= "form-group">
+                <div class= "form-group mb-2">
                     {{form.Cor.label(class="form-control-label") }}
 
                     {% if form.Cor.errors %}
@@ -88,7 +89,7 @@
                             {{ form.Cor(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class= "form-group">
+                <div class= "form-group mb-4">
                     {{form.Localidade.label(class="form-control-label") }}
 
                     {% if form.Localidade.errors %}
@@ -108,5 +109,6 @@
             </div>
         </form>
     </div>
+</div>
 </body>
 {% endblock content%}
