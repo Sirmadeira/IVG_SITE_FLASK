@@ -1,11 +1,12 @@
 {% extends "Layout.html" %}
 {% block content %}
-	<div class= "content-section">
+<div class="conteiner-fluid" style="background-image: url(static/imagens/laptop.jpg); background-size: cover; height: auto; margin: -35px auto -50px; padding: 50px 0;">
+	<div class= "content-section mx-auto bg-dark" style="width: 350px; opacity: .9;">
 		<form method = 'POST' action = ''>
 			{{ form.hidden_tag() }}
 			<fieldset class = 'form-group'>
 		 		<legend class="border-bottom mb-4"> Junte-se hoje</legend>
-				<div class= "form-group">
+				<div class= "form-group mb-2">
 					{{form.Usuario.label(class="form-control-label") }}
 					{% if form.Usuario.errors %}
 						{{ form.Usuario(class="form-control form-control-lg is-invalid")}}
@@ -18,7 +19,7 @@
 							{{ form.Usuario(class="form-control form-control-lg") }}
 					{% endif %}
 				</div>
-				<div class= "form-group">
+				<div class= "form-group mb-2">
 					{{form.NomeDaEmpresa.label(class="form-control-label") }}
 
 					{% if form.NomeDaEmpresa.errors %}
@@ -32,7 +33,7 @@
 							{{ form.NomeDaEmpresa(class="form-control form-control-lg") }}
 					{% endif %}
 				</div>
-				<div class= "form-group">
+				<div class= "form-group mb-2">
 					{{form.Email.label(class="form-control-label") }}
 
 					{% if form.Email.errors %}
@@ -46,7 +47,7 @@
 							{{ form.Email(class="form-control form-control-lg") }}
 					{% endif %}
 				</div>
-				<div class= "form-group">
+				<div class= "form-group mb-2">
 					{{form.Senha.label(class="form-control-label") }}
 
 					{% if form.Senha.errors %}
@@ -61,7 +62,7 @@
 					{% endif %}
 
 				</div>
-				<div class= "form-group">
+				<div class= "form-group mb-4">
 					{{form.ConfirmarSenha.label(class="form-control-label") }}
 
 					{% if form.ConfirmarSenha.errors %}
@@ -76,15 +77,15 @@
 					{% endif %}
 				</div>
 			</fieldset>
-			<div class= "form-group">
+			<div class= "form-group mb-4">
 					{{ form.Confirma(class= "btn btn-outline-info") }}
 			</div>
 		</form>
-	</div>
-	<div class = "border-top pt-3">
+		<div class = "border-top pt-3">
 		<small class = 'text muted'>
 			Já tem conta? <a class = 'ml-2' href="{{ url_for('Login')}}"> Clique aqui </a>
 		</small>
 	</div>
-
+	</div>
+</div>
 {% endblock content%}
