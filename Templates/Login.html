@@ -1,6 +1,7 @@
 {% extends "Layout.html" %}
 {% block content %}
-	<div class= "content-section">
+<div class="conteiner-fluid" style="background-image: url(static/imagens/laptop.jpg); background-size: cover; height: auto; margin: -35px auto -50px; padding: 50px 0;">
+	<div class= "content-section mx-auto bg-dark" style="width: 350px; opacity: .9;">
 		<form method = 'POST' action = ''>
 			{{ form.hidden_tag() }}
 			<fieldset class = 'form-group'>
@@ -58,11 +59,12 @@
 					</small>
 			</div>
 		</form>
-	</div>
-	<div class = "border-top pt-3">
+	<div class = "border-top pt-3 mt-2">
 		<small class = 'text muted'>
 			Não tem conta? <a class = "ml-2" href="{{ url_for('Cadastro') }}"> Inscreva-se</a>
 		</small> 
-	</div>
 
+	</div>
+	</div>
+</div>
 {% endblock content%}
