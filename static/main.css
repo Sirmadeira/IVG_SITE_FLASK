@@ -5,18 +5,21 @@
 
 
 body {
-  background-color: #141414;
-  color: white;
+  background: #fafafa;
+  color: #333333;
   margin-top: 5rem;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
 
 .logo{
-  position: relative;
-  height: 180px;
+  position: absolute;
+  height: 130px;
 width: auto;
 padding: 0 10px;
-margin: -70px 0px -70px -50px;
+margin: -65px -50px;
 }
 
 .site-header .bg-steel {
@@ -37,22 +40,21 @@ div.navbar-nav {
   color: #cbd5db;
  list-style: none;
     text-decoration: none;
-   font-size: 14px;
+   font-size: 11px;
    letter-spacing: 2px;
- margin: auto 40px;
- padding: 20px auto;
+ margin: -5px 50px;
+ padding: 20px 0px;
      text-transform: uppercase;
-  text-shadow: 0px 0px 5px rgba(250,250,250, .5);
-   outline: 0 none;
 }
+
 .site-header .navbar-nav .nav-link:hover {
-  color: rgba(82,168,236,.8);
+  color: #ffffff;
 }
-  text-shadow: 0px 0px 5px rgba(82,168,236,.8);
-}
+
 .site-header .navbar-nav .nav-link.active {
   font-weight: 500;
 }
+
 .content-section {
   background: #ffffff;
   padding: 10px 20px;
@@ -70,8 +72,7 @@ main .container-fluid{
 }
 
 .container-fluid .algoritmo{
-  position: relative;
-      padding: 0px 0;
+  position: relative;   
       background-attachment: fixed;            
        height: auto;
        width: 100%;
@@ -83,7 +84,6 @@ main .container-fluid{
 .col{
     padding-right: 0;
     padding-left: 0;
-    margin: auto;
 }
 footer{
 margin: 0;
@@ -97,6 +97,7 @@ padding: 0;
   height: 70px;
   width: auto;
 }
+
 .redesocial2{
   margin-top: 15px;
   margin-right: 10px;
@@ -105,19 +106,13 @@ padding: 0;
   width: auto;
 }
 .carousel{
-  margin: -50px 0 0px;
+margin: -25px 0;
+color: white;
+letter-spacing: 2px;
 }
 .carousel-item{
-height: 250px;
-width: 100%;
-}
-.d-block .w-100{
-  position: center;
-  margin: 10px;
-}
-.carousel-caption{
-  margin: 0px 0;
   padding: 0px;
+
   color: white;
 }
 .icone{
@@ -134,15 +129,22 @@ width: 100%;
  height: 80px;
  margin: 40px 60px;
  width: auto;
+  margin: 0px 0;
+color: white;
+letter-spacing: 2px;
+   top: 0px;
+  margin: 0px;
+  position: relative;
+  background-size: cover;
 }
-.col{
+.overlay-image{
+  height: 300px;
   margin: 0;
   padding: 0;
+  background-position: center;
+
 }
-.form-control-lg{
-  font-size: 12px;
-  text-transform: uppercase;
+.texto-news{
+  margin: 0px;
+  padding: 70px;
 }
-@media and (min-width: 700.98px){
-.container .row{
-margin: 200px;
