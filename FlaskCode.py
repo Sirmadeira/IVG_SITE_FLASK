@@ -62,6 +62,8 @@ class Dado(db.Model):
     LocalidadeDB=db.Column(db.String(40),nullable= False)
     MarcaDB=db.Column(db.String(40),nullable= False)
     ModeloDB=db.Column(db.String(120),nullable= False)
+    VersaoDoMotorDB=db.Column(db.String(120),nullable= False)
+    TipoDeCombustivelDB=db.Column(db.String(120),nullable= False)
     AnoDB=db.Column(db.Integer,nullable= False)
     QuilometragemDB=db.Column(db.Integer)
     PrecoDB=db.Column(db.Integer,nullable= False)
@@ -181,12 +183,20 @@ class DadosEssenciais(FlaskForm):
 
     CoresGarantia = ("Amarelo","Azul","Bege","Branco","Bronze","Cinza","Dourado","Indefinida","Laranja","Marrom","Prata","Preto",
                     "Rosa","Roxo","Verde","Vermelho","Vinho")
+
+    Combustiveis= ('Gasolina','Etanol','GNV','Diesel','Flex')
     
     Marca = StringField('Marca',id= "marca_autocomplete:",
                         validators=[InputRequired(message='Favor inserir uma Marca valida'), AnyOf(MarcasGarantia, message= " Essas são as marcas disponiveis:(Favor escrever de acordo com o mostrado) Acura/Agrale/Alfo Romeo/Am Gen/Asia motors/ASTON MARTIN/Audi/Baby/BMW/BRM/BUGRE/Cadillac/CBT Jipe/CHANA/CHANGAN/CHERY/Chrysler/Citroën/Cross Lander/Daewoo/Daihatsu/Dodge/EFFA/Engesa/Envemo/Ferrari/Fiat/Fibravan/Ford/FOTON/Fyber/GEELY/GM CHEVROLET/GREAT WALL/Gurgel/HAFEI/HITECH ELECTRIC/HONDA/HYUNDAY/ISUZU/IVECO/JAC/Jaguar/Jeep/JINBEI/JPX/Kia Motors/Lada/Lamborghini/Land Rover/Lexus/LIFAN/LOBINI/Lotus/Mahindra/Maserati/Matra/Mazda/Mclaren/Mercedez-Benz/Mercury/MG/MINI/Mitsubishi/Miura/Nissan/Peugeot/Plymouth/Pontiac/Porsche/RAM/RELY/Renault/Rolls-Royce/Rover/Saab/Saturn/Seat/SHINERAY/smart/SSANGYONG/Subaru/Suzuki/TAC/Toyota/Troller/Volvo/VW-VOLKSWAGEN/Wake/Walk" )])
     
     Modelo = StringField('Modelo (Dentro do RENAVAN logo depois de marca)',
                         validators=[InputRequired(message='Favor inserir um modelo valido')])
+
+    VersaoDoMotor = StringField('Versão do motor, caso seja modificado inserir modificado. Caso original inserir de acordo, Versão 1.6 ',
+                        validators=[InputRequired(message='Favor inserir uma verão valida')])
+
+    TipoDeCombustivel = StringField('Tipo de combustível do carro',
+                        validators=[InputRequired(message='Favor inserir um modelo valido'), AnyOf(Combustiveis, message=' Favor inserir da seguinte maneira:(Gasolina/Etanol/GNV/Diesel/Flex)' )])
 
     Ano = IntegerField('Ano',
                         validators=[NumberRange(min= 1960, max=2021, message = 'Somente por carros acima do ano 1960')])
@@ -246,7 +256,8 @@ def Sobre():
 def SegundaJanela():
     form = DadosEssenciais(request.form)
     if form.validate_on_submit():
-        Info = Dado(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data, AnoDB= form.Ano.data,QuilometragemDB= form.Quilometragem.data,
+        Info = Dado(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data,VersaoDoMotorDB= form.VersaoDoMotor.data,TipoDeCombustivelDB= form.TipoDeCombustivel.data, 
+                    AnoDB= form.Ano.data,QuilometragemDB= form.Quilometragem.data,
                     PrecoDB= form.Preco.data, CorDB= form.Cor.data, 
                     LocalidadeDB= form.Localidade.data,NomeDaEmitente=current_user.NomeDaEmpresaDB,user_id= current_user.id)
         db.session.add(Info)

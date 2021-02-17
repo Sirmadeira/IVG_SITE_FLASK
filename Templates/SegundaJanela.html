@@ -32,6 +32,32 @@
                     {% endif %}
                 </div>
                 <div class= "form-group">
+                    {{form.VersaoDoMotor.label(class="form-control-label") }}
+                    {% if form.VersaoDoMotor.errors %}
+                        {{ form.VersaoDoMotor(class="form-control form-control-lg is-invalid")}}
+                        <div class = "invalid-feedback">
+                            {% for error in form.VersaoDoMotor.errors %}
+                                <span>  {{ error }} </span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                            {{ form.VersaoDoMotor(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class= "form-group">
+                    {{form.TipoDeCombustivel.label(class="form-control-label") }}
+                    {% if form.TipoDeCombustivel.errors %}
+                        {{ form.TipoDeCombustivel(class="form-control form-control-lg is-invalid")}}
+                        <div class = "invalid-feedback">
+                            {% for error in form.TipoDeCombustivel.errors %}
+                                <span>  {{ error }} </span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                            {{ form.TipoDeCombustivel(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class= "form-group">
                     {{form.Ano.label(class="form-control-label") }}
 
                     {% if form.Ano.errors %}
