@@ -141,6 +141,7 @@ width: 100%;
 }
 .form-control-lg{
   font-size: 12px;
+  text-transform: uppercase;
 }
 @media and (min-width: 700.98px){
 .container .row{
