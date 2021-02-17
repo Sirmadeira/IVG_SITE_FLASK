@@ -22,7 +22,7 @@ app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = '587'
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'ivgnoreply@gmail.com'
-app.config['MAIL_PASSWORD'] = 'Jacamole1'
+app.config['MAIL_PASSWORD'] = 'MO517364@@12'
 mail= Mail(app)
 
 
@@ -117,7 +117,7 @@ class FormularioDeLogin(FlaskForm):
 
 class AtualizarRegistro(FlaskForm):
     Usuario =StringField('Usuario', 
-                        validators = [InputRequired(message='Favor inserir o seu Usuário'),Length(min= 4, max=20,message='Favor manter o formato entre 4 e 20 caracteres')]) 
+                        validators = [InputRequired(message='Favor inserir o seu Usuário')]) 
 
     Email = StringField('Email',
                         validators=[InputRequired(message='Favor inserir o seu Email'), Email(message='Email em formato não aceitável')])   
@@ -137,6 +137,10 @@ class AtualizarRegistro(FlaskForm):
                 raise ValidationError('Esse email já existe por favor inserir novo')
 
 class RequisitarReset(FlaskForm):
+    Usuario =StringField('Usuario', 
+                        validators = [InputRequired(message='Favor inserir o seu Usuário')]) 
+
+
     Email = StringField('Email',
                         validators=[InputRequired(message='Favor inserir o seu Email'), Email(message='Email inválido')]) 
 
@@ -149,7 +153,7 @@ class RequisitarReset(FlaskForm):
 
 class ResetSenhaForm(FlaskForm):
 
-    Senha= PasswordField('Senha',
+    Senha= PasswordField('Nova senha',
                     validators=[InputRequired(message= 'Insira uma senha'),Regexp('^(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\d\W])|(?=.*\W)(?=.*\d))|(?=.*\W)(?=.*[A-Z])(?=.*\d)).{8,}$', message= 'Sua senha precisa ter 8 caracteres e pelo menos obedecer 3 das 4 condições, ter letra maiúscula minúscula, ter número e/ou caracteres especiais.')])
 
     ConfirmarSenha= PasswordField('Confirme Senha',
@@ -208,8 +212,6 @@ def load_user(Usuario_id):
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/Login", methods=['GET', 'POST'])
 def Login():
-    if current_user.is_authenticated: 
-        return redirect(url_for('HomePage'))
     form = FormularioDeLogin()
     if form.validate_on_submit():
         Usuario = UsuarioDB.query.filter_by(UsernameDB = form.Usuario.data).first()
@@ -224,8 +226,6 @@ def Login():
 
 @app.route("/Cadastro", methods=['GET', 'POST'])
 def Cadastro():
-    if current_user.is_authenticated:
-        return redirect(url_for('HomePage'))
     form = FormularioDeRegistro()
     if form.validate_on_submit():
     	senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
@@ -291,20 +291,24 @@ def ContaEmpresa():
 def enviar_email_reset(user):
     token = user.get_reset_token()
     msg = Message('Reset de Email',sender='ivgnoreply@gmail.com', recipients= [user.EmailDB])
-    msg.body =   f''' Para resetar sua senha, visite o link a seguir:
+    msg.body =   f''' 
+
+Para resetar sua senha, visite o link a seguir:
 Se você não fez esse pedido então simplesmente ignore esse E-mail. 
 Caso você o tenha feito então só clicar no link abaixo
+
 {url_for('Reset_token', token= token, _external= True)}
+
 Caso você tenha problemas favor nos contatar por (contatos)
+
 '''
     mail.send(msg)
 
 @app.route("/ResetSenha", methods=['GET', 'POST'])
 def ResetSenha():
-    if current_user.is_authenticated: 
-        return redirect(url_for('HomePage'))
     form = RequisitarReset()
     if form.validate_on_submit():
+        usuario= UsuarioDB.query.filter_by(UsernameDB= form.Usuario.data)
         user=UsuarioDB.query.filter_by(EmailDB= form.Email.data).first()  
         enviar_email_reset(user)
         flash(' Um email foi enviado com instruções.', 'info')  
