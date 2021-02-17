@@ -186,7 +186,7 @@ class DadosEssenciais(FlaskForm):
 
     Combustiveis= ('Gasolina','Etanol','GNV','Diesel','Flex')
     
-    Marca = StringField('Marca',id= "marca_autocomplete:",
+    Marca = StringField('Marca',
                         validators=[InputRequired(message='Favor inserir uma Marca valida'), AnyOf(MarcasGarantia, message= " Essas são as marcas disponiveis:(Favor escrever de acordo com o mostrado) Acura/Agrale/Alfo Romeo/Am Gen/Asia motors/ASTON MARTIN/Audi/Baby/BMW/BRM/BUGRE/Cadillac/CBT Jipe/CHANA/CHANGAN/CHERY/Chrysler/Citroën/Cross Lander/Daewoo/Daihatsu/Dodge/EFFA/Engesa/Envemo/Ferrari/Fiat/Fibravan/Ford/FOTON/Fyber/GEELY/GM CHEVROLET/GREAT WALL/Gurgel/HAFEI/HITECH ELECTRIC/HONDA/HYUNDAY/ISUZU/IVECO/JAC/Jaguar/Jeep/JINBEI/JPX/Kia Motors/Lada/Lamborghini/Land Rover/Lexus/LIFAN/LOBINI/Lotus/Mahindra/Maserati/Matra/Mazda/Mclaren/Mercedez-Benz/Mercury/MG/MINI/Mitsubishi/Miura/Nissan/Peugeot/Plymouth/Pontiac/Porsche/RAM/RELY/Renault/Rolls-Royce/Rover/Saab/Saturn/Seat/SHINERAY/smart/SSANGYONG/Subaru/Suzuki/TAC/Toyota/Troller/Volvo/VW-VOLKSWAGEN/Wake/Walk" )])
     
     Modelo = StringField('Modelo (Dentro do RENAVAN logo depois de marca)',
