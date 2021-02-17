@@ -22,13 +22,9 @@ app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = '587'
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'ivgnoreply@gmail.com'
-app.config['MAIL_PASSWORD'] = 'MO517364@@12'
+app.config['MAIL_PASSWORD'] = 'Jacamole1'
 mail= Mail(app)
 
-
-@login_manager.user_loader
-def load_user(user_id):
-    return UsuarioDB.query.get(int(user_id))
 
 
 class UsuarioDB(db.Model,UserMixin):
@@ -38,18 +34,18 @@ class UsuarioDB(db.Model,UserMixin):
     EmailDB = db.Column(db.String(40), unique=True, nullable=False)    
     PasswordDB = db.Column(db.String(120), nullable=False)
     NomeDaEmpresaDB= db.Column(db.String(30),unique= True,nullable= False)
-    Dados=db.relationship('Dado',backref= 'UsuarioDB',lazy= True)
+    Nomes=db.relationship('Dado',backref= 'UsuarioDB',lazy= True)
 
 
-    def get_reset_token(self, expires_sec=1800):
+    def get_reset_token(self,expires_sec=1800):
         s= Serializer(app.config['SECRET_KEY'],expires_sec)
-        return s.dumps({'user_id':self.id}).decode('utf-8')
+        return s.dumps({'Usuario_id':self.id}).decode('utf-8')
 
     @staticmethod
     def verify_reset_token(token):
         s= Serializer(app.config['SECRET_KEY'])
         try:
-            user_id = s.loads(token)['user_id']
+            user_id = s.loads(token)['Usuario_id']
         except:
             return None
         return UsuarioDB.query.get(user_id)
@@ -62,14 +58,11 @@ class Dado(db.Model):
     LocalidadeDB=db.Column(db.String(40),nullable= False)
     MarcaDB=db.Column(db.String(40),nullable= False)
     ModeloDB=db.Column(db.String(120),nullable= False)
-    VersaoDoMotorDB=db.Column(db.String(120),nullable= False)
-    TipoDeCombustivelDB=db.Column(db.String(120),nullable= False)
     AnoDB=db.Column(db.Integer,nullable= False)
     QuilometragemDB=db.Column(db.Integer)
     PrecoDB=db.Column(db.Integer,nullable= False)
     CorDB=db.Column(db.String(20),nullable= False)
-    NomeDaEmitente= db.Column(db.String(30),unique= True,nullable= False)
-    user_id = db.Column(db.Integer, db.ForeignKey('UsuarioDB.id'), nullable=False)
+    nome_id=db.Column(db.String(30),db.ForeignKey('UsuarioDB.NomeDaEmpresaDB'),nullable= False)
 
     def __repr__(self):
         return f"User('{self.MarcaDB}', '{self.ModeloDB}')"
@@ -124,7 +117,7 @@ class FormularioDeLogin(FlaskForm):
 
 class AtualizarRegistro(FlaskForm):
     Usuario =StringField('Usuario', 
-                        validators = [InputRequired(message='Favor inserir o seu Usuário')]) 
+                        validators = [InputRequired(message='Favor inserir o seu Usuário'),Length(min= 4, max=20,message='Favor manter o formato entre 4 e 20 caracteres')]) 
 
     Email = StringField('Email',
                         validators=[InputRequired(message='Favor inserir o seu Email'), Email(message='Email em formato não aceitável')])   
@@ -144,7 +137,6 @@ class AtualizarRegistro(FlaskForm):
                 raise ValidationError('Esse email já existe por favor inserir novo')
 
 class RequisitarReset(FlaskForm):
-
     Email = StringField('Email',
                         validators=[InputRequired(message='Favor inserir o seu Email'), Email(message='Email inválido')]) 
 
@@ -157,7 +149,7 @@ class RequisitarReset(FlaskForm):
 
 class ResetSenhaForm(FlaskForm):
 
-    Senha = PasswordField('Nova senha',
+    Senha= PasswordField('Senha',
                     validators=[InputRequired(message= 'Insira uma senha'),Regexp('^(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\d\W])|(?=.*\W)(?=.*\d))|(?=.*\W)(?=.*[A-Z])(?=.*\d)).{8,}$', message= 'Sua senha precisa ter 8 caracteres e pelo menos obedecer 3 das 4 condições, ter letra maiúscula minúscula, ter número e/ou caracteres especiais.')])
 
     ConfirmarSenha= PasswordField('Confirme Senha',
@@ -183,20 +175,12 @@ class DadosEssenciais(FlaskForm):
 
     CoresGarantia = ("Amarelo","Azul","Bege","Branco","Bronze","Cinza","Dourado","Indefinida","Laranja","Marrom","Prata","Preto",
                     "Rosa","Roxo","Verde","Vermelho","Vinho")
-
-    Combustiveis= ('Gasolina','Etanol','GNV','Diesel','Flex')
     
     Marca = StringField('Marca',id= "marca_autocomplete:",
                         validators=[InputRequired(message='Favor inserir uma Marca valida'), AnyOf(MarcasGarantia, message= " Essas são as marcas disponiveis:(Favor escrever de acordo com o mostrado) Acura/Agrale/Alfo Romeo/Am Gen/Asia motors/ASTON MARTIN/Audi/Baby/BMW/BRM/BUGRE/Cadillac/CBT Jipe/CHANA/CHANGAN/CHERY/Chrysler/Citroën/Cross Lander/Daewoo/Daihatsu/Dodge/EFFA/Engesa/Envemo/Ferrari/Fiat/Fibravan/Ford/FOTON/Fyber/GEELY/GM CHEVROLET/GREAT WALL/Gurgel/HAFEI/HITECH ELECTRIC/HONDA/HYUNDAY/ISUZU/IVECO/JAC/Jaguar/Jeep/JINBEI/JPX/Kia Motors/Lada/Lamborghini/Land Rover/Lexus/LIFAN/LOBINI/Lotus/Mahindra/Maserati/Matra/Mazda/Mclaren/Mercedez-Benz/Mercury/MG/MINI/Mitsubishi/Miura/Nissan/Peugeot/Plymouth/Pontiac/Porsche/RAM/RELY/Renault/Rolls-Royce/Rover/Saab/Saturn/Seat/SHINERAY/smart/SSANGYONG/Subaru/Suzuki/TAC/Toyota/Troller/Volvo/VW-VOLKSWAGEN/Wake/Walk" )])
     
     Modelo = StringField('Modelo (Dentro do RENAVAN logo depois de marca)',
                         validators=[InputRequired(message='Favor inserir um modelo valido')])
-
-    VersaoDoMotor = StringField('Versão do motor, caso seja modificado inserir modificado. Caso original inserir de acordo, Versão 1.6 ',
-                        validators=[InputRequired(message='Favor inserir uma verão valida')])
-
-    TipoDeCombustivel = StringField('Tipo de combustível do carro',
-                        validators=[InputRequired(message='Favor inserir um modelo valido'), AnyOf(Combustiveis, message=' Favor inserir da seguinte maneira:(Gasolina/Etanol/GNV/Diesel/Flex)' )])
 
     Ano = IntegerField('Ano',
                         validators=[NumberRange(min= 1960, max=2021, message = 'Somente por carros acima do ano 1960')])
@@ -215,9 +199,17 @@ class DadosEssenciais(FlaskForm):
 
     Confirma=SubmitField('Confirmar inserção')
 
+
+@login_manager.user_loader
+def load_user(Usuario_id):
+    return UsuarioDB.query.get(int(Usuario_id))
+
+
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/Login", methods=['GET', 'POST'])
 def Login():
+    if current_user.is_authenticated: 
+        return redirect(url_for('HomePage'))
     form = FormularioDeLogin()
     if form.validate_on_submit():
         Usuario = UsuarioDB.query.filter_by(UsernameDB = form.Usuario.data).first()
@@ -232,6 +224,8 @@ def Login():
 
 @app.route("/Cadastro", methods=['GET', 'POST'])
 def Cadastro():
+    if current_user.is_authenticated:
+        return redirect(url_for('HomePage'))
     form = FormularioDeRegistro()
     if form.validate_on_submit():
     	senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
@@ -256,10 +250,9 @@ def Sobre():
 def SegundaJanela():
     form = DadosEssenciais(request.form)
     if form.validate_on_submit():
-        Info = Dado(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data,VersaoDoMotorDB= form.VersaoDoMotor.data,TipoDeCombustivelDB= form.TipoDeCombustivel.data, 
-                    AnoDB= form.Ano.data,QuilometragemDB= form.Quilometragem.data,
+        Info = Dado(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data, AnoDB= form.Ano.data,QuilometragemDB= form.Quilometragem.data,
                     PrecoDB= form.Preco.data, CorDB= form.Cor.data, 
-                    LocalidadeDB= form.Localidade.data,NomeDaEmitente=current_user.NomeDaEmpresaDB,user_id= current_user.id)
+                    LocalidadeDB= form.Localidade.data,nome_id=current_user.NomeDaEmpresaDB)
         db.session.add(Info)
         db.session.commit()
         flash(f'Seus dados foram inseridos com sucesso!', 'success')
@@ -269,10 +262,10 @@ def SegundaJanela():
 @app.route("/TerceiraJanela")
 def TerceiraJanela():
     TabelaTitulo = ("Marca", "Modelo", "Ano", "Quilometragem" , "Preço" , "Cor" , "Local"  )
-    verificante= Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).first()
+    verificante= Dado.query.filter_by(nome_id = current_user.NomeDaEmpresaDB).first()
     if verificante is None:
       return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela")
-    return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all())
+    return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(nome_id = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all())
 
 @app.route("/Logout")
 def Logout():
@@ -298,22 +291,17 @@ def ContaEmpresa():
 def enviar_email_reset(user):
     token = user.get_reset_token()
     msg = Message('Reset de Email',sender='ivgnoreply@gmail.com', recipients= [user.EmailDB])
-    msg.body =   f''' 
-
-Para resetar sua senha, visite o link a seguir:
+    msg.body =   f''' Para resetar sua senha, visite o link a seguir:
 Se você não fez esse pedido então simplesmente ignore esse E-mail. 
 Caso você o tenha feito então só clicar no link abaixo
-
 {url_for('Reset_token', token= token, _external= True)}
-
 Caso você tenha problemas favor nos contatar por (contatos)
-
 '''
     mail.send(msg)
 
 @app.route("/ResetSenha", methods=['GET', 'POST'])
 def ResetSenha():
-    if current_user.is_authenticated:
+    if current_user.is_authenticated: 
         return redirect(url_for('HomePage'))
     form = RequisitarReset()
     if form.validate_on_submit():
@@ -326,7 +314,7 @@ def ResetSenha():
 
 @app.route("/ResetSenha/<token>", methods=['GET', 'POST'])
 def Reset_token(token):
-    if current_user.is_authenticated:
+    if current_user.is_authenticated: 
         return redirect(url_for('HomePage'))
     user=UsuarioDB.verify_reset_token(token)
     if user is None:
@@ -335,7 +323,7 @@ def Reset_token(token):
     form = ResetSenhaForm()
     if form.validate_on_submit():
         senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
-        user.PasswordDB = senha_hashed
+        user.Senha= senha_hashed
         db.session.commit()
         flash(f'Sua senha foi resetada!', 'success')
         return redirect(url_for('Login'))
