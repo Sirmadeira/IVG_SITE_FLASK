@@ -112,6 +112,23 @@ letter-spacing: 2px;
 }
 .carousel-item{
   padding: 0px;
+
+  color: white;
+}
+.icone{
+  height: 100px;
+  margin: 30px 50px;
+  width: auto;
+}
+.icone2{
+ height: 100px;
+ margin: 30px 60px;
+ width: auto; 
+}
+.icone3{
+ height: 80px;
+ margin: 40px 60px;
+ width: auto;
   margin: 0px 0;
 color: white;
 letter-spacing: 2px;
@@ -119,8 +136,6 @@ letter-spacing: 2px;
   margin: 0px;
   position: relative;
   background-size: cover;
-
-
 }
 .overlay-image{
   height: 300px;
