@@ -65,8 +65,8 @@ div.navbar-nav {
 }
 
 main .container-fluid{
-  padding: 0px 0;
-  margin: -30px 0;
+  padding: 0px auto;
+  margin: -30px auto;
 }
 
 .container-fluid .algoritmo{
@@ -87,7 +87,8 @@ main .container-fluid{
 }
 footer{
 margin: 0;
-padding: 0;
+padding: 10% 0;
+
 }
 
 .redesocial{
@@ -133,7 +134,7 @@ width: 100%;
 .icone3{
  height: 80px;
  margin: 40px 60px;
- width: auto;
+ width: auto; 
 }
 .col{
   margin: 0;
@@ -141,7 +142,7 @@ width: 100%;
 }
 .form-control-lg{
   font-size: 12px;
-  text-transform: uppercase;
+ 
 }
 @media and (min-width: 700.98px){
 .container .row{
