@@ -26,6 +26,10 @@ app.config['MAIL_PASSWORD'] = 'MO517364@@12'
 mail= Mail(app)
 
 
+@login_manager.user_loader
+def load_user(user_id):
+    return UsuarioDB.query.get(int(user_id))
+
 
 class UsuarioDB(db.Model,UserMixin):
     __tablename__= "UsuarioDB"
@@ -34,18 +38,18 @@ class UsuarioDB(db.Model,UserMixin):
     EmailDB = db.Column(db.String(40), unique=True, nullable=False)    
     PasswordDB = db.Column(db.String(120), nullable=False)
     NomeDaEmpresaDB= db.Column(db.String(30),unique= True,nullable= False)
-    Nomes=db.relationship('Dado',backref= 'UsuarioDB',lazy= True)
+    Dados=db.relationship('Dado',backref= 'UsuarioDB',lazy= True)
 
 
-    def get_reset_token(self,expires_sec=1800):
+    def get_reset_token(self, expires_sec=1800):
         s= Serializer(app.config['SECRET_KEY'],expires_sec)
-        return s.dumps({'Usuario_id':self.id}).decode('utf-8')
+        return s.dumps({'user_id':self.id}).decode('utf-8')
 
     @staticmethod
     def verify_reset_token(token):
         s= Serializer(app.config['SECRET_KEY'])
         try:
-            user_id = s.loads(token)['Usuario_id']
+            user_id = s.loads(token)['user_id']
         except:
             return None
         return UsuarioDB.query.get(user_id)
@@ -62,7 +66,8 @@ class Dado(db.Model):
     QuilometragemDB=db.Column(db.Integer)
     PrecoDB=db.Column(db.Integer,nullable= False)
     CorDB=db.Column(db.String(20),nullable= False)
-    nome_id=db.Column(db.String(30),db.ForeignKey('UsuarioDB.NomeDaEmpresaDB'),nullable= False)
+    NomeDaEmitente= db.Column(db.String(30),unique= True,nullable= False)
+    user_id = db.Column(db.Integer, db.ForeignKey('UsuarioDB.id'), nullable=False)
 
     def __repr__(self):
         return f"User('{self.MarcaDB}', '{self.ModeloDB}')"
@@ -137,9 +142,6 @@ class AtualizarRegistro(FlaskForm):
                 raise ValidationError('Esse email já existe por favor inserir novo')
 
 class RequisitarReset(FlaskForm):
-    Usuario =StringField('Usuario', 
-                        validators = [InputRequired(message='Favor inserir o seu Usuário')]) 
-
 
     Email = StringField('Email',
                         validators=[InputRequired(message='Favor inserir o seu Email'), Email(message='Email inválido')]) 
@@ -153,7 +155,7 @@ class RequisitarReset(FlaskForm):
 
 class ResetSenhaForm(FlaskForm):
 
-    Senha= PasswordField('Nova senha',
+    Senha = PasswordField('Nova senha',
                     validators=[InputRequired(message= 'Insira uma senha'),Regexp('^(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\d\W])|(?=.*\W)(?=.*\d))|(?=.*\W)(?=.*[A-Z])(?=.*\d)).{8,}$', message= 'Sua senha precisa ter 8 caracteres e pelo menos obedecer 3 das 4 condições, ter letra maiúscula minúscula, ter número e/ou caracteres especiais.')])
 
     ConfirmarSenha= PasswordField('Confirme Senha',
@@ -203,12 +205,6 @@ class DadosEssenciais(FlaskForm):
 
     Confirma=SubmitField('Confirmar inserção')
 
-
-@login_manager.user_loader
-def load_user(Usuario_id):
-    return UsuarioDB.query.get(int(Usuario_id))
-
-
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/Login", methods=['GET', 'POST'])
 def Login():
@@ -252,7 +248,7 @@ def SegundaJanela():
     if form.validate_on_submit():
         Info = Dado(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data, AnoDB= form.Ano.data,QuilometragemDB= form.Quilometragem.data,
                     PrecoDB= form.Preco.data, CorDB= form.Cor.data, 
-                    LocalidadeDB= form.Localidade.data,nome_id=current_user.NomeDaEmpresaDB)
+                    LocalidadeDB= form.Localidade.data,NomeDaEmitente=current_user.NomeDaEmpresaDB,user_id= current_user.id)
         db.session.add(Info)
         db.session.commit()
         flash(f'Seus dados foram inseridos com sucesso!', 'success')
@@ -262,10 +258,10 @@ def SegundaJanela():
 @app.route("/TerceiraJanela")
 def TerceiraJanela():
     TabelaTitulo = ("Marca", "Modelo", "Ano", "Quilometragem" , "Preço" , "Cor" , "Local"  )
-    verificante= Dado.query.filter_by(nome_id = current_user.NomeDaEmpresaDB).first()
+    verificante= Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).first()
     if verificante is None:
       return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela")
-    return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(nome_id = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all())
+    return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all())
 
 @app.route("/Logout")
 def Logout():
@@ -306,9 +302,10 @@ Caso você tenha problemas favor nos contatar por (contatos)
 
 @app.route("/ResetSenha", methods=['GET', 'POST'])
 def ResetSenha():
+    if current_user.is_authenticated:
+        return redirect(url_for('HomePage'))
     form = RequisitarReset()
     if form.validate_on_submit():
-        usuario= UsuarioDB.query.filter_by(UsernameDB= form.Usuario.data)
         user=UsuarioDB.query.filter_by(EmailDB= form.Email.data).first()  
         enviar_email_reset(user)
         flash(' Um email foi enviado com instruções.', 'info')  
@@ -318,6 +315,8 @@ def ResetSenha():
 
 @app.route("/ResetSenha/<token>", methods=['GET', 'POST'])
 def Reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('HomePage'))
     user=UsuarioDB.verify_reset_token(token)
     if user is None:
         flash(' Esse token não é mais valído', ' warning')
@@ -325,7 +324,7 @@ def Reset_token(token):
     form = ResetSenhaForm()
     if form.validate_on_submit():
         senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
-        user.Senha= senha_hashed
+        user.PasswordDB = senha_hashed
         db.session.commit()
         flash(f'Sua senha foi resetada!', 'success')
         return redirect(url_for('Login'))
