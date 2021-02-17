@@ -318,8 +318,6 @@ def ResetSenha():
 
 @app.route("/ResetSenha/<token>", methods=['GET', 'POST'])
 def Reset_token(token):
-    if current_user.is_authenticated: 
-        return redirect(url_for('HomePage'))
     user=UsuarioDB.verify_reset_token(token)
     if user is None:
         flash(' Esse token não é mais valído', ' warning')
