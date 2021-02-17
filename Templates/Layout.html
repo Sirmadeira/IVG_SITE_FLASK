@@ -18,25 +18,25 @@
   <header class="site-header">
       <nav class="navbar navbar-expand-lg navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="/HomePage"><img src="static/imagens/LOGO R02azulclaro.png" class="logo" alt="marca da IVG"></a>
+          <a class="navbar-brand mr-4" href="/HomePage"><img src="static/imagens/LOGO R02.png" class="logo" alt="marca da IVG"></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
-            <div class="navbar-nav ml-4">
-              <a class="nav-item nav-link active" href="{{ url_for('HomePage') }}"> Home</a>
-              <a class="nav-item nav-link active" href="{{ url_for('Sobre') }}"> Sobre</a>
+            <div class="navbar-nav mr-5">
+              <a class="nav-item nav-link" href="{{ url_for('HomePage') }}">Home</a>
+              <a class="nav-item nav-link" href="{{ url_for('Sobre') }}">Sobre</a>
             </div>
             <!-- Navbar Right Side -->
-            <div class="navbar-nav ml-1">
+            <div class="navbar-nav mr-5">
               {% if current_user.is_authenticated %}
-                <a class="nav-item nav-link active" href="{{ url_for('ContaEmpresa') }}">Empresa</a>
-                <a class="nav-item nav-link active" href="{{ url_for('SegundaJanela') }}">Inserir dados</a>
-                <a class="nav-item nav-link active" href="{{ url_for('TerceiraJanela') }}">Visualizar dados</a>
-                <a class="nav-item nav-link active" href="{{ url_for('Logout') }}">Logout</a>
+                <a class="nav-item nav-link" href="{{ url_for('ContaEmpresa') }}">Empresa</a>
+                <a class="nav-item nav-link" href="{{ url_for('SegundaJanela') }}">Inserir dados</a>
+                <a class="nav-item nav-link" href="{{ url_for('TerceiraJanela') }}">Visualizar dados</a>
+                <a class="nav-item nav-link" href="{{ url_for('Logout') }}">Logout</a>
               {% else %}
-                <a class="nav-item nav-link active" href="{{ url_for('Login') }}">Login</a>
-                <a class="nav-item nav-link active" href="{{ url_for('Cadastro') }}">Cadastro</a>
+                <a class="nav-item nav-link" href="{{ url_for('Login') }}">Login</a>
+                <a class="nav-item nav-link" href="{{ url_for('Cadastro') }}">Cadastro</a>
               {% endif %}
             </div>
           </div>
