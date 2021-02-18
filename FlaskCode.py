@@ -38,6 +38,7 @@ class UsuarioDB(db.Model,UserMixin):
     EmailDB = db.Column(db.String(40), unique=True, nullable=False)    
     PasswordDB = db.Column(db.String(120), nullable=False)
     NomeDaEmpresaDB= db.Column(db.String(30),unique= True,nullable= False)
+    ComercioDB=db.Column(db.String(30),nullable= False)
     Dados=db.relationship('Dado',backref= 'UsuarioDB',lazy= True)
 
 
@@ -77,11 +78,16 @@ class Dado(db.Model):
 
 
 class FormularioDeRegistro(FlaskForm):
+
+
     Usuario =StringField('Usuário', 
                         validators = [InputRequired(message= 'Favor inserir Usuário '),Length(min= 5, max=20, message= 'Entre 4 a 20 letras')])
 
     NomeDaEmpresa= StringField('Favor informar o nome da sua empresa.',
-                        validators=[InputRequired(message= 'Favor inserir nome da empresa '),Length(min=2, max =30,message= 'Entre 5 a 30 letras')])  
+                        validators=[InputRequired(message= 'Favor inserir nome da empresa '),Length(min=2, max =30,message= 'Entre 5 a 30 letras')])
+
+    Comercio= StringField('Favor informar o setor de atuação da sua empresa',
+                        validators=[InputRequired(message= 'Favor inserir tipo de comercio '),AnyOf('Revendedora de carro', message= 'Atualmente só trabalhamos com: Revendedora de carro')])   
 
     Email = StringField('Email empresarial',
                         validators=[InputRequired(message= 'Favor inserir Email'), Email('Formato de e-mail inválido')])
@@ -235,7 +241,7 @@ def Cadastro():
     form = FormularioDeRegistro()
     if form.validate_on_submit():
     	senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
-    	user= UsuarioDB(UsernameDB=form.Usuario.data,NomeDaEmpresaDB= form.NomeDaEmpresa.data,
+    	user= UsuarioDB(UsernameDB=form.Usuario.data,NomeDaEmpresaDB= form.NomeDaEmpresa.data,ComercioDB= form.Comercio.data,
                         EmailDB=form.Email.data, PasswordDB= senha_hashed)
     	db.session.add(user)
     	db.session.commit()

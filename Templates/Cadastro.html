@@ -48,6 +48,19 @@
 					{% endif %}
 				</div>
 				<div class= "form-group mb-2">
+					{{form.Comercio.label(class="form-control-label") }}
+					{% if form.Comercio.errors %}
+						{{ form.Comercio(class="form-control form-control-lg is-invalid")}}
+						<div class = "invalid-feedback">
+							{% for error in form.Comercio.errors %}
+								<span>  {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+							{{ form.Comercio(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				<div class= "form-group mb-2">
 					{{form.Senha.label(class="form-control-label") }}
 
 					{% if form.Senha.errors %}
