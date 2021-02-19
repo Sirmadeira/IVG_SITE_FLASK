@@ -5,7 +5,7 @@ from sqlalchemy import desc
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required,UserMixin
 from flask_wtf  import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextField, FloatField
 from wtforms.validators import InputRequired, Length, EqualTo ,Email, ValidationError, NumberRange, AnyOf, Regexp
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Mail, Message
@@ -66,8 +66,8 @@ class Dado(db.Model):
     VersaoDoMotorDB=db.Column(db.String(120),nullable= False)
     TipoDeCombustivelDB=db.Column(db.String(120),nullable= False)
     AnoDB=db.Column(db.Integer,nullable= False)
-    QuilometragemDB=db.Column(db.Integer)
-    PrecoDB=db.Column(db.Integer,nullable= False)
+    QuilometragemDB=db.Column(db.Float)
+    PrecoDB=db.Column(db.Float, nullable= False)
     CorDB=db.Column(db.String(20),nullable= False)
     NomeDaEmitente= db.Column(db.String(30),nullable= False)
     user_id = db.Column(db.Integer, db.ForeignKey('UsuarioDB.id'), nullable=False)
@@ -207,10 +207,10 @@ class DadosEssenciais(FlaskForm):
     Ano = IntegerField('Ano',
                         validators=[NumberRange(min= 1960, max=2021, message = 'Somente por carros acima do ano 1960')])
 
-    Quilometragem = IntegerField('Quilometragem',
+    Quilometragem = FloatField('Quilometragem',
                         validators=[NumberRange(min=0, max=9999999, message= "Não existe km negativa ou essa km e muita alta")])
 
-    Preco = IntegerField('Preço',
+    Preco = FloatField('Preço',
                         validators=[NumberRange(min=1000, max=9999999, message = 'Somente por vendas acima de mil reais.')])
 
     Cor = StringField('Favor inserir a cor do carro',
@@ -274,7 +274,7 @@ def SegundaJanela():
 
 @app.route("/TerceiraJanela")
 def TerceiraJanela():
-    TabelaTitulo = ("Marca", "Modelo", "Ano", "Quilometragem" , "Preço" , "Cor" , "Local"  )
+    TabelaTitulo = ("Marca", "Modelo",'Motor','Combustivel', "Ano", "Quilometragem" , "Preço" , "Cor" , "Local"  )
     verificante= Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).first()
     if verificante is None:
       return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela")
