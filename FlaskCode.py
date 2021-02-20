@@ -5,7 +5,7 @@ from sqlalchemy import desc
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required,UserMixin
 from flask_wtf  import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextField, FloatField
 from wtforms.validators import InputRequired, Length, EqualTo ,Email, ValidationError, NumberRange, AnyOf, Regexp
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Mail, Message
@@ -66,8 +66,8 @@ class Dado(db.Model):
     VersaoDoMotorDB=db.Column(db.String(120),nullable= False)
     TipoDeCombustivelDB=db.Column(db.String(120),nullable= False)
     AnoDB=db.Column(db.Integer,nullable= False)
-    QuilometragemDB=db.Column(db.Integer)
-    PrecoDB=db.Column(db.Integer,nullable= False)
+    QuilometragemDB=db.Column(db.Float)
+    PrecoDB=db.Column(db.Float,nullable= False)
     CorDB=db.Column(db.String(20),nullable= False)
     NomeDaEmitente= db.Column(db.String(30),nullable= False)
     user_id = db.Column(db.Integer, db.ForeignKey('UsuarioDB.id'), nullable=False)
@@ -193,28 +193,37 @@ class DadosEssenciais(FlaskForm):
     Combustiveis= ('Gasolina','Etanol','GNV','Diesel','Flex')
     
     Marca = StringField('Marca',
-                        validators=[InputRequired(message='Favor inserir uma Marca valida'), AnyOf(MarcasGarantia, message= " Essas são as marcas disponiveis:(Favor escrever de acordo com o mostrado) Acura/Agrale/Alfo Romeo/Am Gen/Asia motors/ASTON MARTIN/Audi/Baby/BMW/BRM/BUGRE/Cadillac/CBT Jipe/CHANA/CHANGAN/CHERY/Chrysler/Citroën/Cross Lander/Daewoo/Daihatsu/Dodge/EFFA/Engesa/Envemo/Ferrari/Fiat/Fibravan/Ford/FOTON/Fyber/GEELY/GM CHEVROLET/GREAT WALL/Gurgel/HAFEI/HITECH ELECTRIC/HONDA/HYUNDAY/ISUZU/IVECO/JAC/Jaguar/Jeep/JINBEI/JPX/Kia Motors/Lada/Lamborghini/Land Rover/Lexus/LIFAN/LOBINI/Lotus/Mahindra/Maserati/Matra/Mazda/Mclaren/Mercedez-Benz/Mercury/MG/MINI/Mitsubishi/Miura/Nissan/Peugeot/Plymouth/Pontiac/Porsche/RAM/RELY/Renault/Rolls-Royce/Rover/Saab/Saturn/Seat/SHINERAY/smart/SSANGYONG/Subaru/Suzuki/TAC/Toyota/Troller/Volvo/VW-VOLKSWAGEN/Wake/Walk" )])
+                        validators=[InputRequired(message='Favor inserir uma Marca valida'), AnyOf(MarcasGarantia, message= ''' Favor escrever exatamente igual ao abaixo:
+                                    Acura/Agrale/Alfo Romeo/Am Gen/Asia motors/ASTON MARTIN/Audi/Baby/BMW/BRM/BUGRE/Cadillac/
+                                    CBT Jipe/CHANA/CHANGAN/CHERY/Chrysler/Citroën/Cross Lander/Daewoo/Daihatsu/
+                                    Dodge/EFFA/Engesa/Envemo/Ferrari/Fiat/Fibravan/Ford/FOTON/Fyber/GEELY/GM CHEVROLET/
+                                    GREAT WALL/Gurgel/HAFEI/HITECH ELECTRIC/HONDA/HYUNDAY/ISUZU/IVECO/JAC/Jaguar/Jeep/JINBEI/JPX/
+                                    Kia Motors/Lada/Lamborghini/Land Rover/Lexus/LIFAN/LOBINI/Lotus/Mahindra/Maserati/Matra/Mazda/
+                                    Mclaren/Mercedez-Benz/Mercury/MG/MINI/Mitsubishi/Miura/Nissan/Peugeot/Plymouth/Pontiac/Porsche/RAM/
+                                    RELY/Renault/Rolls-Royce/Rover/Saab/Saturn/Seat/SHINERAY/smart/SSANGYONG/Subaru/Suzuki/TAC/Toyota/Troller/
+                                    Volvo/VW-VOLKSWAGEN/Wake/Walk''' )])
     
-    Modelo = StringField('Modelo (Dentro do RENAVAN logo depois de marca)',
+    Modelo = StringField('Modelo, favor escrever de acordo com oque está dentro do RENAVAN',
                         validators=[InputRequired(message='Favor inserir um modelo valido')])
 
-    VersaoDoMotor = StringField('Versão do motor, caso seja modificado inserir modificado. Caso original inserir de acordo, Versão 1.6 ',
+    VersaoDoMotor = StringField('Versão do motor, caso seja modificado inserir modificado. Caso original inserir de acordo. Exemplo: Versão 1.6 ',
                         validators=[InputRequired(message='Favor inserir uma verão valida')])
 
     TipoDeCombustivel = StringField('Tipo de combustível do carro',
                         validators=[InputRequired(message='Favor inserir um modelo valido'), AnyOf(Combustiveis, message=' Favor inserir da seguinte maneira:(Gasolina/Etanol/GNV/Diesel/Flex)' )])
 
-    Ano = IntegerField('Ano',
+    Ano = FloatField('Ano',
                         validators=[NumberRange(min= 1960, max=2021, message = 'Somente por carros acima do ano 1960')])
 
     Quilometragem = IntegerField('Quilometragem',
                         validators=[NumberRange(min=0, max=9999999, message= "Não existe km negativa ou essa km e muita alta")])
 
-    Preco = IntegerField('Preço',
+    Preco = FloatField('Preço',
                         validators=[NumberRange(min=1000, max=9999999, message = 'Somente por vendas acima de mil reais.')])
 
     Cor = StringField('Favor inserir a cor do carro',
-                        validators=[InputRequired(message= 'Favor inserir cor do carro'), AnyOf(CoresGarantia, message= 'Favor inserir a cor com a primeira letra maiúscula, caso a cor não seja aceita e porque ela é muito atípica, favor inserir indefinida no campo nesse caso')])
+                        validators=[InputRequired(message= 'Favor inserir cor do carro'), AnyOf(CoresGarantia, message= '''Favor inserir a cor com a primeira letra maiúscula, caso a cor não seja aceita e porque ela é muito atípica.
+                        Favor inserir indefinida no campo nesse caso''')])
 
     Localidade= StringField('Favor informar cidade em que foi feito a venda',
                         validators=[InputRequired(message= 'Favor inserir local'),AnyOf(Localidades, message= 'Favor inserir a cidade com a primeira letra maiúscula. Atualmente só trabalhamos com vendas realizadas em Limeira e Piracicaba')])
@@ -274,7 +283,7 @@ def SegundaJanela():
 
 @app.route("/TerceiraJanela")
 def TerceiraJanela():
-    TabelaTitulo = ("Marca", "Modelo", "Ano", "Quilometragem" , "Preço" , "Cor" , "Local"  )
+    TabelaTitulo = ("Marca", "Modelo",'Motor','Combustível', "Ano", "Quilometragem" , "Preço" , "Cor" , "Local"  )
     verificante= Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).first()
     if verificante is None:
       return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela")
