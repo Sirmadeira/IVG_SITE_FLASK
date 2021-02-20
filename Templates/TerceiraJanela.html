@@ -16,11 +16,17 @@
 	<tbody>
 		<tr>	
 			{% for Dado in Query %}
-			<td>
+		<td>
 				{{Dado.MarcaDB}}
 			</td>
 			<td>
 				{{Dado.ModeloDB}}
+			</td>
+			<td>
+				{{Dado.VersaoDoMotorDB}}
+			</td>
+			<td>
+				{{Dado.TipoDeCombustivelDB}}
 			</td>
 			<td>
 				{{Dado.AnoDB}}
