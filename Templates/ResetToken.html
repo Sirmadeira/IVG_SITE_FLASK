@@ -1,12 +1,12 @@
 {% extends "Layout.html" %}
 {% block content %}
-
-	<div class= "content-section">
+<div class="container-fluid" style="background-image: url(static/imagens/Login-Cadastro-Background.jpg); background-size: cover; height: auto; margin: -35px auto -50px; padding: 20% 0; width: 100%;">
+	<div class= "content-section mx-auto bg-dark" style="min-width: 300px; max-width: 30%; opacity: .9;">
 		<form method = 'POST' action = ''>
 			{{ form.hidden_tag() }}
 			<fieldset class = 'form-group'>
 		 		<legend class="border-bottom mb-4"> Resetar senha </legend>
-				<div class= "form-group">
+				<div class= "form-group mb-2">
 					{{form.Senha.label(class="form-control-label") }}
 					{% if form.Senha.errors %}
 						{{ form.Senha(class="form-control form-control-lg is-invalid")}}
@@ -19,7 +19,7 @@
 							{{ form.Senha(class="form-control form-control-lg") }}
 					{% endif %}
 				</div>
-				<div class= "form-group">
+				<div class= "form-group mb-2">
 					{{ form.ConfirmarSenha.label(class="form-control-label") }}
 					{% if form.ConfirmarSenha.errors %}
 						{{ form.ConfirmarSenha(class="form-control form-control-lg is-invalid")}}
@@ -33,7 +33,7 @@
 					{% endif %}
 				</div>
 			</fieldset>
-			<div class= "form-group">
+			<div class= "form-group mb-2">
 				{{ form.Confirma (class= "btn btn-outline-info") }}
 			</div>
 		</form>

@@ -1,9 +1,10 @@
 {% extends "Layout.html" %}
 {% block content %}
-	<div class= "content-section">
+<div class="container-fluid" style="background-image: url(static/imagens/Login-Cadastro-Background.jpg); background-size: cover; height: auto; margin: -35px auto -50px; padding: 20% 0; width: 100%;">
+	<div class= "content-section mx-auto bg-dark" style="min-width: 300px; max-width: 30%; opacity: .9;">
 		<form method = 'POST' action = ''>
 			{{ form.hidden_tag() }}
-			<fieldset class = 'form-group'>
+			<fieldset class = 'form-group mb-3'>
 		 		<legend class="border-bottom mb-4"> Resetar senha </legend>
 				<div class= "form-group">
 					{{form.Email.label(class="form-control-label") }}
@@ -24,4 +25,5 @@
 			</div>
 		</form>
 	</div>
+</div>
 {% endblock content%}
