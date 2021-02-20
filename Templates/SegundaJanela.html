@@ -5,7 +5,7 @@
     <div class= "content-section  mx-auto bg-dark" style="min-width: 300px; max-width: 30%; opacity: .9;">
         <form method = 'POST' action = ''>
             {{ form.hidden_tag() }}
-            <fieldset class = 'form-group 2'>
+            <fieldset class = 'form-group'>
                     <div class= "form-group mb-2">
                         {{form.Marca.label(class="form-control-label") }}
                         {% if form.Marca.errors %}
@@ -19,7 +19,7 @@
                                 {{ form.Marca(class="form-control form-control-lg") }}
                         {% endif %}
                     </div>
-                <div class= "form-group 2 mb-2">
+                <div class= "form-group mb-2">
                     {{form.Modelo.label(class="form-control-label") }}
                     {% if form.Modelo.errors %}
                         {{ form.Modelo(class="form-control form-control-lg is-invalid")}}
@@ -32,7 +32,7 @@
                             {{ form.Modelo(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class= "form-group 2 mb-2">
+                <div class= "form-group">
                     {{form.VersaoDoMotor.label(class="form-control-label") }}
                     {% if form.VersaoDoMotor.errors %}
                         {{ form.VersaoDoMotor(class="form-control form-control-lg is-invalid")}}
@@ -45,7 +45,7 @@
                             {{ form.VersaoDoMotor(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class= "form-group 2 mb-2">
+                <div class= "form-group">
                     {{form.TipoDeCombustivel.label(class="form-control-label") }}
                     {% if form.TipoDeCombustivel.errors %}
                         {{ form.TipoDeCombustivel(class="form-control form-control-lg is-invalid")}}
@@ -58,7 +58,7 @@
                             {{ form.TipoDeCombustivel(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class= "form-group 2 mb-2">
+                <div class= "form-group mb-2">
                     {{form.Ano.label(class="form-control-label") }}
 
                     {% if form.Ano.errors %}
@@ -72,7 +72,7 @@
                             {{ form.Ano(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class= "form-group 2 mb-2">
+                <div class= "form-group mb-2">
                     {{form.Quilometragem.label(class="form-control-label") }}
 
                     {% if form.Quilometragem.errors %}
@@ -87,7 +87,7 @@
                     {% endif %}
 
                 </div>
-                <div class= "form-group 2 mb-2">
+                <div class= "form-group mb-2">
                     {{form.Preco.label(class="form-control-label") }}
 
                     {% if form.Preco.errors %}
@@ -101,7 +101,7 @@
                             {{ form.Preco(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class= "form-group 2 mb-2">
+                <div class= "form-group mb-2">
                     {{form.Cor.label(class="form-control-label") }}
 
                     {% if form.Cor.errors %}
@@ -115,7 +115,7 @@
                             {{ form.Cor(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class= "form-group 2 mb-4">
+                <div class= "form-group mb-4">
                     {{form.Localidade.label(class="form-control-label") }}
 
                     {% if form.Localidade.errors %}
