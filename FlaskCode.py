@@ -240,13 +240,13 @@ def Login():
 def Cadastro():
     form = FormularioDeRegistro()
     if form.validate_on_submit():
-    	senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
-    	user= UsuarioDB(UsernameDB=form.Usuario.data,NomeDaEmpresaDB= form.NomeDaEmpresa.data,ComercioDB= form.Comercio.data,
+        senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
+        user= UsuarioDB(UsernameDB=form.Usuario.data,NomeDaEmpresaDB= form.NomeDaEmpresa.data,ComercioDB= form.Comercio.data,
                         EmailDB=form.Email.data, PasswordDB= senha_hashed)
-    	db.session.add(user)
-    	db.session.commit()
-    	flash(f'Sua conta foi criada!', 'success')
-    	return redirect(url_for('Login'))
+        db.session.add(user)
+        db.session.commit()
+        flash(f'Sua conta foi criada!', 'success')
+        return redirect(url_for('Login'))
     return render_template('Cadastro.html', title='Cadastro', form=form)
 
 @app.route("/HomePage")
@@ -255,7 +255,7 @@ def HomePage():
 
 @app.route("/Sobre")
 def Sobre():
-	return render_template("Sobre.html", title = "Sobre")
+    return render_template("Sobre.html", title = "Sobre")
 
 @app.route("/SegundaJanela", methods=['GET', 'POST'])
 @login_required
@@ -348,4 +348,4 @@ def Reset_token(token):
     return render_template('ResetToken.html', title = 'Resetar senha',form = form)
 
 if __name__ == "__main__":
-	app.run(debug=True)
+    app.run(debug=True)
