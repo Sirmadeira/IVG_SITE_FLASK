@@ -6,7 +6,8 @@
         <form method = 'POST' action = ''>
             {{ form.hidden_tag() }}
             <fieldset class = 'form-group'>
-                    <div class= "form-group mb-2">
+
+                    <div class= "form-group 2 mb-2">
                         {{form.Marca.label(class="form-control-label") }}
                         {% if form.Marca.errors %}
                             {{ form.Marca(class="form-control form-control-lg is-invalid")}}
@@ -19,7 +20,7 @@
                                 {{ form.Marca(class="form-control form-control-lg") }}
                         {% endif %}
                     </div>
-                <div class= "form-group mb-2">
+                <div class= "form-group 2 mb-2">
                     {{form.Modelo.label(class="form-control-label") }}
                     {% if form.Modelo.errors %}
                         {{ form.Modelo(class="form-control form-control-lg is-invalid")}}
@@ -32,7 +33,7 @@
                             {{ form.Modelo(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class= "form-group">
+                <div class= "form-group 2 mb-2">
                     {{form.VersaoDoMotor.label(class="form-control-label") }}
                     {% if form.VersaoDoMotor.errors %}
                         {{ form.VersaoDoMotor(class="form-control form-control-lg is-invalid")}}
@@ -45,7 +46,7 @@
                             {{ form.VersaoDoMotor(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class= "form-group">
+                <div class= "form-group mb-2">
                     {{form.TipoDeCombustivel.label(class="form-control-label") }}
                     {% if form.TipoDeCombustivel.errors %}
                         {{ form.TipoDeCombustivel(class="form-control form-control-lg is-invalid")}}
