@@ -275,10 +275,13 @@ def SegundaJanela():
 @app.route("/TerceiraJanela")
 def TerceiraJanela():
     TabelaTitulo = ("Marca", "Modelo",'Motor','Combustivel', "Ano", "Quilometragem" , "Preço" , "Cor" , "Local"  )
-    verificante= Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).first()
-    if verificante is None:
-      return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela")
-    return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all())
+    contador= Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).count()
+    faltante= 5-contador
+    if contador is None or contador < 5:
+        return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela",contador= contador, faltante= faltante)
+    else:
+        return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all())
+    return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela")
 
 @app.route("/Logout")
 def Logout():
