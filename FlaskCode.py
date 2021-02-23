@@ -4,7 +4,7 @@ from sqlalchemy import desc
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required,UserMixin
 from flask_wtf  import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextField, FloatField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, FloatField
 from wtforms.validators import InputRequired, Length, EqualTo ,Email, ValidationError, NumberRange, AnyOf, Regexp
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Mail, Message
@@ -191,7 +191,7 @@ class DadosEssenciais(FlaskForm):
 
     Combustiveis= ('GASOLINA','ETANOL','GNV','DISEL','FLEX')
     
-    Marca = StringField('MARCA',
+    Marca = StringField('Marca',
                         validators=[InputRequired(message='Favor inserir uma Marca valida'), AnyOf(MarcasGarantia, message= 
                                     '''
                                     Trabalhamos com as seguintes marcas, escreva da maneira abaixo:
@@ -204,30 +204,30 @@ class DadosEssenciais(FlaskForm):
                                     RELY/Renault/Rolls-Royce/Rover/Saab/Saturn/Seat/SHINERAY/smart/SSANGYONG/Subaru/Suzuki/TAC/Toyota/Troller/
                                     Volvo/VW-VOLKSWAGEN/Wake/Walk''' )])
     
-    Modelo = StringField('MODELO, FAVOR OLHAR NO RENAVAN',
+    Modelo = StringField('Modelo encontrado no renavan',
                         validators=[InputRequired(message='Favor inserir um modelo valido')])
 
-    VersaoDoMotor = StringField('MOTOR',
+    VersaoDoMotor = StringField('Motor',
                         validators=[InputRequired(message='Favor inserir um motor valido')])
 
-    TipoDeCombustivel = StringField('Tipo de combustível',
+    TipoDeCombustivel = StringField('Combustivél',
                         validators=[InputRequired(message='Favor inserir um modelo valido'), AnyOf(Combustiveis, message=' Os combustiveis aceitos são: Gasolina/Etanol/GNV/Diesel/Flex' )])
 
-    Ano = FloatField('ANO',
+    Ano = FloatField('Ano',
                         validators=[NumberRange(min= 1960, max=2021, message = 'Somente por carros acima do ano 1960')])
 
     Quilometragem = IntegerField('Quilometragem',
                         validators=[NumberRange(min=0, max=9999999, message= "Não existe km negativa ou essa km e muita alta")])
 
-    Preco = FloatField('PREÇO',
+    Preco = FloatField('Preço',
                         validators=[NumberRange(min=1000, max=9999999, message = 'Somente por vendas acima de mil reais.')])
 
-    Cor = StringField('COR',
+    Cor = StringField('Cor',
                         validators=[InputRequired(message= 'Favor inserir cor do carro'), AnyOf(CoresGarantia, message= '''Caso a cor não seja aceita e porque ela é muito atípica. 
                         Ou não é constatada no banco de cores da web motors.
                         Favor inserir indefinida no campo nesse caso''')])
 
-    Localidade= StringField('LOCAL DA VENDA',
+    Localidade= StringField('Local da venda',
                         validators=[InputRequired(message= 'Favor inserir local'),AnyOf(Localidades, message= 'Atualmente só trabalhamos com vendas realizadas em Limeira e Piracicaba')])
 
     Confirma=SubmitField('Confirmar inserção')
