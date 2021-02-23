@@ -1,4 +1,3 @@
-import os
 from flask import Flask, render_template, url_for, flash, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc
@@ -222,11 +221,12 @@ class DadosEssenciais(FlaskForm):
                         validators=[NumberRange(min=1000, max=9999999, message = 'Somente por vendas acima de mil reais.')])
 
     Cor = StringField('Favor inserir a cor do carro',
-                        validators=[InputRequired(message= 'Favor inserir cor do carro'), AnyOf(CoresGarantia, message= '''Favor inserir a cor com a primeira letra maiúscula, caso a cor não seja aceita e porque ela é muito atípica.
+                        validators=[InputRequired(message= 'Favor inserir cor do carro'), AnyOf(CoresGarantia, message= '''Caso a cor não seja aceita e porque ela é muito atípica. 
+                        Ou não e constatada no nosso banca de cores.
                         Favor inserir indefinida no campo nesse caso''')])
 
     Localidade= StringField('Favor informar cidade em que foi feito a venda',
-                        validators=[InputRequired(message= 'Favor inserir local'),AnyOf(Localidades, message= 'Favor inserir a cidade com a primeira letra maiúscula. Atualmente só trabalhamos com vendas realizadas em Limeira e Piracicaba')])
+                        validators=[InputRequired(message= 'Favor inserir local'),AnyOf(Localidades, message= 'Atualmente só trabalhamos com vendas realizadas em Limeira e Piracicaba')])
 
     Confirma=SubmitField('Confirmar inserção')
 
@@ -283,11 +283,14 @@ def SegundaJanela():
 
 @app.route("/TerceiraJanela")
 def TerceiraJanela():
-    TabelaTitulo = ("Marca", "Modelo",'Motor','Combustível', "Ano", "Quilometragem" , "Preço" , "Cor" , "Local"  )
-    verificante= Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).first()
-    if verificante is None:
-      return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela")
-    return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all())
+    TabelaTitulo = ("Marca", "Modelo",'Motor','Combustivel', "Ano", "Quilometragem" , "Preço" , "Cor" , "Local"  )
+    contador= Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).count()
+    faltante= 5-contador
+    if contador is None or contador < 5:
+        return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela",contador= contador, faltante= faltante)
+    else:
+        return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all())
+    return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela")
 
 @app.route("/Logout")
 def Logout():
@@ -314,15 +317,11 @@ def enviar_email_reset(user):
     token = user.get_reset_token()
     msg = Message('Reset de Email',sender='ivgnoreply@gmail.com', recipients= [user.EmailDB])
     msg.body =   f''' 
-
 Para resetar sua senha, visite o link a seguir:
 Se você não fez esse pedido então simplesmente ignore esse E-mail. 
 Caso você o tenha feito então só clicar no link abaixo
-
 {url_for('Reset_token', token= token, _external= True)}
-
 Caso você tenha problemas favor nos contatar por (contatos)
-
 '''
     mail.send(msg)
 
