@@ -108,6 +108,13 @@ padding: 10% 0;
 .carousel{
   margin: -50px 0 0px;
 }
+.carousel-item{
+height: 250px;
+width: 100%;
+}
+.d-block .w-100{
+  position: center;
+  margin: 10px;
 }
 .carousel-caption{
   margin: 0px 0;
@@ -135,7 +142,33 @@ padding: 10% 0;
 }
 .form-control-lg{
   font-size: 12px;
- 
+}
+#Marca{
+  text-transform: uppercase;
+}
+#Modelo{
+  text-transform: uppercase;
+}
+ #VersaoDoMotor{
+  text-transform: uppercase;
+}
+#TipoDeCombustivel{
+  text-transform: uppercase;
+}
+ #Ano{
+  text-transform: uppercase;
+}
+#Quilometragem{
+  text-transform: uppercase;
+}
+#Preco{
+  text-transform: uppercase;
+}
+ #Cor{
+  text-transform: uppercase;
+}
+  #Localidade{
+  text-transform: uppercase;
 }
 @media and (min-width: 700.98px){
 .container .row{
