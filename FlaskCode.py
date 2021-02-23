@@ -86,7 +86,7 @@ class FormularioDeRegistro(FlaskForm):
                         validators=[InputRequired(message= 'Favor inserir nome da empresa '),Length(min=2, max =30,message= 'Entre 5 a 30 letras')])
 
     Comercio= StringField('Favor informar o setor de atuação da sua empresa',
-                        validators=[InputRequired(message= 'Favor inserir tipo de comercio '),AnyOf('Revendedora de carro', message= 'Atualmente só trabalhamos com: Revendedora de carro')])   
+                        validators=[InputRequired(message= 'Favor inserir tipo de comercio '),AnyOf('Revendedora de carro', message= 'Atualmente só trabalhamos com: Revendedora de carro, copie e cole o exemplo caso haja erro.')])   
 
     Email = StringField('Email empresarial',
                         validators=[InputRequired(message= 'Favor inserir Email'), Email('Formato de e-mail inválido')])
@@ -174,25 +174,27 @@ class ResetSenhaForm(FlaskForm):
 
 class DadosEssenciais(FlaskForm):
 
-    MarcasGarantia = ("Acura", "Agrale","Alfo Romeo","Am Gen","Asia motors","ASTON MARTIN","Audi","Baby","BMW",
-    "BRM","BUGRE","Cadillac","CBT Jipe","CHANA","CHANGAN","CHERY","Chrysler","Citroën",
-    "Cross Lander","Daewoo","Daihatsu","Dodge","EFFA","Engesa","Envemo","Ferrari","Fiat",
-    "Fibravan","Ford","FOTON","Fyber","GEELY","GM CHEVROLET","GREAT WALL","Gurgel","HAFEI",
-    "HITECH ELECTRIC","HONDA","HYUNDAY","ISUZU","IVECO","JAC","Jaguar","Jeep","JINBEI","JPX",
-    "Kia Motors","Lada","Lamborghini","Land Rover","Lexus","LIFAN","LOBINI","Lotus","Mahindra",
-    "Maserati","Matra","Mazda","Mclaren","Mercedez-Benz","Mercury","MG","MINI","Mitsubishi","Miura",
-    "Nissan","Peugeot","Plymouth","Pontiac","Porsche","RAM","RELY","Renault","Rolls-Royce","Rover",
-    "Saab","Saturn","Seat","SHINERAY","smart","SSANGYONG","Subaru","Suzuki","TAC","Toyota","Troller","Volvo","VW-VOLKSWAGEN","Wake","Walk")
+    MarcasGarantia = ("ACURA", "AGRALE","AlFO ROMEO","AM GEN","ASIA MOTORS","ASTON MARTIN","AUDI","BABY","BMW",
+    "BRM","BUGRE","CADILLAC","CBT JIPE","CHANA","CHANGAN","CHERY","CHRYSLER","CITROËN","CITROEN",
+    "CROSS LANDER","DAEWOO","DAIHATSU","DODGE","EFFA","ENGESA","ENVEMO","FERRARI","FIAT",
+    "FIBRAVAN","FORD","FOTON","FYBER","GEELY","GM CHEVROLET","GREAT WALL","GURGEL","HAFEI",
+    "HITECH ELECTRIC","HONDA","HYUNDAY","ISUZU","IVECO","JAC","JAGUAR","JEEP","JINBEI","JPX",
+    "KIA MOTORS","LADA","LAMBORGHINI","LAND ROVER","LEXUS","LIFAN","LOBINI","LOTUS","MAHINDRA",
+    "MASERATI","MATRA","MAZDA","MCLAREN","MERCEDEZ-BENZ","MERCURY","MG","MINI","MITSUBISHI","MIURA",
+    "NISSAN","PEUGEOT","PLYMOUTH","PONTIAC","PORSCHE","RAM","RELY","RENAULT","ROLLS-ROYCE","ROVER",
+    "SAAB","SATURN","SEAT","SHINERAY","SMART","SSANGYONG","SUBARU","SUZUKI","TAC","TOYOTA","TROLLER","VOLVO","VW-VOLKSWAGEN","WAKE","WALK")
 
-    Localidades= ("Limeira", "Piracicaba","limeira", "piracicaba")
+    Localidades= ("LIMEIRA", "PIRACICABA")
 
-    CoresGarantia = ("Amarelo","Azul","Bege","Branco","Bronze","Cinza","Dourado","Indefinida","Laranja","Marrom","Prata","Preto",
-                    "Rosa","Roxo","Verde","Vermelho","Vinho")
+    CoresGarantia = ("AMARELO","AZUL","BEGE","BRANCO","BRONZE","CINZA","DOURADO","INDEFINIDA","LARANJA","MARROM","PRATA","PRETO",
+                    "ROSA","ROXO","VERDE","VERMELHO","VINHO")
 
-    Combustiveis= ('Gasolina','Etanol','GNV','Diesel','Flex')
+    Combustiveis= ('GASOLINA','ETANOL','GNV','DISEL','FLEX')
     
-    Marca = StringField('Marca',
-                        validators=[InputRequired(message='Favor inserir uma Marca valida'), AnyOf(MarcasGarantia, message= ''' Favor escrever exatamente igual ao abaixo:
+    Marca = StringField('MARCA',
+                        validators=[InputRequired(message='Favor inserir uma Marca valida'), AnyOf(MarcasGarantia, message= 
+                                    '''
+                                    Trabalhamos com as seguintes marcas, escreva da maneira abaixo:
                                     Acura/Agrale/Alfo Romeo/Am Gen/Asia motors/ASTON MARTIN/Audi/Baby/BMW/BRM/BUGRE/Cadillac/
                                     CBT Jipe/CHANA/CHANGAN/CHERY/Chrysler/Citroën/Cross Lander/Daewoo/Daihatsu/
                                     Dodge/EFFA/Engesa/Envemo/Ferrari/Fiat/Fibravan/Ford/FOTON/Fyber/GEELY/GM CHEVROLET/
@@ -202,30 +204,30 @@ class DadosEssenciais(FlaskForm):
                                     RELY/Renault/Rolls-Royce/Rover/Saab/Saturn/Seat/SHINERAY/smart/SSANGYONG/Subaru/Suzuki/TAC/Toyota/Troller/
                                     Volvo/VW-VOLKSWAGEN/Wake/Walk''' )])
     
-    Modelo = StringField('Modelo, favor escrever de acordo com oque está dentro do RENAVAN',
+    Modelo = StringField('MODELO, FAVOR OLHAR NO RENAVAN',
                         validators=[InputRequired(message='Favor inserir um modelo valido')])
 
-    VersaoDoMotor = StringField('Versão do motor, caso seja modificado inserir modificado. Caso original inserir de acordo. Exemplo: Versão 1.6 ',
-                        validators=[InputRequired(message='Favor inserir uma verão valida')])
+    VersaoDoMotor = StringField('MOTOR',
+                        validators=[InputRequired(message='Favor inserir um motor valido')])
 
-    TipoDeCombustivel = StringField('Tipo de combustível do carro',
-                        validators=[InputRequired(message='Favor inserir um modelo valido'), AnyOf(Combustiveis, message=' Favor inserir da seguinte maneira:(Gasolina/Etanol/GNV/Diesel/Flex)' )])
+    TipoDeCombustivel = StringField('Tipo de combustível',
+                        validators=[InputRequired(message='Favor inserir um modelo valido'), AnyOf(Combustiveis, message=' Os combustiveis aceitos são: Gasolina/Etanol/GNV/Diesel/Flex' )])
 
-    Ano = FloatField('Ano',
+    Ano = FloatField('ANO',
                         validators=[NumberRange(min= 1960, max=2021, message = 'Somente por carros acima do ano 1960')])
 
     Quilometragem = IntegerField('Quilometragem',
                         validators=[NumberRange(min=0, max=9999999, message= "Não existe km negativa ou essa km e muita alta")])
 
-    Preco = FloatField('Preço',
+    Preco = FloatField('PREÇO',
                         validators=[NumberRange(min=1000, max=9999999, message = 'Somente por vendas acima de mil reais.')])
 
-    Cor = StringField('Favor inserir a cor do carro',
+    Cor = StringField('COR',
                         validators=[InputRequired(message= 'Favor inserir cor do carro'), AnyOf(CoresGarantia, message= '''Caso a cor não seja aceita e porque ela é muito atípica. 
-                        Ou não e constatada no nosso banca de cores.
+                        Ou não é constatada no banco de cores da web motors.
                         Favor inserir indefinida no campo nesse caso''')])
 
-    Localidade= StringField('Favor informar cidade em que foi feito a venda',
+    Localidade= StringField('LOCAL DA VENDA',
                         validators=[InputRequired(message= 'Favor inserir local'),AnyOf(Localidades, message= 'Atualmente só trabalhamos com vendas realizadas em Limeira e Piracicaba')])
 
     Confirma=SubmitField('Confirmar inserção')
@@ -317,11 +319,16 @@ def enviar_email_reset(user):
     token = user.get_reset_token()
     msg = Message('Reset de Email',sender='ivgnoreply@gmail.com', recipients= [user.EmailDB])
     msg.body =   f''' 
+
 Para resetar sua senha, visite o link a seguir:
 Se você não fez esse pedido então simplesmente ignore esse E-mail. 
 Caso você o tenha feito então só clicar no link abaixo
+
+
 {url_for('Reset_token', token= token, _external= True)}
-Caso você tenha problemas favor nos contatar por (contatos)
+
+
+Caso você tenha problemas favor nos contatar pelos contatos expostos no site.
 '''
     mail.send(msg)
 
