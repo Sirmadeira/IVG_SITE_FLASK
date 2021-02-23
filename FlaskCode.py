@@ -174,44 +174,44 @@ class ResetSenhaForm(FlaskForm):
 
 class DadosEssenciais(FlaskForm):
 
-    MarcasGarantia = ("ACURA", "AGRALE","AlFO ROMEO","AM GEN","ASIA MOTORS","ASTON MARTIN","AUDI","BABY","BMW",
-    "BRM","BUGRE","CADILLAC","CBT JIPE","CHANA","CHANGAN","CHERY","CHRYSLER","CITROËN","CITROEN",
-    "CROSS LANDER","DAEWOO","DAIHATSU","DODGE","EFFA","ENGESA","ENVEMO","FERRARI","FIAT",
-    "FIBRAVAN","FORD","FOTON","FYBER","GEELY","GM CHEVROLET","GREAT WALL","GURGEL","HAFEI",
-    "HITECH ELECTRIC","HONDA","HYUNDAY","ISUZU","IVECO","JAC","JAGUAR","JEEP","JINBEI","JPX",
-    "KIA MOTORS","LADA","LAMBORGHINI","LAND ROVER","LEXUS","LIFAN","LOBINI","LOTUS","MAHINDRA",
-    "MASERATI","MATRA","MAZDA","MCLAREN","MERCEDEZ-BENZ","MERCURY","MG","MINI","MITSUBISHI","MIURA",
-    "NISSAN","PEUGEOT","PLYMOUTH","PONTIAC","PORSCHE","RAM","RELY","RENAULT","ROLLS-ROYCE","ROVER",
-    "SAAB","SATURN","SEAT","SHINERAY","SMART","SSANGYONG","SUBARU","SUZUKI","TAC","TOYOTA","TROLLER","VOLVO","VW-VOLKSWAGEN","WAKE","WALK")
+    MarcasGarantia = ("Acura", "Agrale","Alfo Romeo","Am Gen","Asia motors","ASTON MARTIN","Audi","Baby","BMW",
+    "BRM","BUGRE","Cadillac","CBT Jipe","CHANA","CHANGAN","CHERY","Chrysler","Citroën",
+    "Cross Lander","Daewoo","Daihatsu","Dodge","EFFA","Engesa","Envemo","Ferrari","Fiat",
+    "Fibravan","Ford","FOTON","Fyber","GEELY","GM CHEVROLET","GREAT WALL","Gurgel","HAFEI",
+    "HITECH ELECTRIC","HONDA","HYUNDAY","ISUZU","IVECO","JAC","Jaguar","Jeep","JINBEI","JPX",
+    "Kia Motors","Lada","Lamborghini","Land Rover","Lexus","LIFAN","LOBINI","Lotus","Mahindra",
+    "Maserati","Matra","Mazda","Mclaren","Mercedez-Benz","Mercury","MG","MINI","Mitsubishi","Miura",
+    "Nissan","Peugeot","Plymouth","Pontiac","Porsche","RAM","RELY","Renault","Rolls-Royce","Rover",
+    "Saab","Saturn","Seat","SHINERAY","smart","SSANGYONG","Subaru","Suzuki","TAC","Toyota","Troller","Volvo","VW-VOLKSWAGEN","Wake","Walk")
 
-    Localidades= ("LIMEIRA", "PIRACICABA")
+    Localidades= ("Limeira", "Piracicaba","limeira", "piracicaba")
 
-    CoresGarantia = ("AMARELO","AZUL","BEGE","BRANCO","BRONZE","CINZA","DOURADO","INDEFINIDA","LARANJA","MARROM","PRATA","PRETO",
-                    "ROSA","ROXO","VERDE","VERMELHO","VINHO")
+    CoresGarantia = ("Amarelo","Azul","Bege","Branco","Bronze","Cinza","Dourado","Indefinida","Laranja","Marrom","Prata","Preto",
+                    "Rosa","Roxo","Verde","Vermelho","Vinho")
 
-    Combustiveis= ('GASOLINA','ETANOL','GNV','DISEL','FLEX')
+    Combustiveis= ('Gasolina','Etanol','GNV','Diesel','Flex')
     
     Marca = StringField('Marca',
                         validators=[InputRequired(message='Favor inserir uma Marca valida'), AnyOf(MarcasGarantia, message= 
                                     '''
-                                    Trabalhamos com as seguintes marcas, escreva da maneira abaixo:
+                                    Trabalhamos com as seguintes marcas, escrever igual a maneira abaixo:
                                     Acura/Agrale/Alfo Romeo/Am Gen/Asia motors/ASTON MARTIN/Audi/Baby/BMW/BRM/BUGRE/Cadillac/
                                     CBT Jipe/CHANA/CHANGAN/CHERY/Chrysler/Citroën/Cross Lander/Daewoo/Daihatsu/
                                     Dodge/EFFA/Engesa/Envemo/Ferrari/Fiat/Fibravan/Ford/FOTON/Fyber/GEELY/GM CHEVROLET/
                                     GREAT WALL/Gurgel/HAFEI/HITECH ELECTRIC/HONDA/HYUNDAY/ISUZU/IVECO/JAC/Jaguar/Jeep/JINBEI/JPX/
                                     Kia Motors/Lada/Lamborghini/Land Rover/Lexus/LIFAN/LOBINI/Lotus/Mahindra/Maserati/Matra/Mazda/
-                                    Mclaren/Mercedez-Benz/Mercury/MG/MINI/Mitsubishi/Miura/Nissan/Peugeot/Plymouth/Pontiac/Porsche/RAM/
-                                    RELY/Renault/Rolls-Royce/Rover/Saab/Saturn/Seat/SHINERAY/smart/SSANGYONG/Subaru/Suzuki/TAC/Toyota/Troller/
-                                    Volvo/VW-VOLKSWAGEN/Wake/Walk''' )])
+                                    Mclaren/Mercedez-Benz/Mercury/MG/MINI/Mitsubishi/Miura/Nissan/Peugeot/Plymouth/Pontiac/Porsche/
+                                    RAM/RELY/Renault/Rolls-Royce/Rover/Saab/Saturn/Seat/SHINERAY/smart/SSANGYONG/Subaru/Suzuki/
+                                    TAC/Toyota/Troller/Volvo/VW-VOLKSWAGEN/Wake/Walk''' )])
     
-    Modelo = StringField('Modelo encontrado no renavan',
+    Modelo = StringField('Modelo',
                         validators=[InputRequired(message='Favor inserir um modelo valido')])
 
     VersaoDoMotor = StringField('Motor',
                         validators=[InputRequired(message='Favor inserir um motor valido')])
 
     TipoDeCombustivel = StringField('Combustivél',
-                        validators=[InputRequired(message='Favor inserir um modelo valido'), AnyOf(Combustiveis, message=' Os combustiveis aceitos são: Gasolina/Etanol/GNV/Diesel/Flex' )])
+                        validators=[InputRequired(message='Favor inserir um modelo valido'), AnyOf(Combustiveis, message= f' Os combustiveis aceitos são: {Combustiveis}' )])
 
     Ano = FloatField('Ano',
                         validators=[NumberRange(min= 1960, max=2021, message = 'Somente por carros acima do ano 1960')])
@@ -223,9 +223,10 @@ class DadosEssenciais(FlaskForm):
                         validators=[NumberRange(min=1000, max=9999999, message = 'Somente por vendas acima de mil reais.')])
 
     Cor = StringField('Cor',
-                        validators=[InputRequired(message= 'Favor inserir cor do carro'), AnyOf(CoresGarantia, message= '''Caso a cor não seja aceita e porque ela é muito atípica. 
-                        Ou não é constatada no banco de cores da web motors.
-                        Favor inserir indefinida no campo nesse caso''')])
+                        validators=[InputRequired(message= 'Favor inserir cor do carro'), AnyOf(CoresGarantia, message= f'''Caso a cor não seja aceita e porque ela é muito atípica. 
+                        Ou não é constatada no banco de cores.
+                        Favor inserir indefinida no campo nesse caso
+                        As cores aceitas são: {CoresGarantia}''')])
 
     Localidade= StringField('Local da venda',
                         validators=[InputRequired(message= 'Favor inserir local'),AnyOf(Localidades, message= 'Atualmente só trabalhamos com vendas realizadas em Limeira e Piracicaba')])

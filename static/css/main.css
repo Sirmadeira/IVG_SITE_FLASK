@@ -143,33 +143,7 @@ width: 100%;
 .form-control-lg{
   font-size: 12px;
 }
-#Marca{
-  text-transform: uppercase;
-}
-#Modelo{
-  text-transform: uppercase;
-}
- #VersaoDoMotor{
-  text-transform: uppercase;
-}
-#TipoDeCombustivel{
-  text-transform: uppercase;
-}
- #Ano{
-  text-transform: uppercase;
-}
-#Quilometragem{
-  text-transform: uppercase;
-}
-#Preco{
-  text-transform: uppercase;
-}
- #Cor{
-  text-transform: uppercase;
-}
-  #Localidade{
-  text-transform: uppercase;
-}
+
 @media and (min-width: 700.98px){
 .container .row{
 margin: 200px;
