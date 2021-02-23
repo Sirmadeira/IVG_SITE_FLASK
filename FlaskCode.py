@@ -1,4 +1,3 @@
-import os
 from flask import Flask, render_template, url_for, flash, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc
@@ -67,7 +66,7 @@ class Dado(db.Model):
     TipoDeCombustivelDB=db.Column(db.String(120),nullable= False)
     AnoDB=db.Column(db.Integer,nullable= False)
     QuilometragemDB=db.Column(db.Float)
-    PrecoDB=db.Column(db.Float, nullable= False)
+    PrecoDB=db.Column(db.Float,nullable= False)
     CorDB=db.Column(db.String(20),nullable= False)
     NomeDaEmitente= db.Column(db.String(30),nullable= False)
     user_id = db.Column(db.Integer, db.ForeignKey('UsuarioDB.id'), nullable=False)
@@ -193,31 +192,41 @@ class DadosEssenciais(FlaskForm):
     Combustiveis= ('Gasolina','Etanol','GNV','Diesel','Flex')
     
     Marca = StringField('Marca',
-                        validators=[InputRequired(message='Favor inserir uma Marca valida'), AnyOf(MarcasGarantia, message= " Essas são as marcas disponiveis:(Favor escrever de acordo com o mostrado) Acura/Agrale/Alfo Romeo/Am Gen/Asia motors/ASTON MARTIN/Audi/Baby/BMW/BRM/BUGRE/Cadillac/CBT Jipe/CHANA/CHANGAN/CHERY/Chrysler/Citroën/Cross Lander/Daewoo/Daihatsu/Dodge/EFFA/Engesa/Envemo/Ferrari/Fiat/Fibravan/Ford/FOTON/Fyber/GEELY/GM CHEVROLET/GREAT WALL/Gurgel/HAFEI/HITECH ELECTRIC/HONDA/HYUNDAY/ISUZU/IVECO/JAC/Jaguar/Jeep/JINBEI/JPX/Kia Motors/Lada/Lamborghini/Land Rover/Lexus/LIFAN/LOBINI/Lotus/Mahindra/Maserati/Matra/Mazda/Mclaren/Mercedez-Benz/Mercury/MG/MINI/Mitsubishi/Miura/Nissan/Peugeot/Plymouth/Pontiac/Porsche/RAM/RELY/Renault/Rolls-Royce/Rover/Saab/Saturn/Seat/SHINERAY/smart/SSANGYONG/Subaru/Suzuki/TAC/Toyota/Troller/Volvo/VW-VOLKSWAGEN/Wake/Walk" )])
+                        validators=[InputRequired(message='Favor inserir uma Marca valida'), AnyOf(MarcasGarantia, message= ''' Favor escrever exatamente igual ao abaixo:
+                                    Acura/Agrale/Alfo Romeo/Am Gen/Asia motors/ASTON MARTIN/Audi/Baby/BMW/BRM/BUGRE/Cadillac/
+                                    CBT Jipe/CHANA/CHANGAN/CHERY/Chrysler/Citroën/Cross Lander/Daewoo/Daihatsu/
+                                    Dodge/EFFA/Engesa/Envemo/Ferrari/Fiat/Fibravan/Ford/FOTON/Fyber/GEELY/GM CHEVROLET/
+                                    GREAT WALL/Gurgel/HAFEI/HITECH ELECTRIC/HONDA/HYUNDAY/ISUZU/IVECO/JAC/Jaguar/Jeep/JINBEI/JPX/
+                                    Kia Motors/Lada/Lamborghini/Land Rover/Lexus/LIFAN/LOBINI/Lotus/Mahindra/Maserati/Matra/Mazda/
+                                    Mclaren/Mercedez-Benz/Mercury/MG/MINI/Mitsubishi/Miura/Nissan/Peugeot/Plymouth/Pontiac/Porsche/RAM/
+                                    RELY/Renault/Rolls-Royce/Rover/Saab/Saturn/Seat/SHINERAY/smart/SSANGYONG/Subaru/Suzuki/TAC/Toyota/Troller/
+                                    Volvo/VW-VOLKSWAGEN/Wake/Walk''' )])
     
-    Modelo = StringField('Modelo (Dentro do RENAVAN logo depois de marca)',
+    Modelo = StringField('Modelo, favor escrever de acordo com oque está dentro do RENAVAN',
                         validators=[InputRequired(message='Favor inserir um modelo valido')])
 
-    VersaoDoMotor = StringField('Versão do motor, caso seja modificado inserir modificado. Caso original inserir de acordo, Versão 1.6 ',
+    VersaoDoMotor = StringField('Versão do motor, caso seja modificado inserir modificado. Caso original inserir de acordo. Exemplo: Versão 1.6 ',
                         validators=[InputRequired(message='Favor inserir uma verão valida')])
 
     TipoDeCombustivel = StringField('Tipo de combustível do carro',
                         validators=[InputRequired(message='Favor inserir um modelo valido'), AnyOf(Combustiveis, message=' Favor inserir da seguinte maneira:(Gasolina/Etanol/GNV/Diesel/Flex)' )])
 
-    Ano = IntegerField('Ano',
+    Ano = FloatField('Ano',
                         validators=[NumberRange(min= 1960, max=2021, message = 'Somente por carros acima do ano 1960')])
 
-    Quilometragem = FloatField('Quilometragem',
+    Quilometragem = IntegerField('Quilometragem',
                         validators=[NumberRange(min=0, max=9999999, message= "Não existe km negativa ou essa km e muita alta")])
 
     Preco = FloatField('Preço',
                         validators=[NumberRange(min=1000, max=9999999, message = 'Somente por vendas acima de mil reais.')])
 
     Cor = StringField('Favor inserir a cor do carro',
-                        validators=[InputRequired(message= 'Favor inserir cor do carro'), AnyOf(CoresGarantia, message= 'Favor inserir a cor com a primeira letra maiúscula, caso a cor não seja aceita e porque ela é muito atípica, favor inserir indefinida no campo nesse caso')])
+                        validators=[InputRequired(message= 'Favor inserir cor do carro'), AnyOf(CoresGarantia, message= '''Caso a cor não seja aceita e porque ela é muito atípica. 
+                        Ou não e constatada no nosso banca de cores.
+                        Favor inserir indefinida no campo nesse caso''')])
 
     Localidade= StringField('Favor informar cidade em que foi feito a venda',
-                        validators=[InputRequired(message= 'Favor inserir local'),AnyOf(Localidades, message= 'Favor inserir a cidade com a primeira letra maiúscula. Atualmente só trabalhamos com vendas realizadas em Limeira e Piracicaba')])
+                        validators=[InputRequired(message= 'Favor inserir local'),AnyOf(Localidades, message= 'Atualmente só trabalhamos com vendas realizadas em Limeira e Piracicaba')])
 
     Confirma=SubmitField('Confirmar inserção')
 
@@ -240,13 +249,13 @@ def Login():
 def Cadastro():
     form = FormularioDeRegistro()
     if form.validate_on_submit():
-    	senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
-    	user= UsuarioDB(UsernameDB=form.Usuario.data,NomeDaEmpresaDB= form.NomeDaEmpresa.data,ComercioDB= form.Comercio.data,
+        senha_hashed = bcrypt.generate_password_hash(form.Senha.data).decode('utf-8')
+        user= UsuarioDB(UsernameDB=form.Usuario.data,NomeDaEmpresaDB= form.NomeDaEmpresa.data,ComercioDB= form.Comercio.data,
                         EmailDB=form.Email.data, PasswordDB= senha_hashed)
-    	db.session.add(user)
-    	db.session.commit()
-    	flash(f'Sua conta foi criada!', 'success')
-    	return redirect(url_for('Login'))
+        db.session.add(user)
+        db.session.commit()
+        flash(f'Sua conta foi criada!', 'success')
+        return redirect(url_for('Login'))
     return render_template('Cadastro.html', title='Cadastro', form=form)
 
 @app.route("/HomePage")
@@ -255,7 +264,7 @@ def HomePage():
 
 @app.route("/Sobre")
 def Sobre():
-	return render_template("Sobre.html", title = "Sobre")
+    return render_template("Sobre.html", title = "Sobre")
 
 @app.route("/SegundaJanela", methods=['GET', 'POST'])
 @login_required
