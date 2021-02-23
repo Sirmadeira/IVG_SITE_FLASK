@@ -1,4 +1,4 @@
-  <!doctype html>
+ <!doctype html>
 <html>
 <head>
   <!-- Required meta tags -->
@@ -7,7 +7,6 @@
     <!-- Bootstrap CSS -->
     <link rel= "stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384s-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
-    
   {% if title %}
     <title>IVG | {{ title }}</title>
   {% else %}
@@ -19,7 +18,7 @@
   <header class="site-header">
       <nav class="navbar navbar-expand-lg navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="/HomePage"><img src="static/imagens/LOGO R02azulclaro.png" class="logo" alt="marca da IVG"></a>
+          <a class="navbar-brand mr-4" href="/HomePage"><img src="{{ url_for('static', filename='imagens/Logo-IVG-azulclaro.png')}}" class="logo" alt="marca da IVG"></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -60,23 +59,23 @@
         </div>
       </div>
     </main>
-    <footer class="bg-dark text-white">
+    <footer class="footer bg-dark text-white py-1 mb-0">
        <div class="container text-center mt-5">
        <div class="row">
        <div class="col-md">
-        <ul  style="list-style: none; font-size: 10px; padding: 10px 0; display: inline-flex;">
-       <li><img src="static/imagens/facebook.png" class="redesocial"></li> 
-        <li><img src="static/imagens/twitter.png" class="redesocial2"></li> 
-         <li><img src="static/imagens/linkedin.png"  class="redesocial"></li>
+        <ul  style="list-style: none; font-size: 10px; padding: 10% 0; display: inline-flex;">
+       <li><img src="{{ url_for('static', filename='imagens/Footer-Facebook.png')}}" class="redesocial"></li> 
+        <li><img src="{{ url_for('static', filename='imagens/Footer-Twitter.png')}}" class="redesocial2"></li> 
+         <li><img src="{{ url_for('static', filename='imagens/Footer-Linkedin.png')}}"  class="redesocial"></li>
           </ul>
        </div>
-           <div class="col-md">
+           <div class="col-xl">
         <ul class="text-uppercase" style="list-style: none; font-size: 12px; padding: 30px 0 20px;">
        <li>Ivg Tecnologia de Dados - Todos os Direitos Reservados</li> 
         <li>2021</li> 
           </ul>
        </div>
-       <div class="col-md">
+       <div class="col-xl">
         <ul  style="list-style: none; font-size: 12px; padding: 10px 0; margin-top: 20px;">
        <li>Rua Livio Edmondo Levi, 25</li> 
         <li>Cep: 056.92-160</li> 

@@ -1,10 +1,13 @@
 {% extends "Layout.html" %}
 {% block content %}
-<table class= 'table table-dark'>
+ <div class="container-fluid" style="background-image: url(static/imagens/Inserir-Dados-Background.jpg); background-size: cover; height: auto; margin: -35px auto -50px; padding: 0 0; width: 100%; font-size: 15px">
+
+ 	<div class="table-responsive-lg mt-4 px-4 pt-4 p-0" style="font-size: 14px;">
+ 		<div class="bg-dark mx-auto p-auto mb-0 text-center" style="width: 650px; opacity: .9;">
+			<p class="m-0">Tabela dos últimos dados inseridos</p>
+ 		</div>
+	<table class="table table-dark text-center mx-auto my-0 " style="width: 50%; opacity: .9; padding-top: 50px;">
 	<thead>
-		<td>
-			Tabela dos últimos dados inseridos. 
-		</td>
 		<tr>
 			{% for cabeca in TabelaTitulo %}
 				<th scope= 'col'> {{ cabeca }}</th>
@@ -14,7 +17,7 @@
 	<tbody>
 		<tr>	
 			{% for Dado in Query %}
-			<td>
+		<td>
 				{{Dado.MarcaDB}}
 			</td>
 			<td>
@@ -43,11 +46,12 @@
 			</td>
 		</tr>
 		{% endfor %}
-		<td>
-			Grafico em ordem decrescente de inserção. ↟ 
-		</td>
     </tbody>
-</table>
-
+    </table>
+    <div class="bg-dark mx-auto pb-auto mt-0 text-center mb-5" style="width: 650px; opacity: .9;">
+			<p>Grafico em ordem decrescente de inserção. ↟ </p>
+ 		</div>
+</div>
+</div>
 
 {% endblock content%}

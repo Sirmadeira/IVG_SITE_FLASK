@@ -1,23 +1,56 @@
 {% extends "Layout.html" %}
 {% block content %}
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+<div id="carouselExampleIndicators" class="carousel slide m-auto" style="height: auto;" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
   </ol>
   <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img class="d-block w-100" src="static/imagens/odometer.jpg" alt="Primeiro Slide">
-      <div class="carousel-caption d-sm-block">
-    <h5 class="text-truncate" style="color: white;">Bem Vindo à IVG</h5>
-    <p>Fazemos consultoria de IA para revenda de carros</p>
+    <div class="carousel-item active" style="height: auto;">
+      <img class="d-block w-100" src="{{ url_for('static', filename='imagens/Homepage-Slide01.jpg')}}" alt="Primeiro Slide" style="background-size:cover;">
+      <div class="carousel-caption d-lg-block text-center m-auto">
+        <div style="background-color: black; opacity: .9">
+    <h5 class="text-truncate" style="color: white; font-size: 3vw; letter-spacing: 4px;">Bem Vindo à IVG</h5>
+    <p style="font-size: 2vw; letter-spacing: 2px; max-width: 100%;">Informação que gera conhecimento. Ajudamos o teu negócio ao emitirmos relatórios inteligentes de mercado. Por enquanto trabalhamos apenas com revendedoras de carros.</p>
+  </div>
   </div>
     </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="static/imagens/news.jpg" alt="Segundo Slide">
-      <div class="carousel-caption d-sm-block">
-    <h5 style="color:white;">Algoritmo em formação</h5>
-    <p>No momento estamos trabalhando em um algoritmo para a revenda de carros. Avisaremos quando estiver pronto</p>
+    <div class="carousel-item" style="height: auto;">
+      <img class="d-block w-100" src="{{ url_for('static', filename='imagens/Homepage-Slide02.jpg')}}" alt="Segundo Slide" style="opacity: 1">
+      <div class="carousel-caption d-lg-block">
+        <div style="background-color: black; opacity: .9">
+    <h5 style="color:white; font-size: 3vw; letter-spacing: 4px;">Algoritmo em formação</h5>
+    <p  style="font-size: 2vw; letter-spacing: 2px; opacity: .9;">No momento estamos trabalhando em um algoritmo para a revenda de carros. Avisaremos quando estiver pronto.</p>
+    </div>
+    </div>
+    </div>
+    <div class="carousel-item" style="height: auto;">
+      <img class="d-block w-100" src="{{ url_for('static', filename='imagens/Homepage-Slide03.jpg')}}" alt="Terceiro Slide" style="opacity: 1">
+      <div class="carousel-caption d-lg-block">
+        <div class="bg-dark">
+
+    <h5 class="text-left" style="color:white; font-size: 3vw;"></h5>
+    <p class="" style="font-size: 2vw; letter-spacing: 3px; background-color: black; margin: 10px; opacity: .9;">Uma das primeiras tabelas de inteligência de mercado a serem emitidas no site</p>
+    </div>
+    </div>
+    </div>
+    <div class="carousel-item" style="height: auto;">
+      <img class="d-block w-100" src="{{ url_for('static', filename='imagens/Homepage-Slide04.jpg')}}" alt="Quarto Slide" style="opacity: 1">
+      <div class="carousel-caption d-lg-block">
+    <h5 style="color:white; font-size: 3vw;"></h5>
+    <p  style="font-size: 2vw; letter-spacing: 1px;">Em seguida, emitiremos uma análise preditiva por meio da regressão linear cuja finalidade é encontrar relações matemáticas entre as variáveis (ex: preço x km rodado)</p>
+    </div>
+    </div>
+       <div class="carousel-item" style="height: auto;">
+      <img class="d-block w-100" src="{{ url_for('static', filename='imagens/Homepage-Slide05.jpg')}}" alt="Quinto Slide" style="opacity: 1">
+      <div class="carousel-caption d-lg-block">
+        <div style="background-color: black; opacity: .9">
+    <h5 style="color:white; font-size: 3vw;"></h5>
+    <p  style="font-size: 2vw; letter-spacing: 2px;">Por fim, lançaremos o monitoramento em tempo real das precificações automotivas a fim de ajudar os revendedores a compreenderem a oferta e procura da região.</p>
+  </div>
     </div>
     </div>
   </div>
@@ -30,23 +63,24 @@
     <span class="sr-only">Próximo</span>
   </a>
 </div>
-<div class="container mx-6 px-5">
-  <div class="row  mx-5 px-5 mt-5">
-    <div class="col-sm">
-        <img class="icone" src="static/imagens/segurança.png" alt="imagem">
-        <h1 style="font-size: 14px; margin: -15px 62px;">Segurança</h1>
-        <p class="text-left" style="font-size: 11px; margin: 20px 0px;">A IVG garante a proteção dos seus dados</p>      
+<div class="container text-center mt-5 mb-5">
+  <div class="row">
+    <div class="col-lg m-3">
+        <img class="text-center" src="{{ url_for('static', filename='imagens/Homepage-Main-Segurança.png')}}" alt="Responsive image" style="min-height: 100px; max-height: 150px;">
+        <h1 style="margin: auto; font-size: 3vw; letter-spacing: 2px;">Segurança</h1>
+        <p style="font-size: 2vw; letter-spacing: 2px;">A IVG garante a proteção dos seus dados</p>      
         </div>
-        <div class="col-sm">
-           <img class="icone2" src="static/imagens/info.png" alt="imagem">
-        <h1 style="font-size: 14px; margin: -15px 25px">Informações de Dados<h1>
-          <p></p>
+        <div class="col-lg m-3">
+           <img class="text-center mb-1" src="{{ url_for('static', filename='imagens/Homepage-Main-Info.png')}}" alt="Responsive image" style="min-height: 100px; max-height: 150px">
+        <h1 style="margin: auto; font-size: 3vw; letter-spacing: 2px;">Informações de Dados<h1>
+          <p style="font-size: 2vw; letter-spacing: 2px; margin-top: 5px;">Enviaremos relatórios mensais sobre as relações dos dados obtidos a partir dos nossos algoritmos</p>
         </div>
-        <div class="col-sm">
-           <img class="icone3" src="static/imagens/shield.png" alt="imagem">
-        <h1 style="font-size: 14px; margin: -15px 65px">Antifraude<h1>
-           <p></p>
-        </div>
+        <div class="col-lg m-3">
+           <img class="text-center mb-2" src="{{ url_for('static', filename='imagens/Homepage-Main-AntiFraude.png')}}" alt="Responsive image" style="min-height: 100px; max-height: 140px; margin: 0 auto;">
+        <h1 style="font-size: 3vw; margin: auto; letter-spacing: 2px;">Antifraude<h1>
+           <p style="font-size: 2vw; letter-spacing: 2px;">100% de compromentimento em manter seus dados com transparência </p>
+      </h1>
+      </div>
     </div>
 </div>
 {% endblock content%}

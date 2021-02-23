@@ -1,11 +1,12 @@
 {% extends "Layout.html" %}
 {% block content %}
-	<div class="content-section">
+<div class="container-fluid" style="background-image: url(static/imagens/Empresa-Background.jpg); background-size: cover; height: auto; padding: 10% 0 20%; width: 100%;">
+	<div class= "content-section mx-auto bg-dark" style="min-width: 300px; max-width: 30%; opacity: .9;">
 	  <div class="media">
 	    <div class="media-body">
-	      <p class="text-secondary"> USUÁRIO: {{ current_user.UsernameDB }}</p>
-	      <p class="text-secondary"> E-MAIL: {{ current_user.EmailDB }}</p>
-	      <p class="text-secondary"> NOME DA EMPRESA: {{ current_user.NomeDaEmpresaDB }}</p>
+	      <p class="text-light"> USUÁRIO: {{ current_user.UsernameDB }}</p>
+	      <p class="text-light"> E-MAIL: {{ current_user.EmailDB }}</p>
+	      <p class="text-light"> NOME DA EMPRESA: {{ current_user.NomeDaEmpresaDB }}</p>
 	    </div>
 	  </div>
 		<form method = 'POST' action = ''>
@@ -26,7 +27,7 @@
 							{{ form.Usuario(class="form-control form-control-lg") }}
 					{% endif %}
 				</div>
-				<div class= "form-group">
+				<div class= "form-group mt-2">
 					{{form.Email.label(class="form-control-label") }}
 
 					{% if form.Email.errors %}
@@ -40,9 +41,11 @@
 							{{ form.Email(class="form-control form-control-lg") }}
 					{% endif %}
 				</div>
-			<div class= "form-group">
+			<div class= "form-group mt-3">
 					{{ form.Confirma(class= "btn btn-outline-info") }}
 			</div>
 		</form>
 	</div>
+</fieldset>
+</div>
 {% endblock content%}
