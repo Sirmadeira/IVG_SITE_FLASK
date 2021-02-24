@@ -1,3 +1,4 @@
+import os
 from flask import url_for
 from flask_mail import Message
 from FlaskCodePacote import mail
