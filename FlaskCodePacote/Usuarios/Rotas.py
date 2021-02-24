@@ -2,8 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from FlaskCodePacote import db, bcrypt
 from FlaskCodePacote.Modelos import UsuarioDB
-from FlaskCodePacote.Usuarios.Formularios import (FormularioDeRegistro,FormularioDeLogin, AtualizarRegistro,RequisitarReset,
-                                        ResetSenhaForm)
+from FlaskCodePacote.Usuarios.Formularios import (FormularioDeRegistro,FormularioDeLogin, AtualizarRegistro,RequisitarReset,ResetSenhaForm)
 from FlaskCodePacote.Usuarios.Utilidades import enviar_email_reset
 
 
@@ -33,10 +32,10 @@ def Login():
         return redirect(url_for('Principal.HomePage'))
     form = FormularioDeLogin()
     if form.validate_on_submit():
-        UsuarioLogado = UsuarioDB.query.filter_by(UsernameDB = form.Usuario.data).first()
+        Usuario = UsuarioDB.query.filter_by(UsernameDB = form.Usuario.data).first()
         Email = UsuarioDB.query.filter_by(EmailDB=form.Email.data).first()
-        if UsuarioLogado and Email and bcrypt.check_password_hash(UsuarioLogado.PasswordDB,form.Senha.data):
-            login_user(UsuarioLogado,remember=form.Lembrete.data)
+        if Usuario and Email and bcrypt.check_password_hash(Usuario.PasswordDB,form.Senha.data):
+            login_user(Usuario,remember=form.Lembrete.data)
             next_page=request.args.get('next')
             return redirect(next_page) if next_page else redirect (url_for('Principal.HomePage'))
         else:
@@ -46,7 +45,7 @@ def Login():
 @Usuarios.route("/Logout")
 def Logout():
     logout_user()
-    return redirect(url_for('HomePage'))   
+    return redirect(url_for('Principal.HomePage'))   
 
 @Usuarios.route("/ContaEmpresa", methods=['GET', 'POST'])
 @login_required
