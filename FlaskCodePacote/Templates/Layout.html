@@ -24,19 +24,19 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav ml-4">
-              <a class="nav-item nav-link active" href="{{ url_for('HomePage') }}"> Home</a>
-              <a class="nav-item nav-link active" href="{{ url_for('Sobre') }}"> Sobre</a>
+              <a class="nav-item nav-link active" href="{{ url_for('Principal.HomePage') }}"> Home</a>
+              <a class="nav-item nav-link active" href="{{ url_for('Principal.Sobre') }}"> Sobre</a>
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav ml-1">
               {% if current_user.is_authenticated %}
-                <a class="nav-item nav-link active" href="{{ url_for('ContaEmpresa') }}">Empresa</a>
-                <a class="nav-item nav-link active" href="{{ url_for('SegundaJanela') }}">Inserir dados</a>
-                <a class="nav-item nav-link active" href="{{ url_for('TerceiraJanela') }}">Visualizar dados</a>
-                <a class="nav-item nav-link active" href="{{ url_for('Logout') }}">Logout</a>
+                <a class="nav-item nav-link active" href="{{ url_for('Usuario.ContaEmpresa') }}">Empresa</a>
+                <a class="nav-item nav-link active" href="{{ url_for('Tabelas.SegundaJanela') }}">Inserir dados</a>
+                <a class="nav-item nav-link active" href="{{ url_for('Tabelas.TerceiraJanela') }}">Visualizar dados</a>
+                <a class="nav-item nav-link active" href="{{ url_for('Usuario.Logout') }}">Logout</a>
               {% else %}
-                <a class="nav-item nav-link active" href="{{ url_for('Login') }}">Login</a>
-                <a class="nav-item nav-link active" href="{{ url_for('Cadastro') }}">Cadastro</a>
+                <a class="nav-item nav-link active" href="{{ url_for('Usuario.Login') }}">Login</a>
+                <a class="nav-item nav-link active" href="{{ url_for('Usuario.Cadastro') }}">Cadastro</a>
               {% endif %}
             </div>
           </div>
