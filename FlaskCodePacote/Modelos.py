@@ -1,3 +1,4 @@
+from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from FlaskCodePacote import db, login_manager
 from flask_login import  UserMixin
@@ -49,6 +50,7 @@ class Dado(db.Model):
     PrecoDB=db.Column(db.Float,nullable= False)
     CorDB=db.Column(db.String(20),nullable= False)
     NomeDaEmitente= db.Column(db.String(30),nullable= False)
+    DataDeInsercao = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('UsuarioDB.id'), nullable=False)
 
     def __repr__(self):
