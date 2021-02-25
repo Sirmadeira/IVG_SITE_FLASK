@@ -1,6 +1,7 @@
 from flask import (render_template, url_for, flash,
                    redirect, request, Blueprint)
 
+
 from flask_login import current_user, login_required
 from FlaskCodePacote import db
 from FlaskCodePacote.Modelos import Dado
@@ -15,10 +16,10 @@ Tabelas = Blueprint('Tabelas', __name__)
 def SegundaJanela():
     form = DadosEssenciais(request.form)
     if form.validate_on_submit():
-        Info = Dado(MarcaDB= form.Marca.data, ModeloDB= form.Modelo.data,VersaoDoMotorDB= form.VersaoDoMotor.data,TipoDeCombustivelDB= form.TipoDeCombustivel.data, 
+        Info = Dado(MarcaDB= form.Marca.data.upper(), ModeloDB= form.Modelo.data.upper(),VersaoDoMotorDB= form.VersaoDoMotor.data.upper(),TipoDeCombustivelDB= form.TipoDeCombustivel.data.upper(), 
                     AnoDB= form.Ano.data,QuilometragemDB= form.Quilometragem.data,
-                    PrecoDB= form.Preco.data, CorDB= form.Cor.data, 
-                    LocalidadeDB= form.Localidade.data,NomeDaEmitente=current_user.NomeDaEmpresaDB,user_id= current_user.id)
+                    PrecoDB= form.Preco.data, CorDB= form.Cor.data.upper(), 
+                    LocalidadeDB= form.Localidade.data.upper(),NomeDaEmitente=current_user.NomeDaEmpresaDB,user_id= current_user.id)
         db.session.add(Info)
         db.session.commit()
         flash(f'Seus dados foram inseridos com sucesso!', 'success')
