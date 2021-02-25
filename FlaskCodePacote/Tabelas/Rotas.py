@@ -29,7 +29,7 @@ def SegundaJanela():
 @Tabelas.route("/TerceiraJanela")
 @login_required
 def TerceiraJanela():
-    TabelaTitulo = ("Marca", "Modelo",'Motor','Combustivel', "Ano", "Quilometragem" , "Preço" , "Cor" , "Local"  )
+    TabelaTitulo = ("Marca", "Modelo",'Motor','Combustivel', "Ano", "Quilometragem" , "Preço" , "Cor" , "Local" ,"Controle" )
     contador= Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).count()
     faltante= 5-contador
     if contador is None or contador < 5:
