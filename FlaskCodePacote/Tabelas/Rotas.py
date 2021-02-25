@@ -37,3 +37,13 @@ def TerceiraJanela():
     else:
         return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all())
     return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela")
+
+@Tabelas.route('/Deleta/<int:id>')
+def Deleta(id):
+    deletalinha = Dado.query.get_or_404(id)
+    try:
+        db.session.delete(deletalinha)
+        db.session.commit()
+        return redirect(url_for('Tabelas.TerceiraJanela'))
+    except:
+        return 'Ouve um problema deletando essa linha!'

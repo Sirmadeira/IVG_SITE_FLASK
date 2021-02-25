@@ -1,7 +1,6 @@
 {% extends "Layout.html" %}
 {% block content %}
  <div class="container-fluid" style="background-image: url(static/imagens/Inserir-Dados-Background.jpg); background-size: cover; height: auto; margin: -35px auto -50px; padding: 0 0; width: 100%; font-size: 15px">
-
  	<div class="table-responsive-lg mt-4 px-4 pt-4 p-0" style="font-size: 14px;">
  		<div class="bg-dark mx-auto p-auto mb-0 text-center" style="width: 650px; opacity: .9;">
 			<p class="m-0">Tabela dos últimos dados inseridos</p>
@@ -16,9 +15,9 @@
 	</thead>
 	<tbody>
 		<tr>	
-			{% for Dado in Query %}
-		<td>
-				{{Dado.MarcaDB}}
+		{% for Dado in Query %}
+			<td>
+				{{Dado.MarcaDB}} 
 			</td>
 			<td>
 				{{Dado.ModeloDB}}
@@ -42,7 +41,10 @@
 				{{Dado.CorDB}}
 			</td>
 			<td>
-				{{Dado.LocalidadeDB}}
+				{{Dado.LocalidadeDB}} 
+			</td>
+			<td>
+				<a href= '/Deleta/{{Dado.id}}' class=' btn btn-outline-danger btn-sm'> Deletar linha </a> 
 			</td>
 		</tr>
 		{% endfor %}
