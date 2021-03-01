@@ -69,13 +69,16 @@
 		</tr>
 	</thead>
 	<tbody>
-	<tr>
-	{% for Grupo in GrupoModelo %}
+		<tr>
+		{% for numero in ContadorGrupo %}
 		<td>
-			{{ Grupo.ModeloDB }}
+			{{numero.ModeloDB}}
 		</td>
-	</tr>
-	{% endfor %}
+		<td>
+			{{numero}}
+		</td>
+		</tr>
+		{% endfor %}		
 	</tbody>
     </table>
 </div>

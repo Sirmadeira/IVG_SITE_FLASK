@@ -3,6 +3,7 @@ from flask import (render_template, url_for, flash,
 
 
 from flask_login import current_user, login_required
+from sqlalchemy import func
 from FlaskCodePacote import db
 from FlaskCodePacote.Modelos import Dado
 from FlaskCodePacote.Tabelas.Formularios import DadosEssenciais
@@ -37,7 +38,7 @@ def TerceiraJanela():
         return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela",contador= contador, faltante= faltante)
     else:
         return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all(),
-                                TituloTop20Modelo= TituloTop20Modelo, GrupoModelo= Dado.query.group_by(Dado.ModeloDB))
+                                TituloTop20Modelo= TituloTop20Modelo, ContadorGrupo= Dado.query.with_entities(Dado.ModeloDB, func.count(Dado.ModeloDB)).group_by(Dado.ModeloDB).all())
     return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela")
 
 @Tabelas.route('/Deleta/<int:id>')
