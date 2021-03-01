@@ -5,8 +5,8 @@
  	<div class="table-responsive-lg mt-4 px-4 pt-4 p-0" style="font-size: 14px;">
 	<table class="table table-dark text-center mx-auto my-0 " style="width: 50%; opacity: .9; padding-top: 50px;">
 			<div class="bg-dark mx-auto px-1 mb-0 text-center" style="width: 769px; opacity: .9;">
-			<p class="m-0">Tabela dos últimos dados inseridos</p>
- 		</div>
+				<p class="m-0">Tabela dos últimos dados inseridos</p>
+ 			</div>
 	<thead>
 		<tr>
 			{% for cabeca in TabelaTitulo %}
@@ -59,8 +59,8 @@
  	<div class="table-responsive-lg mt-4 px-4 pt-4 p-0" style="font-size: 14px;">
 	<table class="table table-dark text-center mx-auto my-0 " style="width: 50%; opacity: .9; padding-top: 50px;">
 			<div class="bg-dark mx-auto px-1 mb-0 text-center" style="width: 769px; opacity: .9;">
-			<p class="m-0">Tabela dos modelos mais vendidos</p>
- 		</div>
+				<p class="m-0">Tabela dos modelos mais vendidos em Limeira</p>
+ 		    </div>
  	<thead>
  		<tr>
 			{% for cabeca2 in TituloTop20Modelo %}
@@ -72,15 +72,45 @@
 		<tr>
 		{% for numero in ContadorGrupo %}
 		<td>
+			{{numero.MarcaDB}}
+		</td>
+		<td>
 			{{numero.ModeloDB}}
 		</td>
 		<td>
-			{{numero}}
+			{{ numero.total }}
 		</td>
 		</tr>
 		{% endfor %}		
 	</tbody>
     </table>
+
+
+	<div class="table-responsive-lg mt-4 px-4 pt-4 p-0" style="font-size: 14px;">
+	<table class="table table-dark text-center mx-auto my-0 " style="width: 50%; opacity: .9; padding-top: 50px;">
+			<div class="bg-dark mx-auto px-1 mb-0 text-center" style="width: 769px; opacity: .9;">
+				<p class="m-0">Tabela de marcas mais vendidas em Limeira</p>
+ 		    </div>
+ 	<thead>
+ 		<tr>
+			{% for cabeca2 in TituloTop20Marca %}
+				<th scope= 'col'> {{ cabeca2 }}</th>
+			{% endfor %}
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+		{% for numero in ContadorGrupo2 %}
+		<td>
+			{{numero.MarcaDB}}
+		</td>
+		<td>
+			{{ numero.total2 }}
+		</td>
+		</tr>
+		{% endfor %}		
+	</tbody>
+    </table>    
 </div>
 </div>
 

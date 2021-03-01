@@ -3,7 +3,7 @@ from flask import (render_template, url_for, flash,
 
 
 from flask_login import current_user, login_required
-from sqlalchemy import func
+from sqlalchemy import func, desc
 from FlaskCodePacote import db
 from FlaskCodePacote.Modelos import Dado
 from FlaskCodePacote.Tabelas.Formularios import DadosEssenciais
@@ -31,15 +31,18 @@ def SegundaJanela():
 @login_required
 def TerceiraJanela():
     TabelaTitulo = ("Marca","Modelo",'Motor','Combustivel', "Ano", "Quilometragem" , "Preço" , "Cor" , "Local" ,"Controle" )
-    TituloTop20Modelo=("Modelo","Venda")
+    TituloTop20Modelo=("Marca","Modelo","n.º de vendas")
+    TituloTop20Marca=("Marca"," n.º de vendas")
     contador= Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).count()
     faltante= 5-contador
     if contador is None or contador < 5:
         return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela",contador= contador, faltante= faltante)
     else:
         return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all(),
-                                TituloTop20Modelo= TituloTop20Modelo, ContadorGrupo= Dado.query.with_entities(Dado.ModeloDB, func.count(Dado.ModeloDB)).group_by(Dado.ModeloDB).all())
-    return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela")
+                                TituloTop20Modelo= TituloTop20Modelo, ContadorGrupo= Dado.query.with_entities(Dado.MarcaDB,Dado.ModeloDB,func.count(Dado.ModeloDB).label('total')).group_by(Dado.ModeloDB).order_by(desc('total')).limit(20),
+                                TituloTop20Marca=TituloTop20Marca, ContadorGrupo2= Dado.query.with_entities(Dado.MarcaDB,func.count(Dado.MarcaDB).label('total2')).group_by(Dado.MarcaDB).order_by(desc('total2')).all())
+
+    return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela") 
 
 @Tabelas.route('/Deleta/<int:id>')
 def Deleta(id):
