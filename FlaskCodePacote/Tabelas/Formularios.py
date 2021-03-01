@@ -7,18 +7,6 @@ from FlaskCodePacote.Modelos import Dado
 
 
 class DadosEssenciais(FlaskForm):
-
-    MarcasGarantia = ("Acura", "Agrale","Alfo Romeo","Am Gen","Asia motors","ASTON MARTIN","Audi","Baby","BMW",
-    "BRM","BUGRE","Cadillac","CBT Jipe","CHANA","CHANGAN","CHERY","Chrysler","Citroën",
-    "Cross Lander","Daewoo","Daihatsu","Dodge","EFFA","Engesa","Envemo","Ferrari","Fiat",
-    "Fibravan","Ford","FOTON","Fyber","GEELY","GM CHEVROLET","GREAT WALL","Gurgel","HAFEI",
-    "HITECH ELECTRIC","HONDA","HYUNDAY","ISUZU","IVECO","JAC","Jaguar","Jeep","JINBEI","JPX",
-    "Kia Motors","Lada","Lamborghini","Land Rover","Lexus","LIFAN","LOBINI","Lotus","Mahindra",
-    "Maserati","Matra","Mazda","Mclaren","Mercedez-Benz","Mercury","MG","MINI","Mitsubishi","Miura",
-    "Nissan","Peugeot","Plymouth","Pontiac","Porsche","RAM","RELY","Renault","Rolls-Royce","Rover",
-    "Saab","Saturn","Seat","SHINERAY","smart","SSANGYONG","Subaru","Suzuki","TAC","Toyota","Troller","Volvo","VW-VOLKSWAGEN","Wake","Walk")
-
-
     
     Marca = StringField('Marca',
                         validators=[InputRequired(message='Favor inserir uma Marca valida')])
@@ -79,7 +67,6 @@ class DadosEssenciais(FlaskForm):
                         As cores aceitas são: { Cores }''')
 
     def validate_Localidade(self, Localidade):
-        Localidades= ("Limeira", "Piracicaba")
         GarantiaLocalidade = Dado.query.filter_by(LocalidadeDB = Localidade.data.upper()).first()
         if GarantiaLocalidade is None:
             raise ValidationError('Atualmente só trabalhamos com vendas realizadas em Limeira e Piracicaba')
