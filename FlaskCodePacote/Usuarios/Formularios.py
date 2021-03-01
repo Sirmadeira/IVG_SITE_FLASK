@@ -14,7 +14,7 @@ class FormularioDeRegistro(FlaskForm):
                         validators=[InputRequired(message= 'Favor inserir nome da empresa '),Length(min=2, max =30,message= 'Entre 5 a 30 letras')])
 
     Comercio= StringField('Favor informar o setor de atuação da sua empresa',
-                        validators=[InputRequired(message= 'Favor inserir tipo de comercio ')])   
+                        validators=[InputRequired(message= 'Favor inserir tipo de comercio '),AnyOf('Revendedora de carro', message= 'Atualmente só trabalhamos com: Revendedora de carro, copie e cole o exemplo caso haja erro.')])   
 
     Email = StringField('Email empresarial',
                         validators=[InputRequired(message= 'Favor inserir Email'), Email('Formato de e-mail inválido')])
@@ -40,11 +40,6 @@ class FormularioDeRegistro(FlaskForm):
         user = UsuarioDB.query.filter_by(NomeDaEmpresaDB = NomeDaEmpresa.data).first()
         if user:
             raise ValidationError('Essa empresa já está cadastrada')
-    def validate_Comercio(self, Comercio):
-        user= UsuarioDB.query.filter_by(ComercioDB=Comercio.data).first()
-        if user = None:
-            raise ValidationError ('Atualmente só trabalhamos com: Revendedora de carro, escreva o exemplo caso haja erro.')
-
 
 class FormularioDeLogin(FlaskForm):
     Usuario =StringField('Usuario', 

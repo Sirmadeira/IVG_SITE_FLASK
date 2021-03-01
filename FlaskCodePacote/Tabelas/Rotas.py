@@ -29,14 +29,15 @@ def SegundaJanela():
 @Tabelas.route("/TerceiraJanela")
 @login_required
 def TerceiraJanela():
-    TabelaTitulo = ("Marca", "Modelo",'Motor','Combustivel', "Ano", "Quilometragem" , "Preço" , "Cor" , "Local" ,"Controle" )
-    contador= Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).count() 
-    top20marca= Dado.query.order_by(count(ModeloDB).limit(20))
+    TabelaTitulo = ("Marca","Modelo",'Motor','Combustivel', "Ano", "Quilometragem" , "Preço" , "Cor" , "Local" ,"Controle" )
+    TituloTop20Modelo=("Modelo","Venda")
+    contador= Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).count()
     faltante= 5-contador
     if contador is None or contador < 5:
         return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela",contador= contador, faltante= faltante)
     else:
-        return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all())
+        return render_template("TerceiraJanela.html", title = "TerceiraJanela", TabelaTitulo =TabelaTitulo,Query=Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all(),
+                                TituloTop20Modelo= TituloTop20Modelo, GrupoModelo= Dado.query.group_by(Dado.ModeloDB))
     return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela")
 
 @Tabelas.route('/Deleta/<int:id>')
