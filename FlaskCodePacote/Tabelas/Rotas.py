@@ -30,7 +30,8 @@ def SegundaJanela():
 @login_required
 def TerceiraJanela():
     TabelaTitulo = ("Marca", "Modelo",'Motor','Combustivel', "Ano", "Quilometragem" , "Preço" , "Cor" , "Local" ,"Controle" )
-    contador= Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).count()
+    contador= Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).count() 
+    top20marca= Dado.query.order_by(count(ModeloDB).limit(20))
     faltante= 5-contador
     if contador is None or contador < 5:
         return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela",contador= contador, faltante= faltante)
