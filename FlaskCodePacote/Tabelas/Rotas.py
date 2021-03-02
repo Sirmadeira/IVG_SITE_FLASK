@@ -1,7 +1,5 @@
 from flask import (render_template, url_for, flash,
                    redirect, request, Blueprint)
-
-
 from flask_login import current_user, login_required
 from sqlalchemy import func, desc
 from FlaskCodePacote import db
