@@ -36,31 +36,32 @@
 		<tr>	
 			{% for Dado in Query %}
 			<td>
-				{{Dado.MarcaDB}}
+				{{ Dado.MarcaDB }}
 			</td>
 			<td>
-				{{Dado.ModeloDB}}
+				{{ Dado.ModeloDB }}
 			</td>
 			<td>
-				{{Dado.VersaoDoMotorDB}}
+				{{ Dado.VersaoDoMotorDB }}
 			</td>
 			<td>
-				{{Dado.TipoDeCombustivelDB}}
+				{{ Dado.TipoDeCombustivelDB }}
 			</td>
 			<td>
-				{{Dado.AnoDB}}
+				{{ Dado.AnoDB }}
 			</td>
 			<td>
-				{{Dado.QuilometragemDB}}
+				{{ Dado.QuilometragemDB }}
 			</td>
 			<td>
-				{{Dado.PrecoDB}}
+				{{ Dado.PrecoDB }}
 			</td>
 			<td>
-				{{Dado.CorDB}}
+				{{ Dado.CorDB }}
 			</td>
 			<td>
-				{{Dado.MargemDeLucroDB}}
+				{{ Dado.MargemDeLucroDB }}
+				{{ PresentePython }}
 			</td>
 			<td>
 				<a href= '/Deleta/{{Dado.id}}' class=' btn btn-outline-danger btn-sm py-0 mt-0 pb-0 px-1'><span style="font-size: 8px; height: auto; font-weight: bold;">X</span></a> 
@@ -168,6 +169,7 @@
 		</td>
 		<td>
 			{{ numero.media }}
+			{{ PresentePython }}
 		</td>
 		</tr>
 		{% endfor %}
