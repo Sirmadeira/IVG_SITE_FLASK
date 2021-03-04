@@ -1,15 +1,33 @@
 {% extends "Layout.html" %}
 {% block content %}
- <div class="container-fluid my-0 py-1" style="background-image: url(static/imagens/Inserir-Dados-Background.jpg); background-size: cover; height: auto; margin: -35px auto -50px; padding: 0 0; width: 100%; font-size: 15px">
-
- 	<div class="table-responsive-lg mt-4 px-4 pt-4 p-0" style="font-size: 14px;">
-	<table class="table table-dark text-center mx-auto my-0 " style="width: 50%; opacity: .9; padding-top: 50px;">
-			<div class="bg-dark mx-auto px-1 mb-0 text-center" style="width: 769px; opacity: .9;">
+ <div class="container-fluid my-auto p-1" style="background-image: url(static/imagens/Inserir-Dados-Background.jpg); background-size: cover; height: auto; margin: 0 0 -50px; width: 100%; font-size: 15px;">
+<div class="bg-dark py-3 mr-0 text-center fixed-top" style="align-items: vertical; height: auto; width: 80px; margin-top: 200px;">
+	<p style="font-weight: bold; letter-spacing: 1px; font-size: auto;">Atalho</p>
+	<button id=BotãoTabelaÚltimosDados type="button" class="btn btn-light bg-gradient btn-sm p-1 mx-auto mb-2" style="width: 65px;">
+    	<a class="text-dark" href="#TabelaÚltimosDados" style="font-size: auto; text-decoration: none; font-size: auto; font-weight: bold;">
+    	<span>Últimos Dados</span>
+        </a>
+    </button>
+    <button type="button" class="btn btn-light bg-gradient btn-sm p-1 mx-auto" style="width: 65px;">
+    	<a class="text-dark" href="#TabelaMarca" style="font-size: auto; text-decoration: none; font-size: auto; font-weight: bold;">
+    	<span>Top Marcas</span>
+        </a>
+    </button>
+ <button type="button" class="btn btn-light bg-gradient btn-sm p-1 mx-auto mt-2" style=" font-weight: bold; width: 65px;">
+    	<a class="text-dark" href="#TabelaTopModelos"  style="text-decoration: none; font-size: auto; word-break: normal;">
+    		<span>Top Modelos</span>
+        </a>
+ </button>
+</div>
+<div id="TabelaÚltimosDados">
+ 	<div class="table-responsive-lg mt-5 px-4 pt-4 pb-1"tstyle="font-size: 14px;">
+	<table class="table table-dark text-center mx-auto my-0 " style="width: 60%; opacity: .9; padding-top: 50px;">
+			<div class="bg-dark mx-auto px-1 mb-0 text-center" style="width: 60%; opacity: .9;">
 				<p class="m-0">Tabela dos últimos dados inseridos</p>
  			</div>
 	<thead>
 		<tr>
-			{% for cabeca in TabelaTitulo %}
+			{% for cabeca in TituloDadosInserido %}
 				<th scope= 'col'> {{ cabeca }}</th>
 			{% endfor %}
 		</tr>
@@ -45,30 +63,39 @@
 				{{Dado.LocalidadeDB}}
 			</td>
 			<td>
-				<a href= '/Deleta/{{Dado.id}}' class=' btn btn-outline-danger btn-sm p-0'><span style="font-size: 12px; height: auto;">Deletar dado</span></a> 
+				<a href= '/Deleta/{{Dado.id}}' class=' btn btn-outline-danger btn-sm py-0 mt-0 pb-0 px-1'><span style="font-size: 8px; height: auto; font-weight: bold;">X</span></a> 
 			</td>
 		</tr>
 		{% endfor %}
     </tbody>
     </table>
-    <div class="bg-dark mx-auto pb-1 mt-0 text-center mb-5" style="width: 769px; opacity: .9;">
+    <div class="bg-dark mx-auto pb-1 mt-0 text-center mb-5" style="width: 60%; opacity: .9;">
 			<p>Grafico em ordem decrescente de inserção. ↟ </p>
  	</div>
+ 	</div>
+    </div> 
+    </div>
+    </div>
 
-
+    <div class="container-fluid mx-auto my-0 py-1 bg-dark text-center" style="height: auto; width: 100%; letter-spacing: 3px; opacity: 1; font-size: 25px;">
+    <p>Tabelas de Inteligência de Mercado</p>
+    </div>
+    <div class="container-fluid my-0 px-auto mx-0" style="background-image: url(static/imagens/TerceiraJanela-Background.jpg); background-size: cover; height: auto; width: 100%; margin: -35px auto -50px;">
+    <div class="row p-5">
+    <div class="col-lg-6">
  	<div class="table-responsive-lg mt-4 px-4 pt-4 p-0" style="font-size: 14px;">
-	<table class="table table-dark text-center mx-auto my-0 " style="width: 50%; opacity: .9; padding-top: 50px;">
-			<div class="bg-dark mx-auto px-1 mb-0 text-center" style="width: 769px; opacity: .9;">
-				<p class="m-0">Tabela dos modelos mais vendidos em Limeira</p>
+	<table class="table table-light text-center mx-auto my-0 " style="width: 100%; opacity: .9; padding-top: 50px;">
+			<div id="TabelaTopModelos" class="bg-light mx-0 px-0 mb-1 text-center" style="width: 99.9%; opacity: .9;">
+				<h1 class="text-dark m-0" style="font-size: 20px; font-weight: bold;">Tabela dos modelos mais vendidos em Limeira</h1>
  		    </div>
- 	<thead>
+ 	<thead style="font-weight: bold;">
  		<tr>
 			{% for cabeca2 in TituloTop20Modelo %}
 				<th scope= 'col'> {{ cabeca2 }}</th>
 			{% endfor %}
 		</tr>
 	</thead>
-	<tbody>
+	<tbody style="letter-spacing: 2px; font-weight: bold;">
 		<tr>
 		{% for numero in ContadorGrupo %}
 		<td>
@@ -84,34 +111,37 @@
 		{% endfor %}		
 	</tbody>
     </table>
+    </div>
+    </div>
 
-
-	<div class="table-responsive-lg mt-4 px-4 pt-4 p-0" style="font-size: 14px;">
-	<table class="table table-dark text-center mx-auto my-0 " style="width: 50%; opacity: .9; padding-top: 50px;">
-			<div class="bg-dark mx-auto px-1 mb-0 text-center" style="width: 769px; opacity: .9;">
-				<p class="m-0">Tabela de marcas mais vendidas em Limeira</p>
+    <div class="col-lg-6">
+	<div id="TabelaMarca" class="table-responsive-lg mt-4 px-4 pt-4 p-0" style="font-size: 14px;">
+	<table class="table table-light text-center mx-auto my-0 " style="width: 100%; opacity: .9; padding-top: 50px;">
+			<div class="bg-light px-1 mb-1 text-center" style="width: 100%; opacity: .9;">
+				<h1 class="text-dark m-0" style="font-size: 20px; font-weight: bold;">Tabela de marcas mais vendidas em Limeira</h1>
  		    </div>
- 	<thead>
+ 	<thead style="font-weight: bold;">
  		<tr>
 			{% for cabeca2 in TituloTop20Marca %}
 				<th scope= 'col'> {{ cabeca2 }}</th>
 			{% endfor %}
 		</tr>
 	</thead>
-	<tbody>
+	<tbody class="bg-info" style="font-weight: bold; letter-spacing: 2px;">
 		<tr>
 		{% for numero in ContadorGrupo2 %}
 		<td>
 			{{ numero.MarcaDB }}
 		</td>
-		<td>
+		<td style="font-size: 15px;">
 			{{ numero.total2 }}
 		</td>
 		</tr>
 		{% endfor %}		
 	</tbody>
     </table>    
-</div>
-</div>
+    </div>
+    </div>
+    </div>
 
 {% endblock content%}

@@ -1,7 +1,5 @@
 from flask import (render_template, url_for, flash,
                    redirect, request, Blueprint)
-
-
 from flask_login import current_user, login_required
 from sqlalchemy import func, desc
 from FlaskCodePacote import db
@@ -40,7 +38,7 @@ def TerceiraJanela():
     else:
         return render_template("TerceiraJanela.html", title = "TerceiraJanela", TituloDadosInserido =TituloDadosInserido,Query=Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).order_by(Dado.id.desc()).limit(10).all(),
                                 TituloTop20Modelo= TituloTop20Modelo, ContadorGrupo= Dado.query.with_entities(Dado.MarcaDB,Dado.ModeloDB,func.count(Dado.ModeloDB).label('total')).group_by(Dado.ModeloDB).order_by(desc('total')).limit(20),
-                                TituloTop20Marca=TituloTop20Marca, ContadorGrupo2= Dado.query.with_entities(Dado.MarcaDB,func.count(Dado.MarcaDB).label('total2')).group_by(Dado.MarcaDB).order_by(desc('total2')).all())
+                                TituloTop20Marca=TituloTop20Marca, ContadorGrupo2= Dado.query.with_entities(Dado.MarcaDB,func.count(Dado.MarcaDB).label('total2')).group_by(Dado.MarcaDB).order_by(desc('total2')).limit(20).all())
 
     return render_template("TerceiraJanelaSemDados.html", title = "TerceiraJanela") 
 
