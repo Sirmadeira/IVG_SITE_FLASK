@@ -31,7 +31,7 @@ def TerceiraJanela():
     TituloDadosInserido = ("Marca","Modelo",'Motor','Combustivel', "Ano", "Quilometragem" , "Preço" , "Cor" , "Margem de Lucro" ,"Controle" )
     TituloTop20Modelo=("Marca","Modelo","N.º de vendas")
     TituloTop20Marca=("Marca"," N.º de vendas")
-    TituloMargemLucro=('Modelo','Média de Lucro')
+    TituloMargemLucro=('Marca','Modelo','Média de Lucro')
     contador= Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).count()
     faltante= 5-contador
     if contador is None or contador < 5:
