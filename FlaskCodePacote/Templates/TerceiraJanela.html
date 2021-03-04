@@ -144,4 +144,34 @@
     </div>
     </div>
 
+
+    <div class="col-lg-6">
+    <table class="table table-light text-center mx-auto my-0 " style="width: 100%; opacity: .9; padding-top: 100px;">
+			<div class="bg-light px-1 mb-1 text-center" style="width: 100%; opacity: .9;">
+				<h1 class="text-dark m-0" style="font-size: 20px; font-weight: bold;">Modelos com maiores margem de lucro por modelo</h1>
+ 		    </div>
+ 	<thead style="font-weight: bold;">
+ 		<tr>
+			{% for cabeca3 in TituloMargemLucro %}
+				<th scope= 'col'> {{ cabeca3 }}</th>
+			{% endfor %}
+		</tr>
+	</thead>
+	<tbody class="bg-info" style="font-weight: bold; letter-spacing: 2px;">
+		<tr>
+		{% for numero in ContadorGrupo3 %}
+		<td>
+			{{ numero.MarcaDB }}		
+		</td>
+		<td>
+			{{ numero.ModeloDB }}		
+		</td>
+		<td>
+			{{ numero.media }}
+		</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+    </table> 
+
 {% endblock content%}
