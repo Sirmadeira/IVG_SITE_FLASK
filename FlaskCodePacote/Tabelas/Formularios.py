@@ -8,7 +8,7 @@ from FlaskCodePacote.Modelos import Dado
 
 class DadosEssenciais(FlaskForm):
     
-    Marca = StringField('Marca',
+    Marca = StringField('Marca', id='marca_autocomplete',
                         validators=[InputRequired(message='Favor inserir uma Marca valida')])
     
     Modelo = StringField('Modelo',
