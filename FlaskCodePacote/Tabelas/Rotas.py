@@ -18,7 +18,7 @@ def SegundaJanela():
         Info = Dado(MarcaDB= form.Marca.data.upper(), ModeloDB= form.Modelo.data.upper(),VersaoDoMotorDB= form.VersaoDoMotor.data.upper(),TipoDeCombustivelDB= form.TipoDeCombustivel.data.upper(), 
                     AnoDB= form.Ano.data,QuilometragemDB= form.Quilometragem.data,
                     PrecoDB= form.Preco.data, CorDB= form.Cor.data.upper(), 
-                    LocalidadeDB= form.Localidade.data.upper(),NomeDaEmitente=current_user.NomeDaEmpresaDB,user_id= current_user.id)
+                    LocalidadeDB= form.Localidade.data.upper(),NomeDaEmitente=current_user.NomeDaEmpresaDB,MargemDeLucroDB = (form.Lucro.data/form.Preco.data)*100,user_id= current_user.id)
         db.session.add(Info)
         db.session.commit()
         flash(f'Seus dados foram inseridos com sucesso!', 'success')
@@ -28,7 +28,7 @@ def SegundaJanela():
 @Tabelas.route("/TerceiraJanela")
 @login_required
 def TerceiraJanela():
-    TituloDadosInserido = ("Marca","Modelo",'Motor','Combustivel', "Ano", "Quilometragem" , "Preço" , "Cor" , "Local" ,"Controle" )
+    TituloDadosInserido = ("Marca","Modelo",'Motor','Combustivel', "Ano", "Quilometragem" , "Preço" , "Cor" , "Margem de Lucro" ,"Controle" )
     TituloTop20Modelo=("Marca","Modelo","n.º de vendas")
     TituloTop20Marca=("Marca"," N.º de vendas")
     contador= Dado.query.filter_by(NomeDaEmitente = current_user.NomeDaEmpresaDB).count()

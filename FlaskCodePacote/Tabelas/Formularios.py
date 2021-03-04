@@ -29,7 +29,8 @@ class DadosEssenciais(FlaskForm):
     Preco = FloatField('Preço',
                         validators=[NumberRange(min=1000, max=9999999, message = 'Somente por vendas acima de mil reais.')])
 
-    Lucro= FloatField('Lucro')
+    Lucro= FloatField('Lucro',
+                        validators=[InputRequired(message= 'Favor inserir lucro, caso seja venda por 0 como valor')])
 
     Cor = StringField('Cor',
                         validators=[InputRequired(message= 'Favor inserir cor do carro')])
