@@ -1,5 +1,6 @@
+import json
 from flask import (render_template, url_for, flash,
-                   redirect, request, Blueprint)
+                   redirect, request, Blueprint, Response)
 from flask_login import current_user, login_required
 from sqlalchemy import func, desc
 from FlaskCodePacote import db
@@ -55,3 +56,30 @@ def Deleta(id):
         return redirect(url_for('Tabelas.TerceiraJanela'))
     except:
         return 'Ouve um problema deletando essa linha!'
+        
+@Tabelas.route('/_AutocompleteMarca', methods=['GET'])
+def AutocompleteMarca():
+    marca = ['Acura','Agrale','Alfo Romeo','Am Gen','Asia motors','ASTON MARTIN','Audi','Baby','BMW','BRM','BUGRE','Cadillac',
+                                'CBT Jipe','CHANA','CHANGAN','CHERY','Chrysler','Citroën','Cross Lander','Daewoo','Daihatsu',
+                                'Dodge','EFFA','Engesa','Envemo','Ferrari','Fiat','Fibravan','Ford','FOTON','Fyber','GEELY','GM CHEVROLET',
+                                'GREAT WALL','Gurgel','HAFEI','HITECH ELECTRIC','HONDA','HYUNDAY','ISUZU','IVECO','JAC','Jaguar','Jeep','JINBEI','JPX',
+                                'Kia Motors','Lada','Lamborghini','Land Rover','Lexus','LIFAN','LOBINI','Lotus','Mahindra','Maserati','Matra','Mazda',
+                                'Mclaren','Mercedez Benz','Mercury','MG','MINI','Mitsubishi','Miura','Nissan','Peugeot','Plymouth','Pontiac','Porsche',
+                                'RAM','RELY','Renault','Rolls-Royce','Rover','Saab','Saturn','Seat','SHINERAY','smart','SSANGYONG','Subaru','Suzuki',
+                                'TAC','Toyota','Troller','Volvo','VW-VOLKSWAGEN','Wake','Walk']    
+    return Response(json.dumps(marca), mimetype='application/json')
+
+@Tabelas.route('/_AutocompleteCombustivel', methods=['GET'])
+def AutocompleteCombustivel():
+    combustivel = ['Gasolina','Etanol','GNV','Diesel','Flex']    
+    return Response(json.dumps(combustivel), mimetype='application/json')
+
+@Tabelas.route('/_AutocompleteCor', methods=['GET'])
+def AutocompleteCor():
+    cor = ["Amarelo","Azul","Bege","Branco","Bronze","Cinza","Dourado","Indefinida","Laranja","Marrom","Prata","Preto","Rosa","Roxo","Verde","Vermelho","Vinho"]    
+    return Response(json.dumps(cor), mimetype='application/json')
+
+@Tabelas.route('/_AutocompleteLocal', methods=['GET'])
+def AutocompleteLocal():
+    local = ["Limeira", "Piracicaba"]    
+    return Response(json.dumps(local), mimetype='application/json')

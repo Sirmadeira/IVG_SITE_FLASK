@@ -8,6 +8,18 @@
             <fieldset class = 'form-group'>
                     <div class= "form-group mb-2">
                         {{form.Marca.label(class="form-control-label") }}
+                        <script>
+                            $(function() {
+                                $.ajax({
+                                    url: '{{ url_for("Tabelas.AutocompleteMarca") }}'
+                                    }).done(function (data){
+                                        $('#marca_autocomplete').autocomplete({
+                                            source: data,
+                                            minLength: 1
+                                        });
+                                    });
+                                });
+                        </script>
                         {% if form.Marca.errors %}
                             {{ form.Marca(class="form-control form-control-lg is-invalid")}}
                             <div class = "invalid-feedback">
@@ -32,7 +44,7 @@
                             {{ form.Modelo(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class= "form-group">
+                <div class= "form-group mb-2">
                     {{form.VersaoDoMotor.label(class="form-control-label") }}
                     {% if form.VersaoDoMotor.errors %}
                         {{ form.VersaoDoMotor(class="form-control form-control-lg is-invalid")}}
@@ -45,8 +57,20 @@
                             {{ form.VersaoDoMotor(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class= "form-group">
+                <div class= "form-group mb-2">
                     {{form.TipoDeCombustivel.label(class="form-control-label") }}
+                    <script>
+                        $(function() {
+                            $.ajax({
+                                url: '{{ url_for("Tabelas.AutocompleteCombustivel") }}'
+                                }).done(function (data){
+                                    $('#combustivel_autocomplete').autocomplete({
+                                        source: data,
+                                        minLength: 1
+                                    });
+                                });
+                            });
+                    </script>
                     {% if form.TipoDeCombustivel.errors %}
                         {{ form.TipoDeCombustivel(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
@@ -60,7 +84,6 @@
                 </div>
                 <div class= "form-group mb-2">
                     {{form.Ano.label(class="form-control-label") }}
-
                     {% if form.Ano.errors %}
                         {{ form.Ano(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
@@ -116,7 +139,18 @@
                 </div>
                 <div class= "form-group mb-2">
                     {{form.Cor.label(class="form-control-label") }}
-
+                    <script>
+                        $(function() {
+                            $.ajax({
+                                url: '{{ url_for("Tabelas.AutocompleteCor") }}'
+                                }).done(function (data){
+                                    $('#cor_autocomplete').autocomplete({
+                                        source: data,
+                                        minLength: 1
+                                    });
+                                });
+                            });
+                    </script>
                     {% if form.Cor.errors %}
                         {{ form.Cor(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
@@ -130,7 +164,18 @@
                 </div>
                 <div class= "form-group mb-4">
                     {{form.Localidade.label(class="form-control-label") }}
-
+                    <script>
+                        $(function() {
+                            $.ajax({
+                                url: '{{ url_for("Tabelas.AutocompleteLocal") }}'
+                                }).done(function (data){
+                                    $('#local_autocomplete').autocomplete({
+                                        source: data,
+                                        minLength: 1
+                                    });
+                                });
+                            });
+                    </script>
                     {% if form.Localidade.errors %}
                         {{ form.Localidade(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">

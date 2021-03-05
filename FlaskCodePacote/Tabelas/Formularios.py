@@ -8,7 +8,7 @@ from FlaskCodePacote.Modelos import Dado
 
 class DadosEssenciais(FlaskForm):
     
-    Marca = StringField('Marca',
+    Marca = StringField('Marca', id='marca_autocomplete',
                         validators=[InputRequired(message='Favor inserir uma Marca valida')])
     
     Modelo = StringField('Modelo',
@@ -17,7 +17,7 @@ class DadosEssenciais(FlaskForm):
     VersaoDoMotor = StringField('Motor',
                         validators=[InputRequired(message='Favor inserir um motor valido')])
 
-    TipoDeCombustivel = StringField('Combustivél',
+    TipoDeCombustivel = StringField('Combustivél',id='combustivel_autocomplete',
                         validators=[InputRequired(message='Favor inserir um modelo valido')])
 
     Ano = FloatField('Ano',
@@ -32,10 +32,10 @@ class DadosEssenciais(FlaskForm):
     Lucro= FloatField('Lucro',
                         validators=[InputRequired(message= 'Favor inserir lucro, caso seja venda por 0 como valor')])
 
-    Cor = StringField('Cor',
+    Cor = StringField('Cor',id= 'cor_autocomplete',
                         validators=[InputRequired(message= 'Favor inserir cor do carro')])
 
-    Localidade= StringField('Local da venda',
+    Localidade= StringField('Local da venda',id= 'local_autocomplete',
                         validators=[InputRequired(message= 'Favor inserir local')])
 
     Confirma=SubmitField('Confirmar inserção')
