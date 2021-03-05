@@ -3,7 +3,7 @@
 <body>
     <div class="container-fluid" style="background-image: url(static/imagens/Inserir-Dados-Background.jpg); background-size: cover; height: auto; margin: -35px auto -50px; padding: 20% 0;">
     <div class= "content-section  mx-auto bg-dark" style="min-width: 300px; max-width: 30%; opacity: .9;">
-        <form method = 'POST' action = '' autocomplete="off">
+        <form method = 'POST' action = ''>
             {{ form.hidden_tag() }}
             <fieldset class = 'form-group'>
                     <div class= "form-group mb-2">
@@ -11,11 +11,11 @@
                         <script>
                             $(function() {
                                 $.ajax({
-                                    url: '{{ url_for("Tabelas.autocomplete") }}'
+                                    url: '{{ url_for("Tabelas.AutocompleteMarca") }}'
                                     }).done(function (data){
                                         $('#marca_autocomplete').autocomplete({
                                             source: data,
-                                            minLength: 2
+                                            minLength: 1
                                         });
                                     });
                                 });
@@ -59,6 +59,18 @@
                 </div>
                 <div class= "form-group">
                     {{form.TipoDeCombustivel.label(class="form-control-label") }}
+                    <script>
+                        $(function() {
+                            $.ajax({
+                                url: '{{ url_for("Tabelas.AutocompleteCombustivel") }}'
+                                }).done(function (data){
+                                    $('#combustivel_autocomplete').autocomplete({
+                                        source: data,
+                                        minLength: 1
+                                    });
+                                });
+                            });
+                    </script>
                     {% if form.TipoDeCombustivel.errors %}
                         {{ form.TipoDeCombustivel(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
@@ -72,7 +84,6 @@
                 </div>
                 <div class= "form-group mb-2">
                     {{form.Ano.label(class="form-control-label") }}
-
                     {% if form.Ano.errors %}
                         {{ form.Ano(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
@@ -128,7 +139,18 @@
                 </div>
                 <div class= "form-group mb-2">
                     {{form.Cor.label(class="form-control-label") }}
-
+                    <script>
+                        $(function() {
+                            $.ajax({
+                                url: '{{ url_for("Tabelas.AutocompleteCor") }}'
+                                }).done(function (data){
+                                    $('#cor_autocomplete').autocomplete({
+                                        source: data,
+                                        minLength: 1
+                                    });
+                                });
+                            });
+                    </script>
                     {% if form.Cor.errors %}
                         {{ form.Cor(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
@@ -142,7 +164,18 @@
                 </div>
                 <div class= "form-group mb-4">
                     {{form.Localidade.label(class="form-control-label") }}
-
+                    <script>
+                        $(function() {
+                            $.ajax({
+                                url: '{{ url_for("Tabelas.AutocompleteLocal") }}'
+                                }).done(function (data){
+                                    $('#local_autocomplete').autocomplete({
+                                        source: data,
+                                        minLength: 1
+                                    });
+                                });
+                            });
+                    </script>
                     {% if form.Localidade.errors %}
                         {{ form.Localidade(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
