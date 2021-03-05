@@ -64,7 +64,7 @@
 				{{ PresentePython }}
 			</td>
 			<td>
-				<a href= '/Deleta/{{Dado.id}}' class=' btn btn-outline-danger btn-sm py-0 mt-0 pb-0 px-1'><span style="font-size: 8px; height: auto; font-weight: bold;">X</span></a> 
+				<a href= '/Deleta/{{Dado.id}}' class=' btn btn-outline-danger btn-sm py-0 mt-0 pb-0 px-1' onclick="return confirm('Are you sure?')"><span style="font-size: 8px; height: auto; font-weight: bold;">X</span></a> 
 			</td>
 		</tr>
 		{% endfor %}

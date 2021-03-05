@@ -14,7 +14,7 @@ class FormularioDeRegistro(FlaskForm):
                         validators=[InputRequired(message= 'Favor inserir nome da empresa '),Length(min=2, max =30,message= 'Entre 5 a 30 letras')])
 
     Comercio= StringField('Favor informar o setor de atuação da sua empresa',
-                        validators=[InputRequired(message= 'Favor inserir tipo de comercio '),AnyOf('Revendedora de carro', message= 'Atualmente só trabalhamos com: Revendedora de carro, copie e cole o exemplo caso haja erro.')])   
+                        validators=[InputRequired(message= 'Favor inserir tipo de comercio '),AnyOf('Revendedora de carro', message= 'Atualmente só trabalhamos com: Revendedora de carro , copie e cole o exemplo caso haja erro.')])   
 
     Email = StringField('Email empresarial',
                         validators=[InputRequired(message= 'Favor inserir Email'), Email('Formato de e-mail inválido')])
