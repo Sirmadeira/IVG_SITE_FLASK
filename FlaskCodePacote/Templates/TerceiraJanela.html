@@ -88,8 +88,8 @@
     <div class="container-fluid mx-auto my-0 py-1 bg-dark text-center" style="height: auto; width: 100%; letter-spacing: 3px; opacity: 1; font-size: 25px;">
     <p>Tabelas de Inteligência de Mercado</p>
     </div>
-    <div class="container-fluid my-0 px-auto mx-0" style="background-image: url(static/imagens/TerceiraJanela-Background.jpg); background-size: cover; height: auto; width: 100%; margin: -35px auto 0;">
-    <div class="row p-5">
+<div class="container-fluid my-0 px-auto mx-0" style="background-image: url(static/imagens/TerceiraJanela-Background.jpg); background-size: cover; height: auto; width: 100%; margin: -35px auto 0;">
+    <div class="row p-5 mx-auto" style="width: 80%;">
     <div class="col-lg-6">
     	<div class="pt-4" id="TabelaModelo">			
 		</div>
@@ -125,7 +125,9 @@
     </div>
 
     <div class="col-lg-6">
-	<div id="TabelaMarca" class="table-responsive-lg mt-4 px-4 pt-4 p-0" style="font-size: 14px;">
+    	<div class="pt-4" id="TabelaMarca">			
+		</div>
+	<div class="table-responsive-lg mt-4 px-4 pt-4 p-0" style="font-size: 14px;">
 	<table class="table table-light text-center mx-auto my-0 " style="width: 100%; opacity: .9; padding-top: 50px;">
 			<div class="bg-light px-1 mb-1 text-center" style="width: 100%; opacity: .9;">
 				<h1 class="text-dark m-0" style="font-size: 20px; font-weight: bold;">Tabela de marcas mais vendidas em Limeira</h1>
@@ -153,11 +155,15 @@
     </div>
     </div>
     </div>
+</div>    
 
-
-    <div class="col-lg-6">
-    <table class="table table-light text-center mx-auto my-0 " style="width: 100%; opacity: .9; padding-top: 100px;">
-			<div class="bg-light px-1 mb-1 text-center" style="width: 100%; opacity: .9;">
+<div class="container-fluid my-0 px-auto mx-0" style="background-image: url(static/imagens/TerceiraJanela-Background2.jpg); background-size: cover; height: auto; width: 100%; margin: -35px auto 0;">
+<div class="row">
+    <div class="col-lg">
+    	<div class="pt-4" id="TabelaMargemDeLucro">			
+		</div>
+    <table class="table table-light text-center mx-auto my-0 mb-5" style="width: 60%; opacity: .9; padding-top: 100px;">
+			<div class="bg-light px-1 mb-1 mx-auto text-center mt-4" style="width: 60%; opacity: .9;">
 				<h1 class="text-dark m-0" style="font-size: 20px; font-weight: bold;">Modelos com maiores margem de lucro</h1>
  		    </div>
  	<thead style="font-weight: bold;">
@@ -184,5 +190,6 @@
 		{% endfor %}
 	</tbody>
     </table> 
-
+</div>
+</div>
 {% endblock content%}
