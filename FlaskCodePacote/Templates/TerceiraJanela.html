@@ -22,9 +22,9 @@
  </button>
 </div>
 <div id="TabelaÚltimosDados">
- 	<div class="table-responsive-lg mt-5 px-4 pt-4 pb-1"tstyle="font-size: 14px;">
-	<table class="table table-dark text-center mx-auto my-0 " style="width: 60%; opacity: .9; padding-top: 50px;">
-			<div class="bg-dark mx-auto px-1 mb-0 text-center" style="width: 60%; opacity: .9;">
+ 	<div class="table-responsive-xl mt-5 px-4 pt-4 pb-1"tstyle="font-size: 14px;">
+	<table class="table table-dark text-center mx-auto px-4 my-0 " style="width: 60%; opacity: .9; padding-top: 50px;">
+			<div class="bg-dark mx-auto px-4 mb-0 text-center" style="width: auto; opacity: .9;">
 				<p class="m-0">Tabela dos últimos dados inseridos</p>
  			</div>
 	<thead>
@@ -66,7 +66,7 @@
 				{{ PresentePython }}
 			</td>
 			<td>
-				<a href= '/Deleta/{{Dado.id}}' class=' btn btn-outline-danger btn-sm py-0 mt-0 pb-0 px-1' onclick="return confirm('Você tem certeza ?')"><span style="font-size: 8px; height: auto; font-weight: bold;">X</span></a> 
+			 	<a href= '/Deleta/{{Dado.id}}' class='btn btn-danger btn-sm py-1'><span style="font-size: 10px; height: auto; font-weight: bold;">X</span></a> 
 			</td>
 		</tr>
 		{% endfor %}
