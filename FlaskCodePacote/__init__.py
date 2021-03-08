@@ -25,8 +25,11 @@ def criar_app(config_class=Config):
     from FlaskCodePacote.Usuarios.Rotas import Usuarios
     from FlaskCodePacote.Tabelas.Rotas import Tabelas
     from FlaskCodePacote.Principal.Rotas import Principal
+    from FlaskCodePacote.Erros.Manipuladores import Erros
+
     app.register_blueprint(Usuarios)
     app.register_blueprint(Tabelas)
     app.register_blueprint(Principal)
+    app.register_blueprint(Erros)
 
     return app
