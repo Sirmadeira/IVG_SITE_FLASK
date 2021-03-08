@@ -56,3 +56,6 @@ class Dado(db.Model):
 
     def __repr__(self):
         return f"User('{self.MarcaDB}', '{self.ModeloDB}')"
+
+    def as_dict(self):
+        return {'ModeloDB': self.ModeloDB}

@@ -11,13 +11,13 @@ class DadosEssenciais(FlaskForm):
     Marca = StringField('Marca', id='marca_autocomplete',
                         validators=[InputRequired(message='Favor inserir uma Marca valida')])
     
-    Modelo = StringField('Modelo',
+    Modelo = StringField('Modelo',id='modelo_autocomplete',
                         validators=[InputRequired(message='Favor inserir um modelo valido')])
 
-    VersaoDoMotor = StringField('Motor',
+    VersaoDoMotor = StringField('Motor',id='motor_autocomplete',
                         validators=[InputRequired(message='Favor inserir um motor valido')])
 
-    TipoDeCombustivel = StringField('Combustivél',id='combustivel_autocomplete',
+    TipoDeCombustivel = StringField('Combustivél',
                         validators=[InputRequired(message='Favor inserir um modelo valido')])
 
     Ano = FloatField('Ano',

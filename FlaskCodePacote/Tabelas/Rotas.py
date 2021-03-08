@@ -1,6 +1,5 @@
-import json
 from flask import (render_template, url_for, flash,
-                   redirect, request, Blueprint, Response)
+                   redirect, request, Blueprint, Response, json, jsonify)
 from flask_login import current_user, login_required
 from sqlalchemy import func, desc
 from FlaskCodePacote import db
@@ -83,3 +82,9 @@ def AutocompleteCor():
 def AutocompleteLocal():
     local = ["Limeira", "Piracicaba"]    
     return Response(json.dumps(local), mimetype='application/json')
+
+@Tabelas.route('/AutocompleteModelos')
+def ModelosDic():
+    res = Dado.query.group_by(Dado.ModeloDB).all()
+    list_modelos = [r.as_dict() for r in res]
+    return jsonify(list_modelos)
