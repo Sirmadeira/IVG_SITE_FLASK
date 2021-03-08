@@ -58,4 +58,4 @@ class Dado(db.Model):
         return f"User('{self.MarcaDB}', '{self.ModeloDB}')"
 
     def as_dict(self):
-        return {'ModeloDB': self.ModeloDB}
+        return {'ModeloDB': self.ModeloDB, 'VersaoDoMotorDB' : self.VersaoDoMotorDB}

@@ -17,7 +17,7 @@ class DadosEssenciais(FlaskForm):
     VersaoDoMotor = StringField('Motor',id='motor_autocomplete',
                         validators=[InputRequired(message='Favor inserir um motor valido')])
 
-    TipoDeCombustivel = StringField('Combustivél',
+    TipoDeCombustivel = StringField('Combustivél', id='combustivel_autocomplete',
                         validators=[InputRequired(message='Favor inserir um modelo valido')])
 
     Ano = FloatField('Ano',
