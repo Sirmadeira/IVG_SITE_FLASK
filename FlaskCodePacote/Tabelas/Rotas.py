@@ -83,13 +83,13 @@ def AutocompleteLocal():
     local = ["Limeira", "Piracicaba"]    
     return Response(json.dumps(local), mimetype='application/json')
 
-@Tabelas.route('/AutocompleteModelos')
+@Tabelas.route('/AutocompleteModelosDB')
 def ModelosDic():
     res = Dado.query.group_by(Dado.ModeloDB).all()
     list_modelos = [r.as_dict() for r in res]
     return jsonify(list_modelos)
 
-@Tabelas.route('/AutocompleteMotor')
+@Tabelas.route('/AutocompleteMotorDB')
 def MotorDic():
     res = Dado.query.group_by(Dado.VersaoDoMotorDB).all()
     list_motor = [r.as_dict() for r in res]

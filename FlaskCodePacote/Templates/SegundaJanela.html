@@ -37,7 +37,7 @@
                     $(document).ready(function(){
                      var modelos=[];
                      function loadModelos(){
-                      $.getJSON('/AutocompleteModelos', function(data, status, xhr){
+                      $.getJSON('/AutocompleteModelosDB', function(data, status, xhr){
                        for (var i = 0; i < data.length; i++ ) {
                         modelos.push(data[i].ModeloDB);
                        }
@@ -67,7 +67,7 @@
                     $(document).ready(function(){
                      var motor=[];
                      function loadMotor(){
-                      $.getJSON('/AutocompleteMotor', function(data, status, xhr){
+                      $.getJSON('/AutocompleteMotorDB', function(data, status, xhr){
                        for (var i = 0; i < data.length; i++ ) {
                         motor.push(data[i].VersaoDoMotorDB);
                        }
