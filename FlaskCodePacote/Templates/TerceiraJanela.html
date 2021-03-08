@@ -6,7 +6,7 @@
 <div class="bg-dark py-3 mr-0 text-center fixed-top" style="align-items: vertical; height: auto; width: 80px; margin-top: 200px;">
 	<p style="font-weight: bold; letter-spacing: 1px; font-size: auto;">Atalho</p>
 	<button id=BotãoTabelaÚltimosDados type="button" class="btn btn-light bg-gradient btn-sm p-1 mx-auto mb-2" style="width: 65px;">
-    	<a class="text-dark" href="#TabelaÚltimosDados" style="font-size: auto; text-decoration: none; font-size: auto; font-weight: bold;">
+    	<a class="text-dark" href="#TabelaDado" style="font-size: auto; text-decoration: none; font-size: auto; font-weight: bold;">
     	<span>Últimos Dados</span>
         </a>
     </button>
@@ -16,17 +16,18 @@
         </a>
     </button>
  <button type="button" class="btn btn-light bg-gradient btn-sm p-1 mx-auto mt-2" style=" font-weight: bold; width: 65px;">
-    	<a class="text-dark" href="#TabelaTopModelos"  style="text-decoration: none; font-size: auto; word-break: normal;">
+    	<a class="text-dark" href="#TabelaModelo"  style="text-decoration: none; font-size: auto; word-break: normal;">
     		<span>Top Modelos</span>
         </a>
  </button>
   <button type="button" class="btn btn-light bg-gradient btn-sm p-1 mx-auto mt-2" style=" font-weight: bold; width: 65px;">
-    	<a class="text-dark" href="#TabelaModelo"  style="text-decoration: none; font-size: auto; word-break: normal;">
+    	<a class="text-dark" href="#TabelaMargemDeLucro"  style="text-decoration: none; font-size: auto; word-break: normal;">
     		<span>Top M. de Lucro</span>
         </a>
     </button>
 </div>
-<div id="TabelaÚltimosDados">
+	<div id="TabelaDado" class="pt-5 mt-5">
+	</div>
  	<div class="table-responsive-lg mt-5 px-4 pt-4 pb-1 mx-auto" style="font-size: 14px; width: 80%">
 	<table class="table table-dark text-center mx-auto px-4 my-0" style="width: 100%; opacity: .9; padding-top: 50px;">
 			<div class="bg-dark mx-auto px-auto mb-0 text-center" style="width: 100%; opacity: .9;">
@@ -82,8 +83,6 @@
  	</div>
  	</div>
     </div> 
-    </div>
-    </div>
 
     <div class="container-fluid mx-auto my-0 py-1 bg-dark text-center" style="height: auto; width: 100%; letter-spacing: 3px; opacity: 1; font-size: 25px;">
     <p>Tabelas de Inteligência de Mercado</p>
@@ -157,39 +156,40 @@
     </div>
 </div>    
 
-<div class="container-fluid my-0 px-auto mx-0" style="background-image: url(static/imagens/TerceiraJanela-Background2.jpg); background-size: cover; height: auto; width: 100%; margin: -35px auto 0;">
-<div class="row">
-    <div class="col-lg">
-    	<div class="pt-4" id="TabelaMargemDeLucro">			
+<div class="container-fluid my-0 px-auto mx-0" style="background-image: url(static/imagens/TerceiraJanela-Background2.jpg); height: auto; background-repeat: repeat; width: 100%; margin: -35px auto 0;">
+		<div class="row">
+			    <div class="col-lg">
+			    	<div class="pt-5 mt-5" id="TabelaMargemDeLucro">			
+					</div>
+			    <table class="table table-light text-center mx-auto my-0 mb-5" style="width: 60%; opacity: .9; padding-top: 100px; ">
+						<div class="bg-light px-1 mb-1 mx-auto text-center mt-4" style="width: 60%; opacity: .9;">
+							<h1 class="text-dark m-0" style="font-size: 20px; font-weight: bold;">Modelos com maiores margem de lucro</h1>
+			 		    </div>
+			 	<thead style="font-weight: bold;">
+			 		<tr>
+						{% for cabeca3 in TituloMargemLucro %}
+							<th scope= 'col'> {{ cabeca3 }}</th>
+						{% endfor %}
+					</tr>
+				</thead>
+				<tbody class="bg-info" style="font-weight: bold; letter-spacing: 2px;">
+					<tr>
+					{% for numero in ContadorGrupo3 %}
+					<td>
+						{{ numero.MarcaDB }}		
+					</td>
+					<td>
+						{{ numero.ModeloDB }}		
+					</td>
+					<td>
+						{{ numero.media }}
+						{{ PresentePython }}
+					</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			    </table> 
+			    </div>
 		</div>
-    <table class="table table-light text-center mx-auto my-0 mb-5" style="width: 60%; opacity: .9; padding-top: 100px;">
-			<div class="bg-light px-1 mb-1 mx-auto text-center mt-4" style="width: 60%; opacity: .9;">
-				<h1 class="text-dark m-0" style="font-size: 20px; font-weight: bold;">Modelos com maiores margem de lucro</h1>
- 		    </div>
- 	<thead style="font-weight: bold;">
- 		<tr>
-			{% for cabeca3 in TituloMargemLucro %}
-				<th scope= 'col'> {{ cabeca3 }}</th>
-			{% endfor %}
-		</tr>
-	</thead>
-	<tbody class="bg-info" style="font-weight: bold; letter-spacing: 2px;">
-		<tr>
-		{% for numero in ContadorGrupo3 %}
-		<td>
-			{{ numero.MarcaDB }}		
-		</td>
-		<td>
-			{{ numero.ModeloDB }}		
-		</td>
-		<td>
-			{{ numero.media }}
-			{{ PresentePython }}
-		</td>
-		</tr>
-		{% endfor %}
-	</tbody>
-    </table> 
-</div>
 </div>
 {% endblock content%}
