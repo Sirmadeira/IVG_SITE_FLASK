@@ -13,7 +13,7 @@ Tabelas = Blueprint('Tabelas', __name__)
 @Tabelas.route("/SegundaJanela", methods=['GET', 'POST'])
 @login_required
 def SegundaJanela():
-    form = DadosEssenciais(request.form)
+    form = DadosEssenciais()
     if form.validate_on_submit():
         Info = Dado(MarcaDB= form.Marca.data.upper(), ModeloDB= form.Modelo.data.upper(),VersaoDoMotorDB= form.VersaoDoMotor.data.upper(),TipoDeCombustivelDB= form.TipoDeCombustivel.data.upper(), 
                     AnoDB= form.Ano.data,QuilometragemDB= form.Quilometragem.data,
@@ -68,6 +68,20 @@ def AutocompleteMarca():
                                 'TAC','Toyota','Troller','Volvo','VW-VOLKSWAGEN','Wake','Walk']    
     return Response(json.dumps(marca), mimetype='application/json')
 
+@Tabelas.route('/AutocompleteModelosDB', methods=['GET', 'POST'])
+def ModelosDic():
+    form= DadosEssenciais()
+    marca=form.Marca.data
+    res = Dado.query.order_by(marca).group_by(Dado.ModeloDB).all()
+    list_modelos = [r.as_dict() for r in res]
+    return jsonify(list_modelos)
+
+@Tabelas.route('/AutocompleteMotorDB')
+def MotorDic():
+    res = Dado.query.group_by(Dado.VersaoDoMotorDB).all()
+    list_motor = [r.as_dict() for r in res]
+    return jsonify(list_motor)
+
 @Tabelas.route('/_AutocompleteCombustivel', methods=['GET'])
 def AutocompleteCombustivel():
     combustivel = ['Gasolina','Etanol','GNV','Diesel','Flex']    
@@ -82,15 +96,3 @@ def AutocompleteCor():
 def AutocompleteLocal():
     local = ["Limeira", "Piracicaba"]    
     return Response(json.dumps(local), mimetype='application/json')
-
-@Tabelas.route('/AutocompleteModelosDB')
-def ModelosDic():
-    res = Dado.query.group_by(Dado.ModeloDB).all()
-    list_modelos = [r.as_dict() for r in res]
-    return jsonify(list_modelos)
-
-@Tabelas.route('/AutocompleteMotorDB')
-def MotorDic():
-    res = Dado.query.group_by(Dado.VersaoDoMotorDB).all()
-    list_motor = [r.as_dict() for r in res]
-    return jsonify(list_motor)
