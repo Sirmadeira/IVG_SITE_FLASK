@@ -16,11 +16,12 @@ body {
   height: 180px;
 width: auto;
 padding: 0 10px;
-margin: -70px 0px -70px -50px;
+margin: 0 -70px;
 }
 
 .site-header .bg-steel {
   background: #141414;
+  height: 100px;
 }
 
 .site-header .navbar-nav .nav-link .after{
