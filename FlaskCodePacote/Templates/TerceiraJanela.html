@@ -73,7 +73,7 @@
 			</td>
 			<td>
 				<!-- Button trigger modal -->
-			 	<a href= '/Deleta/{{Dado.id}}' class='btn btn-danger btn-sm py-1' data-toggle="modal" data-target="#exampleModal"><span style="font-size: 10px; height: auto; font-weight: bold;">X</span></a> 
+			 	<a class='btn btn-danger btn-sm py-1' data-toggle="modal" data-target="#exampleModal"><span style="font-size: 10px; height: auto; font-weight: bold;">X</span></a> 
 			</td>
 				<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -90,8 +90,8 @@
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-			        <button type="button" class="btn btn-light">Sim</button>
-			      </div>
+			        <a href= '/Deleta/{{Dado.id}}'type="button" class="btn btn-light">Sim </a>
+			      </div>	
 			    </div>
 			  </div>
 			</div>

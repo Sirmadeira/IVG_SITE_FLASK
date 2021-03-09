@@ -52,7 +52,7 @@ def Deleta(id):
     try:
         db.session.delete(deletalinha)
         db.session.commit()
-        return redirect(url_for('Tabelas.TerceiraJanela'))
+        return redirect(url_for('Tabelas.TerceiraJanela') )
     except:
         return 'Ouve um problema deletando essa linha!'
         
