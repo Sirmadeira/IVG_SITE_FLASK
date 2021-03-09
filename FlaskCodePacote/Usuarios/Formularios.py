@@ -1,4 +1,4 @@
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import InputRequired, Length, Email, EqualTo, ValidationError, Regexp, AnyOf
 from flask_login import current_user
@@ -24,6 +24,8 @@ class FormularioDeRegistro(FlaskForm):
 
     ConfirmarSenha= PasswordField('Confirme Senha',
                         validators=[InputRequired(message= 'Confirme sua senha'),EqualTo('Senha', message= 'Este campo tem que ser igual ao de senha')])
+
+    RecaptchaCampo= RecaptchaField()
 
     Confirma=SubmitField('Cadastre-se')
 

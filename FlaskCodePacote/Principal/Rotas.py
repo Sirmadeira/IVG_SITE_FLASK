@@ -12,3 +12,7 @@ def HomePage():
 @Principal.route("/Sobre")
 def Sobre():
     return render_template("Sobre.html", title = "Sobre")
+
+@Principal.route("/Faq")
+def Faq():
+    return render_template("Faq.html", title = "Faq")

@@ -21,7 +21,6 @@
 				</div>
 				<div class= "form-group mb-2">
 					{{form.NomeDaEmpresa.label(class="form-control-label") }}
-
 					{% if form.NomeDaEmpresa.errors %}
 						{{ form.NomeDaEmpresa(class="form-control form-control-lg is-invalid")}}
 						<div class = "invalid-feedback">
@@ -35,7 +34,6 @@
 				</div>
 				<div class= "form-group mb-2">
 					{{form.Email.label(class="form-control-label") }}
-
 					{% if form.Email.errors %}
 						{{ form.Email(class="form-control form-control-lg is-invalid")}}
 						<div class = "invalid-feedback">
@@ -62,7 +60,6 @@
 				</div>
 				<div class= "form-group mb-2">
 					{{form.Senha.label(class="form-control-label") }}
-
 					{% if form.Senha.errors %}
 						{{ form.Senha(class="form-control form-control-lg is-invalid")}}
 						<div class = "invalid-feedback">
@@ -77,7 +74,6 @@
 				</div>
 				<div class= "form-group mb-4">
 					{{form.ConfirmarSenha.label(class="form-control-label") }}
-
 					{% if form.ConfirmarSenha.errors %}
 						{{ form.ConfirmarSenha(class="form-control form-control-lg is-invalid")}}
 						<div class = "invalid-feedback">
@@ -87,6 +83,19 @@
 						</div>
 					{% else %}
 							{{ form.ConfirmarSenha(class="form-control form-control-lg") }}
+					{% endif %}
+				</div>
+				<div class= "form-group mb-4">
+					{{form.RecaptchaCampo.label(class="form-control-label") }}
+					{% if form.RecaptchaCampo.errors %}
+						{{ form.RecaptchaCampo(class="form-control form-control-lg is-invalid")}}
+						<div class = "invalid-feedback">
+							{% for error in form.RecaptchaCampo.errors %}
+								<span>  {{ error }} </span>
+							{% endfor %}
+						</div>
+					{% else %}
+							{{ form.RecaptchaCampo(class="form-control form-control-lg") }}
 					{% endif %}
 				</div>
 			</fieldset>
