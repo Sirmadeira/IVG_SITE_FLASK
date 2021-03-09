@@ -72,14 +72,35 @@
 				{{ PresentePython }}
 			</td>
 			<td>
-			 	<a href= '/Deleta/{{Dado.id}}' class='btn btn-danger btn-sm py-1'><span style="font-size: 10px; height: auto; font-weight: bold;">X</span></a> 
+				<!-- Button trigger modal -->
+			 	<a href= '/Deleta/{{Dado.id}}' class='btn btn-danger btn-sm py-1' data-toggle="modal" data-target="#exampleModal"><span style="font-size: 10px; height: auto; font-weight: bold;">X</span></a> 
 			</td>
+				<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content bg-dark">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">Deletar Dado</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      Você deseja deletar o dado?
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+			        <button type="button" class="btn btn-light">Sim</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
 		</tr>
 		{% endfor %}
     </tbody>
     </table>
     <div class="bg-dark mx-auto pb-1 mt-0 text-center mb-5" style="width: auto; opacity: .9;">
-			<p>Grafico em ordem decrescente de inserção. ↟ </p>
+			<p>Grafico em ordem decrescente de inserção. ↟</p>
  	</div>
  	</div>
     </div> 
@@ -87,8 +108,8 @@
     <div class="container-fluid mx-auto my-0 py-1 bg-dark text-center" style="height: auto; width: 100%; letter-spacing: 3px; opacity: 1; font-size: 25px;">
     <p>Tabelas de Inteligência de Mercado</p>
     </div>
-<div class="container-fluid my-0 px-auto mx-0" style="background-image: url(static/imagens/TerceiraJanela-Background.jpg); background-size: cover; height: auto; width: 100%; margin: -35px auto 0;">
-    <div class="row p-5 mx-auto" style="width: 80%;">
+<div class="container-fluid my-0 px-auto mx-0" style="background-image: url(static/imagens/TerceiraJanela-Background.jpg); background-size: cover; background-repeat: repeat; height: auto; width: 100%; margin: -35px auto 0;">
+    <div class="row p-5 mx-auto" style="width: 90%;">
     <div class="col-lg-6">
     	<div class="pt-4" id="TabelaModelo">			
 		</div>
