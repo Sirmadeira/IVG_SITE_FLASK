@@ -21,7 +21,7 @@
   <header class="site-header">
       <nav class="navbar navbar-expand-lg navbar-dark bg-steel fixed-top mx-auto">
         <div class="container">
-          <a class="navbar-brand" href="/HomePage"><img src="{{ url_for('static', filename='imagens/Logo-IVG-azulclaro.png')}}" class="logo" alt="marca da IVG"></a>
+          <a class="navbar-brand" style="height: 100px;" href="/HomePage"><img src="{{ url_for('static', filename='imagens/Logo-IVG-azulclaro.png')}}" class="logo" alt="marca da IVG"></a>
           <button class="navbar-toggler text-center" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -38,13 +38,13 @@
                 <a class="nav-item nav-link active" href="{{ url_for('Tabelas.SegundaJanela') }}">Inserir dados</a>
                 <a class="nav-item nav-link active" href="{{ url_for('Tabelas.TerceiraJanela') }}">Visualizar dados</a>
                 <a class="nav-item nav-link active" href="{{ url_for('Usuarios.Logout') }}">Logout</a>
+                <div class="nav-item nav-link active">
+                <a class="btn btn-info mx-auto mr-4" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><img src="{{ url_for('static', filename='imagens/Homepage-Pesquisar.png')}}" style="height: 24px; width: auto;"></img></a>
+                </div>
               {% else %}
                 <a class="nav-item nav-link active" href="{{ url_for('Usuarios.Login') }}">Login</a>
                 <a class="nav-item nav-link active" href="{{ url_for('Usuarios.Cadastro') }}">Cadastro</a>
               {% endif %}
-                   <div class="nav-item nav-link active">
-              <a class="btn btn-info mx-auto mr-4" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><img src="{{ url_for('static', filename='imagens/Homepage-Pesquisar.png')}}" style="height: 24px; width: auto;"></img></a>
-            </div>
             </div> 
           </div>
         </div>
