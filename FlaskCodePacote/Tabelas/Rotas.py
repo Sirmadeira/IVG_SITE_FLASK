@@ -71,8 +71,7 @@ def AutocompleteMarca():
 @Tabelas.route('/AutocompleteModelosDB', methods=['GET', 'POST'])
 def ModelosDic():
     form= DadosEssenciais()
-    marca=form.Marca.data
-    res = Dado.query.order_by(marca).group_by(Dado.ModeloDB).all()
+    res = Dado.query.group_by(Dado.ModeloDB).all()
     list_modelos = [r.as_dict() for r in res]
     return jsonify(list_modelos)
 

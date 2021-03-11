@@ -1,13 +1,16 @@
 from flask import render_template, request, Blueprint
+from FlaskCodePacote.Principal.Utilidades import enviar_email_checkup
 
 Principal = Blueprint('Principal', __name__)
 
 
 @Principal.route("/", methods=['GET', 'POST'])
+def Inicializadores():
+	enviar_email_checkup()
+
 @Principal.route("/HomePage", methods=['GET', 'POST'])
 def HomePage():
     return render_template("HomePage.html",title = "HomePage")
-
 
 @Principal.route("/Sobre")
 def Sobre():
