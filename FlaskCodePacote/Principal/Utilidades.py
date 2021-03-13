@@ -1,8 +1,8 @@
 from flask_mail import Message
 from FlaskCodePacote import mail, db
 from FlaskCodePacote.Modelos import Dado, UsuarioDB
-from sqlalchemy import desc, func
-import datetime
+from sqlalchemy import desc
+from datetime import datetime
 
 def enviar_email_checkup():
 	users= [1,2]
