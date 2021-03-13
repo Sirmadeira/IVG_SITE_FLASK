@@ -5,7 +5,7 @@ from sqlalchemy import desc, func
 import datetime
 
 def enviar_email_checkup():
-	users= ['1','2']
+	users= [1,2]
 	for user in users:
 		ultimadata=db.session.query(Dado.DataDeInsercao).filter_by(user_id = user).order_by(Dado.DataDeInsercao.desc()).limit(1).scalar()
 		dueduser=db.session.query(UsuarioDB.EmailDB,UsuarioDB.id).filter_by(id = user).order_by(UsuarioDB.id.desc()).limit(1).scalar()
