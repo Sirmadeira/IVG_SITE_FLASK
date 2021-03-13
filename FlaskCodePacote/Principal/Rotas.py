@@ -5,12 +5,11 @@ Principal = Blueprint('Principal', __name__)
 
 
 @Principal.route("/", methods=['GET', 'POST'])
-def Inicializadores():
-	enviar_email_checkup()
 
 @Principal.route("/HomePage", methods=['GET', 'POST'])
 def HomePage():
-    return render_template("HomePage.html",title = "HomePage")
+	enviar_email_checkup()
+	return render_template("HomePage.html",title = "HomePage")
 
 @Principal.route("/Sobre")
 def Sobre():
