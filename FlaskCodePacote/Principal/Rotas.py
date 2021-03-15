@@ -7,7 +7,6 @@ Principal = Blueprint('Principal', __name__)
 @Principal.route("/", methods=['GET', 'POST'])
 @Principal.route("/HomePage", methods=['GET', 'POST'])
 def HomePage():
-	enviar_email_checkup()
 	return render_template("HomePage.html",title = "HomePage")
 
 @Principal.route("/Sobre")
