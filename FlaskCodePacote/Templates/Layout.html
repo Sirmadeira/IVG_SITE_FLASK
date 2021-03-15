@@ -39,7 +39,7 @@
                 <a class="nav-item nav-link active" href="{{ url_for('Tabelas.TerceiraJanela') }}">Visualizar dados</a>
                 <a class="nav-item nav-link active" href="{{ url_for('Usuarios.Logout') }}">Logout</a>
                 <div class="nav-item nav-link active">
-                <a class="btn btn-info mx-auto mr-4" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><img src="{{ url_for('static', filename='imagens/Homepage-Pesquisar.png')}}" style="height: 24px; width: auto;"></img></a>
+                <a class="btn btn-info mx-auto mr-4 d-none" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><img src="{{ url_for('static', filename='imagens/Homepage-Pesquisar.png')}}" style="height: 24px; width: auto;"></img></a>
                 </div>
               {% else %}
                 <a class="nav-item nav-link active" href="{{ url_for('Usuarios.Login') }}">Login</a>
@@ -49,9 +49,10 @@
           </div>
         </div>
       </nav>
-    <div class="collapse" id="collapseExample">
-          <div class="card card-body bg-dark p-4" style="width: 100%; height: 700px; opacity: .9; position: relative;">
-         <input class="my-auto p-4" type="search" placeholder="Pesquisar" aria-label="Search" name="search" style="font-size: 30px; letter-spacing: 2px; margin: auto 60px;">
+       <!-- Área de Pesquisa, deixar desligada por enquanto -->
+    <div class="collapse d-none" id="collapseExample">
+          <div class="card card-body bg-dark p-4 d-none" style="width: 100%; height: 700px; opacity: .9; position: relative;">
+         <input class="my-auto p-4 d-none" type="search" placeholder="Pesquisar" aria-label="Search" name="search" style="font-size: 30px; letter-spacing: 2px; margin: auto 60px;">
           </div>
     </div>
   </header>
