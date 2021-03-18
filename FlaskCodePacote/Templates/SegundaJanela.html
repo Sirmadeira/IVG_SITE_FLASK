@@ -33,23 +33,22 @@
                     </div>
                 <div class= "form-group mb-2">
                     {{form.Modelo.label(class="form-control-label") }}
-                <script>
-                    $(document).ready(function(){
-                     var modelos=[];
-                     function loadModelos(){
-                      $.getJSON('/AutocompleteModelosDB', function(data, status, xhr){
-                       for (var i = 0; i < data.length; i++ ) {
-                        modelos.push(data[i].ModeloDB);
-                       }
-                     });
-                     };
-                     loadModelos();
-                     
-                     $('#modelo_autocomplete').autocomplete({
-                      source: modelos, 
-                     });
-                     });
-                 </script>
+                    <script>
+                        $(document).ready(function(){
+                         var modelos=[];
+                         function loadModelos(){
+                          $.getJSON('/AutocompleteModelosDB', function(data, status, xhr){
+                           for (var i = 0; i < data.length; i++ ) {
+                            modelos.push(data[i].ModeloDB);
+                           }
+                         });
+                         };
+                         loadModelos();
+                         $('#modelo_autocomplete').autocomplete({
+                          source: modelos, 
+                         });
+                         });
+                     </script>
                     {% if form.Modelo.errors %}
                         {{ form.Modelo(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
@@ -74,7 +73,6 @@
                      });
                      };
                      loadMotor();
-                     
                      $('#motor_autocomplete').autocomplete({
                       source: motor, 
                      });
@@ -228,5 +226,15 @@
         </form>
     </div>
 </div>
+<style>
+  .ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  * html .ui-autocomplete {
+    height: 200px;
+  }
+</style>
 </body>
 {% endblock content%}
