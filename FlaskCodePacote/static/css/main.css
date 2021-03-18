@@ -109,10 +109,6 @@ padding: 10% 0;
 .carousel{
   margin: -50px 0 0px;
 }
-.carousel-item{
-height: 250px;
-width: 100%;
-}
 .d-block .w-100{
   position: center;
   margin: 10px;
