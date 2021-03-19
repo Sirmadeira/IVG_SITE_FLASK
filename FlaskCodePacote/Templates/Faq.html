@@ -3,23 +3,49 @@
 <div class="conteiner-fluid" style="background-image: url(static/imagens/Faq-Background.jpg); background-size: cover; height: auto; margin: -35px auto -50px; padding: 20% 0; width: 100%;">
 	<div class="container bg-dark text-center mx-auto p-1 text-center" style="width: 70%; font-size: 2vw; height: auto;">FAQ - Dúvidas Frequentes
 			<div class="row mt-2">
-		  <div class="col-4">
-		    <div class="list-group" style="font-size: 16px; height: auto;" id="list-tab" role="tablist">
-		      <a class="list-group-item bg-dark text-light list-group-item active" id="list-1-list" data-toggle="list" href="#list-1" role="tab" aria-controls="home">A IVG faz consultoria?</a>
-		      <a class="list-group-item bg-dark text-light list-group-item" id="list-2-list" data-toggle="list" href="#list-2" role="tab" aria-controls="profile">A IVG faz relatórios para outros setores?</a>
-		      <a class="list-group-item bg-dark text-light list-group-item" id="list-3-list" data-toggle="list" href="#list-3" role="tab" aria-controls="messages">O serviço é pago?</a>
-		      <a class="list-group-item bg-dark text-light list-group-item" id="list-4-list" data-toggle="list" href="#list-4" role="tab" aria-controls="settings">...</a>
-		    </div>
-		  </div>
-		  <div class="col-8">
-		    <div class="tab-content" style="font-size: 14px;" id="nav-tabContent">
-		      <div class="tab-pane fade show active mt-2" id="list-1" role="tabpanel" aria-labelledby="list-1-list">A IVG não faz consultoria, simplesmente disponibilizamos dados do seu mercado geral. Qualquer decisão tomada e por parte sua. Vale lembrar que as vezes, disponibilizamos tendências do mesmo. Que você pode ou não aderir.</div>
-		      <div class="tab-pane fade mt-2" id="list-2" role="tabpanel" aria-labelledby="list-2-list">No momento trabalhamos apenas com revendedoras de carros, devido a seus trabalho de vendas e revendas</div>
-		      <div class="tab-pane fade mt-2" id="list-3" role="tabpanel" aria-labelledby="list-3-list">Para os contribuintes iniciais, o serviço tem um desconto consideravél. Mas por enquanto enquanto alimentamos a database, o serviço e gratuito.</div>
-		      <div class="tab-pane fade mt-2" id="list-4" role="tabpanel" aria-labelledby="list-4-list">...</div>
-		    </div>
-		  </div>
-		</div>
-	</div>
+				<div id="accordion">
+  <div class="card bg-dark">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+         <span class="text-light">A IVG faz consultoria?</span>
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <span class="text-light">A IVG não faz consultoria, simplesmente disponibilizamos dados do seu mercado geral. Qualquer decisão tomada será por parte sua. Vale lembrar que às vezes, disponibilizamos tendências do mesmo. Que você pode ou não aderir.</span>
+       </div>
+    </div>
+  </div>
+  <div class="card bg-dark">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <span class="text-light">A IVG faz relatórios para outros setores?</span>
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+        No momento trabalhamos apenas com revendedoras de carros, devido a seus trabalhos de vendas e revendas.
+      </div>
+    </div>
+  </div>
+  <div class="card bg-dark">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <span class="text-light">O serviço é pago?</span>
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body">
+        Para os contribuintes iniciais, o serviço tem um desconto considerável. Mas, enquanto alimentamos a database, o serviço é gratuito.
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock content%}
