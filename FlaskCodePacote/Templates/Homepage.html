@@ -1,6 +1,6 @@
 {% extends "Layout.html" %}
 {% block content %}
-<div id="carouselExampleIndicators" class="carousel slide m-auto" style="height: auto; max-height: 550px;" data-ride="carousel">
+<div id="carouselExampleIndicators" class="carousel slide m-auto" style="height: auto; max-height: 900px;" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -9,7 +9,7 @@
     <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
   </ol>
   <div class="carousel-inner">
-    <div class="carousel-item active" style="height: auto; max-height: 550px;">
+    <div class="carousel-item active" style="height: auto; max-height: 900px;">
       <img class="d-block w-100" src="{{ url_for('static', filename='imagens/Homepage-Slide01.jpg')}}" alt="Primeiro Slide" style="background-size: cover;">
       <div class="carousel-caption d-lg-block text-center my-auto p-1">
         <div class="mb-5" style="background-color: black; opacity: .9;">
@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <div class="carousel-item" style="height: auto; max-height: 550px;">
+    <div class="carousel-item" style="height: auto; max-height: 900px;">
       <img class="d-block w-100" src="{{ url_for('static', filename='imagens/Homepage-Slide02.jpg')}}" alt="Segundo Slide" style="opacity: 1">
       <div class="carousel-caption d-lg-block text-center my-auto p-1 mb-5">
         <div style="background-color: black; opacity: .9; height: auto;">
@@ -29,24 +29,24 @@
     </div>
     </div>
     </div>
-    <div class="carousel-item" style="height: auto; max-height: 550px;">
+    <div class="carousel-item" style="height: auto; max-height: 900px;">
       <img class="d-block w-100" src="{{ url_for('static', filename='imagens/Homepage-Slide03.jpg')}}" alt="Terceiro Slide" style="opacity: 1">
-      <div class="carousel-caption d-lg-block mb-5">
+      <img class="d-block w-100" src="{{ url_for('static', filename='imagens/Homepage-Tabela-Slide03.jpg')}}" style="opacity: 1;">
+      <div class="container carousel-caption d-lg-block mb-5">
         <div class="bg-dark">
-
     <h5 class="text-left" style="color:white; font-size: 3vw;"></h5>
     <p class="" style="font-size: 2vw; letter-spacing: 3px; background-color: black; margin: 10px; opacity: .9;"> Tabela de inteligência de mercado a ser emitida no site</p>
     </div>
     </div>
     </div>
-    <div class="carousel-item" style="height: auto; max-height: 550px;">
+    <div class="carousel-item" style="height: auto; max-height: 900px;">
       <img class="d-block w-100" src="{{ url_for('static', filename='imagens/Homepage-Slide04.jpg')}}" alt="Quarto Slide" style="opacity: 1">
       <div class="carousel-caption d-lg-block">
     <h5 style="color:white; font-size: 2.5vw;"></h5>
     <p  style="font-size: 1.5vw; letter-spacing: 1px;">Em seguida, emitiremos uma análise preditiva cuja finalidade é encontrar relações matemáticas entre as variáveis (ex: preço x km rodado)</p>
     </div>
     </div>
-       <div class="carousel-item" style="height: auto; max-height: 550px;">
+       <div class="carousel-item" style="height: auto; max-height: 900px;">
       <img class="d-block w-100" src="{{ url_for('static', filename='imagens/Homepage-Slide05.jpg')}}" alt="Quinto Slide" style="opacity: 1">
       <div class="carousel-caption d-lg-block">
         <div style="background-color: black; opacity: .9">
