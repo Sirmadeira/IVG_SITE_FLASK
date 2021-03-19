@@ -18,6 +18,7 @@ width: auto;
 padding: 0 10px;
 margin: -80px -70px auto -40px;
 }
+
 .site-header .bg-steel {
   background: #141414;
   height: auto;
@@ -51,6 +52,10 @@ text-shadow: 0px 0px 5px rgba(82,168,236,.8);
 .site-header .navbar-nav .nav-link.active {
   font-weight: 500;
 }
+.navbar-toggler-icon{
+
+}
+/*Tags da main*/
 .content-section {
   background: #ffffff;
   padding: 10px 20px;
