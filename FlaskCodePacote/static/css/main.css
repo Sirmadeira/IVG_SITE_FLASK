@@ -43,9 +43,15 @@ div.navbar-nav {
   padding: 20px auto;
   text-transform: uppercase;
   outline: 0 none;
+  border-radius: 15px;
+  transition-duration: .2s;
+  transition-timing-function: linear;
+  transition-property: all;
 }
 .site-header .navbar-nav .nav-link:hover {
-  color: rgba(82,168,236,.8);
+  background-color: rgba(82,168,236,1);
+  letter-spacing: 5px;
+
 }
 text-shadow: 0px 0px 5px rgba(82,168,236,.8);
 }
