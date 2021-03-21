@@ -1,30 +1,48 @@
 {% extends "Layout.html" %}
 {% block content %}
 <div class="container-fluid" style="background-image: url(static/imagens/Sobre-Background.jpg); background-size: cover; height: auto; margin: -35px 0 0; padding: 20% 0; width: 100%;">
-  <div class="row justify-content-around mx-4"  style="background-color: black; text-align: center; opacity: .9; width: auto; height: auto;">
-    <div class="col-lg-4 my-auto">
-      <h1 style="letter-spacing: 3px;">Nossos valores:</h1>
-      <ol style="list-style: none; width: auto; padding: 0; letter-spacing: 2px;">
-      <li>Solidez</li>
-      <li>Confiança</li>
-      <li>Solidariedade</li>
-      <li>Seguridade</li>
-      <li>Capacidade</li>
-      <li>Crecscimento</li>
-      </ol>
-    </div>
-      <div class="col-lg-4 my-auto mt-2" style="background-color: black; text-align: center; opacity: .9; width: 300px; height: 10%;">
-      <h1 style="letter-spacing: 3px;">Visão</h1>
-        <p style="list-style: none; padding: 0; letter-spacing: 2px;">
-      Ter um nível de influx de dados tão alto que sejamos capazes de formatar um espaço comercial completamente justo.</li>
-      </p>
-    </div>
-    <div class="col-lg-4 my-auto mt-2";>
-      <h1 style="letter-spacing: 3px;">Missão</h1>
-        <p style="list-style: none; padding: 0; letter-spacing: 2px;">
-     Ajudar na tomada de decisão por meio da matemática, como no fornecimento de estatísticas, a fim de complementar a experiência e a intuição humana de comércio.</p>
-      </p>
+  <div class="row">
+    <div class="col-lg text-center">
+      <div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
+      <div class="card-header bg-primary" style="letter-spacing: 2px;">Nossos valores:</div>
+      <div class="card-body">
+        <h5 class="card-title"></h5>
+          <ol style="list-style: none; width: auto; padding: 0; letter-spacing: 2px;">
+              <li>Solidez</li>
+              <li>Confiança</li>
+              <li>Solidariedade</li>
+              <li>Seguridade</li>
+              <li>Capacidade</li>
+              <li>Crecscimento</li>
+          </ol>
+      </div>
     </div>
     </div>
+      <div class="col-lg text-center">
+      <div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
+        <div class="card-header bg-primary" style="letter-spacing: 2px;">Visão</div>
+        <div class="card-body">
+        <h5 class="card-title"></h5>
+          <ol style="list-style: none; width: auto; padding: 0; letter-spacing: 2px;">
+              <li> Ter um nível de influx de dados tão alto que sejamos capazes de formatar um espaço comercial completamente justo.
+              </li>
+          </ol>
+        </div>
+        </div>
+      </div>
+    <div class="col-lg text-center">
+      <div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
+        <div class="card-header bg-primary" style="letter-spacing: 2px;">Missão</div>
+        <div class="card-body">
+        <h5 class="card-title"></h5>
+          <ol style="list-style: none; width: auto; padding: 0; letter-spacing: 2px;">
+              <li> Ajudar na tomada de decisão por meio da matemática, como no fornecimento de estatísticas, a fim de complementar a experiência e a intuição humana de comércio.
+              </li>
+          </ol>
+        </div>
+        </div>
+    </div>
+    </div>
+  </div>
 </div>
 {% endblock content%}
