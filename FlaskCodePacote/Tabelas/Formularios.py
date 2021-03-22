@@ -1,6 +1,6 @@
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField, FloatField
+from wtforms import StringField, SubmitField
 from wtforms.validators import InputRequired, AnyOf, NumberRange, ValidationError
 from FlaskCodePacote.Modelos import Dado
 from FlaskCodePacote.Principal.Utilidades import MeuFloatField, MeuIntegerField

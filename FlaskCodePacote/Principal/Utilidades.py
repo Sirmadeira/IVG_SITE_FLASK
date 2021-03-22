@@ -20,7 +20,7 @@ def enviar_email_checkup():
 			break
 
 class MeuFloatField(FloatField):
-    def processar_formdata(self, valuelist):
+    def process_formdata(self, valuelist):
         if valuelist:
             try:
                 self.data = float(valuelist[0].replace(',', '.'))
@@ -29,7 +29,7 @@ class MeuFloatField(FloatField):
                 raise ValueError(self.gettext('Isso não é um valor decimal.'))
                 
 class MeuIntegerField(IntegerField):
-	def processar2_formdata(self, valuelist):
+	def process_formdata(self, valuelist):
 		if valuelist:
 			try:
 				self.data = int(valuelist[0])
