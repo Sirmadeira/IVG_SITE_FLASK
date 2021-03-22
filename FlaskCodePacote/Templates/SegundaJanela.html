@@ -2,10 +2,10 @@
 {% block content %}
 <body>
     <div class="container-fluid" style="background-image: url(static/imagens/Inserir-Dados-Background.jpg); background-size: cover; height: auto; margin: -35px auto -50px; padding: 20% 0;">
-    <div class= "content-section  mx-auto bg-dark" style="min-width: 300px; max-width: 30%; opacity: .9; letter-spacing: 2px;">
+    <div class= "content-section  mx-auto bg-dark" style="min-width: 300px; max-width: 35%; opacity: .9; letter-spacing: 2px;">
         Por favor, preencha o formulário abaixo com as informações do carro vendido.
     </div>
-    <div class= "content-section  mx-auto bg-dark" style="min-width: 300px; max-width: 30%; opacity: .9;">
+    <div class= "content-section  mx-auto bg-dark" style="min-width: 300px; max-width: 35%; opacity: .9;">
         <form method = 'POST' action = ''>
             {{ form.hidden_tag() }}
             <fieldset class = 'form-group'>
@@ -25,9 +25,9 @@
                         </script>
                         {% if form.Marca.errors %}
                             {{ form.Marca(class="form-control form-control-lg is-invalid")}}
-                            <div class = "invalid-feedback">
+                            <div class = "invalid-feedback" style="height: auto; width: auto;">
                                 {% for error in form.Marca.errors %}
-                                    <span>  {{ error }} </span>
+                                    <h1 class="text-danger" style="font-size: 11px; font-weight: bold;">  {{ error }} </h1>
                                 {% endfor %}
                             </div>
                         {% else %}
@@ -56,7 +56,7 @@
                         {{ form.Modelo(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
                             {% for error in form.Modelo.errors %}
-                                <span>  {{ error }} </span>
+                                <h1 style="font-size: 12px;">  {{ error }} </h1>
                             {% endfor %}
                         </div>
                     {% else %}
@@ -85,7 +85,7 @@
                         {{ form.VersaoDoMotor(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
                             {% for error in form.VersaoDoMotor.errors %}
-                                <span>  {{ error }} </span>
+                                <h1 style="font-size: 12px;">  {{ error }} </h1>
                             {% endfor %}
                         </div>
                     {% else %}
@@ -110,7 +110,7 @@
                         {{ form.TipoDeCombustivel(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
                             {% for error in form.TipoDeCombustivel.errors %}
-                                <span>  {{ error }} </span>
+                                <h1 style="font-size: 12px; font-weight: bold;">  {{ error }} </h1>
                             {% endfor %}
                         </div>
                     {% else %}
@@ -123,7 +123,7 @@
                         {{ form.Ano(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
                             {% for error in form.Ano.errors %}
-                                <span>  {{ error }} </span>
+                                <h1 style="font-size: 12px;  font-weight: bold;">  {{ error }} </h1>
                             {% endfor %}
                         </div>
                     {% else %}
@@ -137,7 +137,7 @@
                         {{ form.Quilometragem(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
                             {% for error in form.Quilometragem.errors %}
-                                <span>  {{ error }} </span>
+                                <h1 style="font-size: 12px;  font-weight: bold;">  {{ error }} </h1>
                             {% endfor %}
                         </div>
                     {% else %}
@@ -152,7 +152,7 @@
                         {{ form.Preco(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
                             {% for error in form.Preco.errors %}
-                                <span>  {{ error }} </span>
+                                <h1 style="font-size: 12px; font-weight: bold;">  {{ error }} </h1>
                             {% endfor %}
                         </div>
                     {% else %}
@@ -165,7 +165,7 @@
                         {{ form.Lucro(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
                             {% for error in form.Lucro.errors %}
-                                <span>  {{ error }} </span>
+                                <h1 style="font-size: 12px;  font-weight: bold;">  {{ error }} </h1>
                             {% endfor %}
                         </div>
                     {% else %}
@@ -190,7 +190,7 @@
                         {{ form.Cor(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
                             {% for error in form.Cor.errors %}
-                                <span>  {{ error }} </span>
+                                <h1 style="font-size: 12px;  font-weight: bold;">  {{ error }} </h1>
                             {% endfor %}
                         </div>
                     {% else %}
@@ -215,7 +215,7 @@
                         {{ form.Localidade(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
                             {% for error in form.Localidade.errors %}
-                                <span>  {{ error }} </span>
+                                <h1 style="font-size: 12px;  font-weight: bold;">  {{ error }} </h1>
                             {% endfor %}
                         </div>
                     {% else %}
