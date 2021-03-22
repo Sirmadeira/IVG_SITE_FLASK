@@ -28,3 +28,11 @@ class MeuFloatField(FloatField):
                 self.data = None
                 raise ValueError(self.gettext('Isso não é um valor decimal.'))
 
+class IntegerField(Field):
+	def process_formdata(self, valuelist):
+        if valuelist:
+            try:
+                self.data = int(valuelist[0])
+            except ValueError:
+                self.data = None
+                raise ValueError(self.gettext('Isso não é um ano.'))
