@@ -8,22 +8,22 @@ from FlaskCodePacote.Modelos import UsuarioDB
 class FormularioDeRegistro(FlaskForm):
 
     Usuario =StringField('Usuário', 
-                        validators = [InputRequired(message= 'Favor inserir Usuário '),Length(min= 5, max=20, message= 'Entre 4 a 20 letras')])
+                        validators = [InputRequired(message= 'Favor inserir Usuário '),Length(min= 5, max=20, message= 'Entre 4 a 20 letras')],render_kw={"placeholder": "Usuário"})
 
     NomeDaEmpresa= StringField('Favor informar o nome da sua empresa.',
-                        validators=[InputRequired(message= 'Favor inserir nome da empresa '),Length(min=2, max =30,message= 'Entre 5 a 30 letras')])
+                        validators=[InputRequired(message= 'Favor inserir nome da empresa '),Length(min=2, max =30,message= 'Entre 5 a 30 letras')],render_kw={"placeholder": "Inserir nome da sua empresa"})
 
     Comercio= StringField('Favor informar o setor de atuação da sua empresa',
-                        validators=[InputRequired(message= 'Favor inserir tipo de comercio '),AnyOf('Revendedora de carro', message= 'Atualmente só trabalhamos com: Revendedora de carro , copie e cole o exemplo caso haja erro.')])   
+                        validators=[InputRequired(message= 'Favor inserir tipo de comercio '),AnyOf('Revendedora de carro', message= 'Atualmente só trabalhamos com: Revendedora de carro , copie e cole o exemplo caso haja erro.')],render_kw={"placeholder": "Comercio da sua empresa"})   
 
     Email = StringField('Email empresarial',
-                        validators=[InputRequired(message= 'Favor inserir Email'), Email('Formato de e-mail inválido')])
+                        validators=[InputRequired(message= 'Favor inserir Email'), Email('Formato de e-mail inválido')],render_kw={"placeholder": "Email de contato empresarial"})
 
     Senha= PasswordField('Senha',
-                        validators=[InputRequired(message= 'Insira uma senha'),Regexp('^(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\d\W])|(?=.*\W)(?=.*\d))|(?=.*\W)(?=.*[A-Z])(?=.*\d)).{8,}$', message= 'Sua senha precisa ter 8 caracteres e pelo menos obedecer 3 das 4 condições, ter letra maiúscula minúscula, ter número e/ou caracteres especiais.')])
+                        validators=[InputRequired(message= 'Insira uma senha'),Regexp('^(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\d\W])|(?=.*\W)(?=.*\d))|(?=.*\W)(?=.*[A-Z])(?=.*\d)).{8,}$', message= 'Sua senha precisa ter 8 caracteres e pelo menos obedecer 3 das 4 condições, ter letra maiúscula minúscula, ter número e/ou caracteres especiais.')],render_kw={"placeholder": "Senha aviso, precisa ter 8 caracteres com letras maiúsculas minúsculas e caracteres especiais"})
 
     ConfirmarSenha= PasswordField('Confirme Senha',
-                        validators=[InputRequired(message= 'Confirme sua senha'),EqualTo('Senha', message= 'Este campo tem que ser igual ao de senha')])
+                        validators=[InputRequired(message= 'Confirme sua senha'),EqualTo('Senha', message= 'Este campo tem que ser igual ao de senha')],render_kw={"placeholder": "Repita sua senha"})
 
     RecaptchaCampo= RecaptchaField()
 
@@ -44,24 +44,24 @@ class FormularioDeRegistro(FlaskForm):
             raise ValidationError('Essa empresa já está cadastrada')
 
 class FormularioDeLogin(FlaskForm):
-    Usuario =StringField('Usuario', 
-                        validators = [InputRequired(message='Favor inserir o seu Usuário')]) 
+    Usuario =StringField('Usuário', 
+                        validators = [InputRequired(message='Favor inserir o seu Usuário')],render_kw={"placeholder": "Usuário"}) 
 
     Email = StringField('Email',
-                        validators=[InputRequired(message='Favor inserir o seu E-mail'), Email(message='Email inválido')])
+                        validators=[InputRequired(message='Favor inserir o seu E-mail'), Email(message='Email inválido')],render_kw={"placeholder": "Email da sua empresa"})
 
     Lembrete= BooleanField("Lembre-se de mim")
 
     Senha= PasswordField('Senha',
-                        validators=[InputRequired(message='Favor inserir a sua senha')])
+                        validators=[InputRequired(message='Favor inserir a sua senha')],render_kw={"placeholder": "Senha"})
 
     Entrar=SubmitField('Entre')
 
 class AtualizarRegistro(FlaskForm):
-    Usuario =StringField('Usuario', 
+    Usuario =StringField('Seu usuário atual', 
                         validators = [InputRequired(message='Favor inserir o seu Usuário')]) 
 
-    Email = StringField('Email',
+    Email = StringField('Seu email atual',
                         validators=[InputRequired(message='Favor inserir o seu Email'), Email(message='Email em formato não aceitável')])   
 
     Confirma=SubmitField('Atualizar')
@@ -81,7 +81,7 @@ class AtualizarRegistro(FlaskForm):
 class RequisitarReset(FlaskForm):
 
     Email = StringField('Email',
-                        validators=[InputRequired(message='Favor inserir o seu Email'), Email(message='Email inválido')]) 
+                        validators=[InputRequired(message='Favor inserir o seu Email'), Email(message='Email inválido')],render_kw={"placeholder": "Favor inserir o email de contato da sua empresa"}) 
 
     Confirma=SubmitField('Requisitar reset de senha')
 
