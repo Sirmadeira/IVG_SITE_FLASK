@@ -25,7 +25,7 @@ class DadosEssenciais(FlaskForm):
                         validators=[NumberRange(min= 1960, max=2021, message = 'Somente por carros acima do ano 1960')],render_kw={"placeholder": "Ano do veículo"})
 
     Quilometragem = MeuFloatField('Quilometragem',
-                        validators=[NumberRange(min=0, max=9999999, message= "Não existe km negativa ou essa km e muita alta")],render_kw={"placeholder": "kM"})
+                        validators=[NumberRange(min=0, max=9999999, message= "Não existe km negativa ou essa km e muita alta")],render_kw={"placeholder": "KM"})
 
     Preco = MeuFloatField('Preço',
                         validators=[NumberRange(min=1000, max=9999999, message = 'Somente por vendas acima de mil reais.')],render_kw={"placeholder": "Preço de venda"})
