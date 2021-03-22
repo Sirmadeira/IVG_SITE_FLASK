@@ -2,7 +2,7 @@ from flask_mail import Message
 from FlaskCodePacote import mail, db
 from FlaskCodePacote.Modelos import Dado, UsuarioDB
 from sqlalchemy import desc
-from wtforms import FloatField
+from wtforms import FloatField, IntegerField
 import datetime
 
 def enviar_email_checkup():
@@ -27,12 +27,12 @@ class MeuFloatField(FloatField):
             except ValueError:
                 self.data = None
                 raise ValueError(self.gettext('Isso não é um valor decimal.'))
-
-class MeuIntegerField(Field):
-	def processar_formdata(self, valuelist):
-        if valuelist:
-            try:
-                self.data = int(valuelist[0])
-            except ValueError:
-                self.data = None
-                raise ValueError(self.gettext('Isso não é um ano.'))
+                
+class MeuIntegerField(IntegerField):
+	def processar2_formdata(self, valuelist):
+		if valuelist:
+			try:
+				self.data = int(valuelist[0])
+			except ValueError:
+				self.data = None
+				raise ValueError(self.gettext('Isso não é um ano.'))

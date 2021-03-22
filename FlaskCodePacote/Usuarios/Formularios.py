@@ -44,7 +44,7 @@ class FormularioDeRegistro(FlaskForm):
             raise ValidationError('Essa empresa já está cadastrada')
 
 class FormularioDeLogin(FlaskForm):
-    Usuario =StringField('Usuario', 
+    Usuario =StringField('Usuário', 
                         validators = [InputRequired(message='Favor inserir o seu Usuário')],render_kw={"placeholder": "Usuário"}) 
 
     Email = StringField('Email',
@@ -58,11 +58,11 @@ class FormularioDeLogin(FlaskForm):
     Entrar=SubmitField('Entre')
 
 class AtualizarRegistro(FlaskForm):
-    Usuario =StringField('Usuario', 
-                        validators = [InputRequired(message='Favor inserir o seu Usuário')],render_kw={"placeholder": "Atualizar seu Usuário"}) 
+    Usuario =StringField('Seu usuário atual', 
+                        validators = [InputRequired(message='Favor inserir o seu Usuário')]) 
 
-    Email = StringField('Email',
-                        validators=[InputRequired(message='Favor inserir o seu Email'), Email(message='Email em formato não aceitável')],render_kw={"placeholder": "Atualizar seu email de contato"})   
+    Email = StringField('Seu email atual',
+                        validators=[InputRequired(message='Favor inserir o seu Email'), Email(message='Email em formato não aceitável')])   
 
     Confirma=SubmitField('Atualizar')
 
