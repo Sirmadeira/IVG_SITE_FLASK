@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField, FloatField
 from wtforms.validators import InputRequired, AnyOf, NumberRange, ValidationError
 from FlaskCodePacote.Modelos import Dado
-from FlaskCodePacote.Principal.Utilidades import MeuFloatField
+from FlaskCodePacote.Principal.Utilidades import MeuFloatField, MeuIntegerField
 
 
 
@@ -21,7 +21,7 @@ class DadosEssenciais(FlaskForm):
     TipoDeCombustivel = StringField('Combustivél', id='combustivel_autocomplete',
                         validators=[InputRequired(message='Favor inserir um modelo valido')],render_kw={"placeholder": "Combustivél aceitos"})
 
-    Ano = MeuFloatField('Ano',
+    Ano = MeuIntegerField('Ano',
                         validators=[NumberRange(min= 1960, max=2021, message = 'Somente por carros acima do ano 1960')],render_kw={"placeholder": "Ano do veículo"})
 
     Quilometragem = MeuFloatField('Quilometragem',
