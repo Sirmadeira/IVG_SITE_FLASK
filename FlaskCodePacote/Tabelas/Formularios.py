@@ -3,40 +3,41 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField, FloatField
 from wtforms.validators import InputRequired, AnyOf, NumberRange, ValidationError
 from FlaskCodePacote.Modelos import Dado
+from FlaskCodePacote.Principal.Utilidades import MeuFloatField
 
 
 
 class DadosEssenciais(FlaskForm):
     
     Marca = StringField('Marca', id='marca_autocomplete',
-                        validators=[InputRequired(message='Favor inserir uma Marca valida')])
+                        validators=[InputRequired(message='Favor inserir uma Marca valida')],render_kw={"placeholder": "Marca do veículo"})
     
     Modelo = StringField('Modelo',id='modelo_autocomplete',
-                        validators=[InputRequired(message='Favor inserir um modelo valido')])
+                        validators=[InputRequired(message='Favor inserir um modelo valido')],render_kw={"placeholder": "Modelo do veículo"})
 
     VersaoDoMotor = StringField('Motor',id='motor_autocomplete',
-                        validators=[InputRequired(message='Favor inserir um motor valido')])
+                        validators=[InputRequired(message='Favor inserir um motor valido')],render_kw={"placeholder": "Versão do motor"})
 
     TipoDeCombustivel = StringField('Combustivél', id='combustivel_autocomplete',
-                        validators=[InputRequired(message='Favor inserir um modelo valido')])
+                        validators=[InputRequired(message='Favor inserir um modelo valido')],render_kw={"placeholder": "Combustivél aceitos"})
 
-    Ano = FloatField('Ano',
-                        validators=[NumberRange(min= 1960, max=2021, message = 'Somente por carros acima do ano 1960')])
+    Ano = MeuFloatField('Ano',
+                        validators=[NumberRange(min= 1960, max=2021, message = 'Somente por carros acima do ano 1960')],render_kw={"placeholder": "Ano do veículo"})
 
-    Quilometragem = IntegerField('Quilometragem',
-                        validators=[NumberRange(min=0, max=9999999, message= "Não existe km negativa ou essa km e muita alta")])
+    Quilometragem = MeuFloatField('Quilometragem',
+                        validators=[NumberRange(min=0, max=9999999, message= "Não existe km negativa ou essa km e muita alta")],render_kw={"placeholder": "kM"})
 
-    Preco = FloatField('Preço',
-                        validators=[NumberRange(min=1000, max=9999999, message = 'Somente por vendas acima de mil reais.')])
+    Preco = MeuFloatField('Preço',
+                        validators=[NumberRange(min=1000, max=9999999, message = 'Somente por vendas acima de mil reais.')],render_kw={"placeholder": "Preço de venda"})
 
-    Lucro= FloatField('Lucro',
-                        validators=[InputRequired(message= 'Favor inserir lucro, caso seja venda por 0 como valor')])
+    Lucro= MeuFloatField('Lucro',
+                        validators=[InputRequired(message= 'Favor inserir lucro, caso seja venda por 0 como valor')],render_kw={"placeholder": "Lucro sobre a venda"})
 
     Cor = StringField('Cor',id= 'cor_autocomplete',
-                        validators=[InputRequired(message= 'Favor inserir cor do carro')])
+                        validators=[InputRequired(message= 'Favor inserir cor do carro')],render_kw={"placeholder": "Cor do veículo"})
 
     Localidade= StringField('Local da venda',id= 'local_autocomplete',
-                        validators=[InputRequired(message= 'Favor inserir local')])
+                        validators=[InputRequired(message= 'Favor inserir local')],render_kw={"placeholder": "Local da venda"})
 
     Confirma=SubmitField('Confirmar inserção')
 
