@@ -8,6 +8,11 @@ body {
   background-color: #141414;
   color: white;
   margin-top: 5rem;
+  animation: Transição 50ms;
+}
+
+h1, h5, p, ol, span, form{
+   animation: TransiçãoY 600ms;
 }
 
 /*Tags da navbar*/
@@ -57,9 +62,7 @@ text-shadow: 0px 0px 5px rgba(82,168,236,.8);
 .site-header .navbar-nav .nav-link.active {
   font-weight: 500;
 }
-.navbar-toggler-icon{
 
-}
 /*Tags da main*/
 .content-section {
   background: #ffffff;
@@ -90,6 +93,7 @@ padding: 10% 0;
 
 }
 
+/*Tags da homepage*/
 .redesocial{
   margin-top: 10px;
   margin-right: 10px;
@@ -139,6 +143,22 @@ padding: 10% 0;
   font-size: 12px;
 }
 
+/*Tags do FAQ*/
+.accordion-button:not(.collapsed) {
+  color: #0c63e4;
+  background-color: #1363D4;
+}
+
+/* The animation code */
+@keyframes TransiçãoY {
+  from {opacity: 0; transform: translateY(-20px);}
+  to {opacity: 1; transform: translateY(0px);}
+}
+
+@keyframes Transição {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
 
 @media and (min-width: 700.98px){
 .container .row{
