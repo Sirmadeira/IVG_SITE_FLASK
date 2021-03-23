@@ -149,6 +149,9 @@ padding: 10% 0;
   background-color: #1363D4;
 }
 
+/*Tags do Sobre*/
+
+
 /* The animation code */
 @keyframes TransiçãoY {
   from {opacity: 0; transform: translateY(-20px);}
