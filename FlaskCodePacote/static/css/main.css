@@ -7,7 +7,7 @@
 body {
   background-color: #141414;
   color: white;
-  margin-top: 5rem;
+  margin-top: 120px;
   animation: Transição 50ms;
 }
 
@@ -111,10 +111,6 @@ padding: 10% 0;
 .carousel{
   margin: -50px 0 0px;
 }
-.d-block .w-100{
-  position: center;
-  margin: 10px;
-}
 .carousel-caption{
   margin: 0px 0;
   padding: 0px;
@@ -146,7 +142,7 @@ padding: 10% 0;
 /*Tags do FAQ*/
 .accordion-button:not(.collapsed) {
   color: #0c63e4;
-  background-color: #1363D4;
+  background-color: #74A4F7;
 }
 
 /*Tags do Sobre*/
