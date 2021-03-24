@@ -2,7 +2,7 @@
 {% block content %}
 
 
-<div class="container-fluid my-auto p-1" style="background-image: url(static/imagens/Inserir-Dados-Background.jpg); background-size: cover; height: auto; margin: 0 0 -50px; width: 100%; font-size: 15px;">
+<div class="container-fluid my-auto p-1" style="background-image: url(static/imagens/TerceiraJanela-Background01.jpg); background-size: cover; height: auto; margin: 0 0 -50px; width: 100%; font-size: 15px;">
 <div class="bg-dark py-3 mr-0 text-center fixed-top" style="align-items: vertical; height: auto; width: 80px; margin-top: 200px;">
 	<p style="font-weight: bold; letter-spacing: 1px; font-size: auto;">Atalho</p>
 	<button id=BotãoTabelaÚltimosDados type="button" class="btn btn-light bg-gradient btn-sm p-1 mx-auto mb-2" style="width: 65px;">
@@ -110,20 +110,20 @@
     <div class="container-fluid mx-auto my-0 py-1 bg-dark text-center" style="height: auto; width: 100%; letter-spacing: 3px; opacity: 1; font-size: 25px;">
     <p>Tabelas de Inteligência de Mercado</p>
     </div>
-<div class="container-fluid my-0 px-auto mx-0" style="background-image: url(static/imagens/TerceiraJanela-Background.jpg); background-size: cover; background-repeat: repeat; height: auto; width: 100%; margin: -35px auto 0;">
+<div class="container-fluid my-0 px-auto mx-0" style="background-image: url(static/imagens/TerceiraJanela-Background02.jpg); background-size: contain; background-repeat: repeat; height: auto; width: 100%; margin: -35px auto 0;">
     <div class="row p-5 mx-auto" style="width: 100%;">
     <div class="col-lg-6">
     	<div class="pt-4" id="TabelaModelo">			
 		</div>
  	<div class="table-responsive-lg mt-4 px-auto pt-4 p-0" style="font-size: 14px;">
-	<table class="table table-light text-center mx-auto my-0 " style="width: 75%; opacity: .9; padding-top: 50px;">
-			<div class="bg-light mx-auto px-0 mb-1 text-center" style="width: 75%; opacity: .9;">
-				<h1 class="text-dark m-0" style="font-size: 20px; font-weight: bold;">Tabela dos modelos mais vendidos em Limeira</h1>
+	<table class="table table-dark text-center mx-auto my-0 " style="width: 80%; opacity: .9; padding-top: 50px;">
+			<div class="bg-dark mx-auto px-0 mb-1 text-center" style="width: 80%; opacity: .9;">
+				<h1 class="text-light m-0" style="font-size: 20px; font-weight: bold;">Tabela dos modelos mais vendidos em Limeira</h1>
  		    </div>
  	<thead style="font-weight: bold;">
- 		<tr>
+ 		<tr style="word-wrap: none;">
 			{% for cabeca2 in TituloTop20Modelo %}
-				<th scope= 'col'> {{ cabeca2 }}</th>
+				<th scope= 'col'>{{ cabeca2 }}</th>
 			{% endfor %}
 		</tr>
 	</thead>
@@ -150,9 +150,9 @@
     	<div class="pt-4" id="TabelaMarca">			
 		</div>
 	<div class="table-responsive-lg mt-4 px-4 pt-4 p-0" style="font-size: 14px;">
-	<table class="table table-light text-center mx-auto my-0 " style="width: 100%; opacity: .9; padding-top: 50px;">
-			<div class="bg-light px-1 mb-1 text-center" style="width: 100%; opacity: .9;">
-				<h1 class="text-dark m-0" style="font-size: 20px; font-weight: bold;">Tabela de marcas mais vendidas em Limeira</h1>
+	<table class="table table-dark text-center mx-auto my-0 " style="width: 100%; opacity: .9; padding-top: 50px;">
+			<div class="bg-dark px-1 mb-1 text-center" style="width: 100%; opacity: .9;">
+				<h1 class="text-light m-0" style="font-size: 20px; font-weight: bold;">Tabela de marcas mais vendidas em Limeira</h1>
  		    </div>
  	<thead style="font-weight: bold;">
  		<tr>
@@ -179,14 +179,14 @@
     </div>
 </div>    
 
-<div class="container-fluid my-0 px-auto mx-0" style="background-image: url(static/imagens/TerceiraJanela-Background2.jpg); height: auto; background-repeat: repeat; width: 100%; margin: -35px auto 0;">
+<div class="container-fluid my-0 px-auto mx-0" style="background-image: url(static/imagens/TerceiraJanela-Background02.jpg); height: auto; background-repeat: repeat; background-size: contain; width: 100%; margin: -35px auto 0;">
 		<div class="row">
 			    <div class="col-lg">
 			    	<div class="pt-5 mt-5" id="TabelaMargemDeLucro">			
 					</div>
-			    <table class="table table-light text-center mx-auto my-0 mb-5" style="width: 60%; opacity: .9; padding-top: 100px; ">
-						<div class="bg-light px-1 mb-1 mx-auto text-center mt-4" style="width: 60%; opacity: .9;">
-							<h1 class="text-dark m-0" style="font-size: 20px; font-weight: bold;">Modelos com maiores margem de lucro</h1>
+			    <table class="table table-dark text-center mx-auto my-0 mb-5" style="width: 60%; opacity: .9; padding-top: 100px; ">
+						<div class="bg-dark px-1 mb-1 mx-auto text-center mt-4" style="width: 60%; opacity: .9;">
+							<h1 class="text-light m-0" style="font-size: 20px; font-weight: bold;">Modelos com maiores margem de lucro</h1>
 			 		    </div>
 			 	<thead style="font-weight: bold;">
 			 		<tr>
