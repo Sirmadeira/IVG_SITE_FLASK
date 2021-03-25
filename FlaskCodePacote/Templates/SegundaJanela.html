@@ -3,7 +3,7 @@
 <body>
     <div class="container-fluid" style="background-image: url(static/imagens/Inserir-Dados-Background.jpg); background-size: cover; background-repeat: no-repeat; height: auto; margin: -35px auto -50px; padding: 20% 0;">
     <div class= "content-section  mx-auto bg-dark" style="min-width: 300px; max-width: 35%; opacity: .9; letter-spacing: 2px;">
-        Por favor, preencha o formulário abaixo com as informações do carro vendido ou comprado. Para assim sermos capazes de fornecer um serviço cada vez melhor. 
+        Por favor, preencha o formulário abaixo com as informações do carro vendido. Para assim sermos capazes de fornecer um serviço cada vez melhor. 
     </div>
     <div class= "content-section  mx-auto bg-dark" style="min-width: 300px; max-width: 35%; opacity: .9;">
         <form method = 'POST' action = ''>
@@ -210,7 +210,7 @@
                                     });
                                 });
                             });
-                    </script> 
+                    </script>
                     {% if form.Localidade.errors %}
                         {{ form.Localidade(class="form-control form-control-lg is-invalid")}}
                         <div class = "invalid-feedback">
@@ -224,7 +224,7 @@
                 </div>
             </fieldset>
             <div class= "form-group">
-                {{ form.Confirma (class= "btn btn-outline-info") }}
+                    {{ form.Confirma(class= "btn btn-outline-info") }}
             </div>
         </form>
     </div>
