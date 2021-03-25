@@ -77,9 +77,12 @@
       <div class="row">
       <div class="col-xl my-auto py-auto">
         <ul  style="list-style: none; font-size: 14px; padding: 0 0; display: inline-flex;">
-            <li><img src="{{ url_for('static', filename='imagens/Footer-Facebook.png')}}" class="redesocial"></li> 
-            <li><img src="{{ url_for('static', filename='imagens/Footer-Twitter.png')}}" class="redesocial2"></li> 
-            <li><img src="{{ url_for('static', filename='imagens/Footer-Linkedin.png')}}"  class="redesocial"></li>
+            <li><a href="{{('https://www.facebook.com/ivgtecnologiadedados')}}" target="_blank"><img src="{{ url_for('static', filename='imagens/Footer-Facebook.png')}}" class="redesocial"></a></li> 
+            <li><a href="{{('https://twitter.com/ivgtech')}}" target="_blank"><img src="{{ url_for('static', filename='imagens/Footer-Twitter.png')}}" class="redesocial2"></a></li> 
+            <li><a href="{{('https://www.linkedin.com/company/ivgtecnologia-de-dados/about/?viewAsMember=true')}}" target="_blank">
+                  <img src="{{ url_for('static', filename='imagens/Footer-Linkedin.png')}}"  class="redesocial">
+                </a>
+            </li>
         </ul>
       </div>
         <div class="col-xl my-auto py-auto">
