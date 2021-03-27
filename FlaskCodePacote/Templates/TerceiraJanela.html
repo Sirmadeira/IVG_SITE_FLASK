@@ -72,11 +72,12 @@
 				{{ PresentePython }}
 			</td>
 			<td>
-				<a href= '/Deleta/{{Dado.id}}'type="button" class="btn btn-danger btn-sm py-1"> x</a>
+				<a href= '/Deleta/{{Dado.id}}' type="button" class="btn btn-danger btn-sm py-1"> x</a>
 			</td>
 		</tr>
 		{% endfor %}
 		<script type="text/javascript">
+
 				    var elems = document.getElementsByClassName('btn btn-danger btn-sm py-1');
 				    var confirmIt = function (e) {
 				        if (!confirm('Você tem certeza?')) e.preventDefault();
@@ -84,6 +85,7 @@
 				    for (var i = 0, l = elems.length; i < l; i++) {
 				        elems[i].addEventListener('click', confirmIt, false);
 				    }
+			
 		</script>
     </tbody>
     </table>
