@@ -72,21 +72,56 @@
 				{{ PresentePython }}
 			</td>
 			<td>
-				<a href= '/Deleta/{{Dado.id}}' type="button" class="btn btn-danger btn-sm py-1"> x</a>
+				<button id="Dado" href= '/Deleta/{{Dado.id}}' onclick="confirm(event)" type="button" class="btn btn-danger btn-sm py-1"> x</button>
+			    <script type="text/javascript">
+				function confirm(e)
+				{
+				   e.preventDefault()
+				   var urlToRedirect = e.currentTarget.getAttribute('href'); //use currentTarget because the click may be on the nested i tag and not a tag causing the href to be empty
+					console.log(urlToRedirect); // verify if this is the right URL
+				    const swalWithBootstrapButtons = Swal.mixin({
+				    customClass: {
+				    confirmButton: 'btn btn-success m-4', 
+				    cancelButton: 'btn btn-danger'
+				  },
+				  buttonsStyling: false
+				})
+	
+	            swalWithBootstrapButtons.fire(
+	            {
+				  title: 'Deseja deletar o dado?',
+				  text: "Atenção, os dados serão deletados imediatamente!",
+				  type: 'warning',
+				  showCancelButton: true,
+				  confirmButtonText: 'Sim',
+				  cancelButtonText: 'Cancelar',
+				  reverseButtons: true				  
+				}).then((result) => {
+				  if (result.value) {
+				  	window.location.href = urlToRedirect
+				    swalWithBootstrapButtons.fire(
+				      'Cancelar!',
+				      'Your file has been deleted.',
+				      'success'				     
+				      				)}
+
+				  else if (
+				    /* Read more about handling dismissals below */
+				    result.dismiss === Swal.DismissReason.cancel
+				  ) {
+				    swalWithBootstrapButtons.fire(
+				      'Processo Cancelado',
+				      'Nada ocorreu',
+				      'info'
+				    )
+				  }
+				})
+
+				}
+				</script>
 			</td>
 		</tr>
 		{% endfor %}
-		<script type="text/javascript">
-
-				    var elems = document.getElementsByClassName('btn btn-danger btn-sm py-1');
-				    var confirmIt = function (e) {
-				        if (!confirm('Você tem certeza?')) e.preventDefault();
-				    };
-				    for (var i = 0, l = elems.length; i < l; i++) {
-				        elems[i].addEventListener('click', confirmIt, false);
-				    }
-			
-		</script>
     </tbody>
     </table>
     <div class="bg-dark mx-auto pb-1 mt-0 text-center mb-5" style="width: auto; opacity: .9;">

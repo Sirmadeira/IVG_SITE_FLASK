@@ -145,8 +145,10 @@ padding: 10% 0;
   background-color: #74A4F7;
 }
 
-/*Tags do Sobre*/
-
+/*Tags da TerceiraJanela*/
+button.swal2-confirm .btn .btn-success:active{
+src:{{ url_for('/Deleta/{{Dado.id}}')}}
+}
 
 /* The animation code */
 @keyframes TransiçãoY {
