@@ -1,3 +1,4 @@
 
 *.pyc
 FlaskCodePacote/__pycache__/Config.cpython-39.pyc
+FlaskCodePacote/site.db
