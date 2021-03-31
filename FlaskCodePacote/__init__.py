@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
-from FlaskCodePacote.Config import Config
+from FlaskCodePacote.config import Config
 
  
 db = SQLAlchemy()
@@ -25,11 +25,11 @@ def criar_app(config_class=Config):
     from FlaskCodePacote.Usuarios.Rotas import Usuarios
     from FlaskCodePacote.Tabelas.Rotas import Tabelas
     from FlaskCodePacote.Principal.Rotas import Principal
-    from FlaskCodePacote.Erros.Manipuladores import Erros
+    from FlaskCodePacote.errors.Manipuladores import errors
 
     app.register_blueprint(Usuarios)
     app.register_blueprint(Tabelas)
     app.register_blueprint(Principal)
-    app.register_blueprint(Erros)
+    app.register_blueprint(errors)
 
     return app
