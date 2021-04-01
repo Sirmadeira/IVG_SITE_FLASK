@@ -1,0 +1,14 @@
+server {
+        listen 80;
+        server_name 98.58.102.108;
+
+        location /static {
+                alias /home/sirmadeira/IVG_SITE_FLASK/FlaskCodePacote/static;
+        }
+
+        location / {
+                proxy_pass http://localhost:8000;
+                include /etc/nginx/proxy_params;
+                proxy_redirect off;
+        }
+}

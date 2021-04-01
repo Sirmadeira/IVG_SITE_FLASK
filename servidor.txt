@@ -1,0 +1,8 @@
+Mo517364@@#321	Passphrase
+flask-servidor-Hostname
+sirmadeira-user
+Mo517364@@321-senhauser
+.ssh/id_rsa.pub - publickey
+Mo517364@@321-sudopassword
+198.58.102.108-ip
+ssh sirmadeira@198.58.102.108-acessar servidor

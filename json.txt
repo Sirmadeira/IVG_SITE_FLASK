@@ -1,0 +1,8 @@
+{
+        "SECRET_KEY":"5791628bb0b13ce0c676dfde280ba245 ",
+        "SQLALCHEMY_DATABASE_URI": "sqlite:///site.db",
+        "MAIL_USERNAME":"ivgnoreply@gmail.com",
+        "MAIL_PASSWORD":"MO517364@@12",
+        "RECAPTCHA_PUBLIC_KEY":"6Lc8bXgaAAAAABLw3TDTD7uE9GUELew4GF0F5D7F",
+        "RECAPTCHA_PRIVATE_KEY":"6Lc8bXgaAAAAAHGjVH-Qld6nvndDzN3Y2fzXRmWq"
+}

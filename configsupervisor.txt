@@ -1,0 +1,8 @@
+[program:FlaskCodePacote]                                                                                                                                                                                                                    directory=/home/sirmadeira/IVG_SITE_FLASK
+command=/home/sirmadeira/IVG_SITE_FLASK/venv/bin/gunicorn -w 3 run:app                                                                                                                                                                       user=sirmadeira
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+stderr_logfile=/var/log/FlaskCodePacote/FlaskCodePacote.err.log
+stdout_logfile=/var/log/FlaskCodePacote/FlaskCodePacote.out.log 

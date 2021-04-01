@@ -1,0 +1,8 @@
+ver video corey linux bash
+bash
+ssh USERNAME@198.58.102.108
+entrar na pasta- cd IVG_SITE_FLASK
+sour venv/bin/activate- executa o ambiente virtual
+export FLASK_APP=run.py
+flask run --host=0.0.0.0
+Escrever ip no http, 5000 port particular, 8000 port publicos
