@@ -1,2 +1,3 @@
 # IVG_SITE_FLASK
-Nessa pasta jaz o site principal, para demonstracao do prototipo do site da ivg
+
+* Here lies my first attempt of and web application
